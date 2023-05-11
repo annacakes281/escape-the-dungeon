@@ -11,6 +11,11 @@ def rules():
 
 intro = rules()
 
+
+playing = input("Would you like to try to Escape the dungeon (yes/no)\n")
+if playing.lower() == "no":
+    quit()
+
 player_hp = 150
 player_stamnia = 50
 
