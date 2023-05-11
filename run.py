@@ -45,6 +45,8 @@ print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
 print("You have found yourself in a dungeon and must find the way out")
 print(f"You start with {player_hp}hp and {player_stamnia}sp.\n")
 
+
+
 starting_room = input(
     "You are an empty room with nothing but dim lighting to show the way.\n"
     "You can either go North, South or East.\n"
@@ -53,10 +55,28 @@ starting_room = input(
 if starting_room == "north":
     room_one = input(
         "You enter the room to the North and see two weapons on the ground.\n"
+        "You also pick up a key\n."
         "You must decide which weapon you would like to go with.\n"
         "There is a sword on one pedestal.\n"
         "On the other pedestal there is a bow and a quiver full of arrows.\n"
         "Which do you choose? (sword/bow) \n").lower()
+
+    if room_one == "sword":
+        print(
+            "You have chosen the sword and take it off the pedestal.\n"
+            "You pick up the sword triggering a fire trap blocking the exit.\n"
+            "You see a rock on the floor and can throw to disarm the trap.\n")
+
+    elif room_one == "bow":
+        print(
+            "You have chosenthe bow and take it off the pedestal.\n"
+            "You pick up the bow triggering a fire trap blocking the exit.\n"
+            "You can use the bow and arrow to disarm the trap.\n"
+        )
+
+    else:
+        print("Please choose a valid option")
+        input("Which do you choose? (sword/bow) \n").lower()
 
 if starting_room == "south":
     room_two = input(
@@ -70,5 +90,4 @@ if starting_room == "east":
         "You go to the room to the East.\n"
         "You can either go back to the previous room or go North.\n"
         "Which way do you go? (north/west) \n").lower()
-    
-    
+
