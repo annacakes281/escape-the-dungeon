@@ -19,6 +19,23 @@ if playing.lower() == "no":
 player_hp = 150
 player_stamnia = 50
 
+weapon_options = ["sword", "bow and arrow"]
+master_weapon_option = ["master sword", "master bow and arrow"]
+master_armour = 100
+
+hp_potion_one = 0.25
+hp_potion_two = 0.50
+hp_potion_three = 0.75
+
+mini_boss_one_hp = 50
+mini_boss_one_sp = 15
+
+mini_boss_two_hp = 100
+mini_boss_two_sp = 25
+
+master_boss_hp = 250
+master_boss_sp = 100
+
 name = input("Type your name:\n")
 
 print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
