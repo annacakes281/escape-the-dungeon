@@ -45,8 +45,6 @@ print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
 print("You have found yourself in a dungeon and must find the way out")
 print(f"You start with {player_hp}hp and {player_stamnia}sp.\n")
 
-
-
 starting_room = input(
     "You are an empty room with nothing but dim lighting to show the way.\n"
     "You can either go North, South or East.\n"
@@ -77,6 +75,33 @@ if starting_room == "north":
     else:
         print("Please choose a valid option")
         input("Which do you choose? (sword/bow) \n").lower()
+        # loop?
+
+# elif  == "":
+#     sword = input("disarm/jump")
+
+#     if room_one == "disarm":
+#         player_stamnia -= 5
+#         starting_room = input(
+#             "You sucessfully disarmed the trap using the rock.\n"
+#             "You have returned back to the room you started in.\n"
+#             "You can choose to go South or East from here.\n"
+#             "Which way do you go? (south/east) \n")
+#         print("It cost you 5sp to disarm the trap")
+#         print(f"Your current sp is {player_stamnia}")
+
+# if room_one == "disarm":
+#     player_stamnia -= 5
+#     starting_room = input(
+#         "You sucessfully disarmed the trap using the rock.\n"
+#         "You have returned back to the room you started in.\n"
+#         "You can choose to go South or East from here.\n"
+#         "Which way do you go? (south/east) \n")
+#     print("It cost you 5sp to disarm the trap")
+#     print(f"Your current sp is {player_stamnia}")
+
+# possible add fire trap and then do statement that if that option selected then those answers? e.g.
+# fire_trap = "disarm"
 
 if starting_room == "south":
     room_two = input(
