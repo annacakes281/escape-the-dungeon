@@ -7,7 +7,7 @@ player_stamina = 50
 
 # Map dictionary
 rooms = {
-    "Starting Room": {"North": "Room 1", "South": "Room 2", "East": "Room 3"},
+    "Starting Room": {"North": "Room 1", "South": "Room 2", "East": "Room 5"},
     "Room 1": {"South": "Starting Room", "Key": "Key 1", "Weapon Choice 1": "Sword", "Weapon Choice 2": "Bow", "Trap": "Fire"},
     "Room 2": {"North": "Starting Room", "East": "Room 3", "Item": "Potion", "Trap": "Lake"},
     "Room 3": {"West": "Room 2", "North": "Room 4", "East": "Secret Room", "Mini Boss": "Imp"},
@@ -70,6 +70,53 @@ def start_game():
     print(f"Current stats: {player_hp}hp and {player_stamina}sp.")
     print(f"Current inventory: {inventory}\n")
 
+def starting_room():
+    """
+    Starting room
+    """
+    print(
+        "You are in an empty room with nothing but dim lighting around you.\n"
+        "You can't see much but you see 3 possible paths.\n"
+        "You can either go North, South or East.\n")
+
+    direction = input("Which way do you go?:\n").lower()
+    while direction != "north" and direction != "south" and direction != "east":
+        direction = input("Which way do you go?:\n").lower()
+
+    if direction == "north":
+        room_one()
+    elif direction == "south":
+        room_two()
+    else:
+        room_five()
+
+def room_one():
+    """
+    Room one
+    """
+    current_room = "Room One"
+    print(f"Current room: {current_room}\n")
+    
+def room_two():
+    """
+    Room two
+    """
+    current_room = "Room Two"
+    print(f"Current room: {current_room}")
+
+def room_five():
+    """
+    Room five
+    """
+    current_room = "Room Five"
+    print(f"Current room: {current_room}")
+
+# Player welcome screen
+name = input("Type your name:\n").capitalize().strip()
+clear()
+start_game()
+starting_room()
+
 
 # def mini_boss_imp():
 #     """
@@ -125,22 +172,3 @@ def start_game():
 #     """
 #     Tunnel puzzle, linked to jungle puzzle in room 6
 #     """
-
-def starting_room():
-    print(
-        "You are an empty room with nothing but dim lighting to show the way.\n"
-        "You can either go North, South or East.\n")
-
-def choose_direction():
-    direction = ""
-    while direction != "north" and direction != "east" and direction != "south" and direction != "west":
-        direction = input("Which way do you go?:\n").lower()
-    
-    return direction
-
-# Player welcome screen
-name = input("Type your name:\n").strip()
-clear()
-start_game()
-starting_room()
-choose_direction()
