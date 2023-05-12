@@ -1,4 +1,5 @@
 import random
+import os
 
 
 def rules():
@@ -16,103 +17,25 @@ intro = rules()
 
 
 playing = input("Would you like to try to Escape the dungeon (yes/no)\n")
-if playing.lower() != "yes":
+if playing.lower().strip() != "yes":
     quit()
 
+
+def clear():
+    """
+    Clears terminal before the text adventure starts to clean up space
+    """
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+clear()
+
+# Player health and stamina
 player_hp = 150
 player_stamnia = 50
 
-# weapon_options = ["sword", "bow and arrow"]
-# master_weapon_option = ["master sword", "master bow and arrow"]
-master_armour = 100
-
-hp_potion_one = 0.25
-hp_potion_two = 0.50
-hp_potion_three = 0.75
-
-mini_boss_one_hp = 50
-mini_boss_one_sp = 15
-
-mini_boss_two_hp = 100
-mini_boss_two_sp = 25
-
-master_boss_hp = 250
-master_boss_sp = 100
-
-name = input("Type your name:\n")
+name = input("Type your name:\n").strip()
 
 print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
-print("You have found yourself in a dungeon and must find the way out")
+print("You have found yourself in a dungeon and must find the way out.")
 print(f"You start with {player_hp}hp and {player_stamnia}sp.\n")
-
-starting_room = input(
-    "You are an empty room with nothing but dim lighting to show the way.\n"
-    "You can either go North, South or East.\n"
-    "Which way do you go? (north/south/east) \n").lower()
-
-if starting_room == "north":
-    room_one = input(
-        "You enter the room to the North and see two weapons on the ground.\n"
-        "You also pick up a key\n."
-        "You must decide which weapon you would like to go with.\n"
-        "There is a sword on one pedestal.\n"
-        "On the other pedestal there is a bow and a quiver full of arrows.\n"
-        "Which do you choose? (sword/bow) \n").lower()
-
-    if room_one == "sword":
-        print(
-            "You have chosen the sword and take it off the pedestal.\n"
-            "You pick up the sword triggering a fire trap blocking the exit.\n"
-            "You see a rock on the floor and can throw to disarm the trap.\n")
-
-    elif room_one == "bow":
-        print(
-            "You have chosenthe bow and take it off the pedestal.\n"
-            "You pick up the bow triggering a fire trap blocking the exit.\n"
-            "You can use the bow and arrow to disarm the trap.\n"
-        )
-
-    else:
-        print("Please choose a valid option")
-        input("Which do you choose? (sword/bow) \n").lower()
-        # loop?
-
-# elif  == "":
-#     sword = input("disarm/jump")
-
-#     if room_one == "disarm":
-#         player_stamnia -= 5
-#         starting_room = input(
-#             "You sucessfully disarmed the trap using the rock.\n"
-#             "You have returned back to the room you started in.\n"
-#             "You can choose to go South or East from here.\n"
-#             "Which way do you go? (south/east) \n")
-#         print("It cost you 5sp to disarm the trap")
-#         print(f"Your current sp is {player_stamnia}")
-
-# if room_one == "disarm":
-#     player_stamnia -= 5
-#     starting_room = input(
-#         "You sucessfully disarmed the trap using the rock.\n"
-#         "You have returned back to the room you started in.\n"
-#         "You can choose to go South or East from here.\n"
-#         "Which way do you go? (south/east) \n")
-#     print("It cost you 5sp to disarm the trap")
-#     print(f"Your current sp is {player_stamnia}")
-
-# possible add fire trap and then do statement that if that option selected then those answers? e.g.
-# fire_trap = "disarm"
-
-if starting_room == "south":
-    room_two = input(
-        "You enter the room to the South and come across a small lake.\n"
-        "You can see some unstable looking pedestals across the lake.\n"
-        "You can either swim throuhg the lake or jump across.\n"
-        "Which do you choose? (swim/jump) \n").lower()
-
-if starting_room == "east":
-    room_five = input(
-        "You go to the room to the East.\n"
-        "You can either go back to the previous room or go North.\n"
-        "Which way do you go? (north/west) \n").lower()
-

@@ -30,3 +30,7 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 ---
 
 Happy coding!
+
+<!-- https://www.youtube.com/watch?v=lI6S2-icPHE&t=19s 
+https://github.com/dante0527/TextBasedGame
+-->
