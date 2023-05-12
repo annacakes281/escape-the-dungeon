@@ -17,14 +17,23 @@ rooms = {
     "Room 6": {"South": "Room 5", "East": "Room 7", "Item": "Potion", "Trap": "Jungle"},
     "Room 7": {"West": "Room 6", "East": "Room 9", "South": "Room 8", "Mini Boss": "Orc", "Item": "Stone"},
     "Room 8": {"North": "Room 7", "Item": "Secret Room Key"},
-    "Room 9": {"West": "Room 7", "South": "Boss Room", "Item": "Potion", "Key": "Master Key"}
+    "Room 9": {"West": "Room 7", "South": "Boss Room", "Item": "Potion", "Key": "Master Key"},
+    "Boss Room": {"Boss": "Dragon"}
 }
+
+# Item
+vowels = ['e']
 
 # List to keep track on invetory items
 inventory = []
+required_items = []
 
 # Tracks the current room
 current_room = "Starting Room"
+
+# Displays players last move
+last_move = ""
+
 
 def rules():
     """
@@ -66,6 +75,67 @@ def start_game():
     print(f"Current stats: {player_hp}hp and {player_stamina}sp.")
     print(f"Current inventory: {inventory}\n")
 
-# Player welcome screen - add as function
+
+# def mini_boss_imp():
+#     """
+#     Mini boss fight for attack and damage stats
+#     """
+
+# def mini_boss_orc():
+#     """
+#     Mini boss fight for attack and damage stats
+#     """
+
+# def master_boss():
+#     """
+#     Master boss fight for attack and damage stats
+#     """
+
+# def stamina_regen():
+#     """
+#     Regeneration of stamina per turn
+#     """
+
+# def player_health():
+#     """
+#     Players health damage
+#     """
+
+# def use_item():
+#     """
+#     Using an item
+#     """
+
+# def player_attack():
+#     """
+#     Random damage for player attack
+#     """
+
+# def fire_trap():
+#     """
+#     Fire trap in room 1
+#     """
+
+# def river_puzzle():
+#     """
+#     River puzzle in room 2
+#     """
+
+# def jungle_puzzle():
+#     """
+#     Jungle puzzle in room 6
+#     """
+
+# def tunnel_puzzle():
+#     """
+#     Tunnel puzzle, linked to jungle puzzle in room 6
+#     """
+
 name = input("Type your name:\n").strip()
 start_game()
+
+# # Player welcome screen
+# name = input("Type your name:\n").strip()
+# start_game()
+
+# user_input = input("Enter your move:\n")
