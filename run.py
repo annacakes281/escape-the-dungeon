@@ -21,9 +21,6 @@ rooms = {
     "Boss Room": {"Boss": "Dragon"}
 }
 
-# Item
-vowels = ['e']
-
 # List to keep track on invetory items
 inventory = []
 required_items = []
@@ -31,17 +28,15 @@ required_items = []
 # Tracks the current room
 current_room = "Starting Room"
 
-# Displays players last move
-last_move = ""
-
 
 def rules():
     """
     Rules for the game that will appear at the start so players know the goal
     """
     print("This is a text-based game, type your answers into the terminal\n\n")
-    print("The goal is to defeat the Master boss in the boss room.")
-    print("Collect all 6 items and all 4 keys to get to the Master Boss!\n")
+    print("The goal is to defeat the Master boss in final room.\n")
+    print("There are required items to gain access to the Boss Room.")
+    print("You must have all 3 required items to defeat the Boss and win!\n")
 
     return rules
 
@@ -70,7 +65,7 @@ def start_game():
     Game start intro message
     """
     print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
-    print("You have found yourself in a dungeon and must find the way out.")
+    print("You have found yourself in a dungeon and must find the way out.\n")
     print(f"Current room: {current_room}")
     print(f"Current stats: {player_hp}hp and {player_stamina}sp.")
     print(f"Current inventory: {inventory}\n")
@@ -131,11 +126,21 @@ def start_game():
 #     Tunnel puzzle, linked to jungle puzzle in room 6
 #     """
 
+def starting_room():
+    print(
+        "You are an empty room with nothing but dim lighting to show the way.\n"
+        "You can either go North, South or East.\n")
+
+def choose_direction():
+    direction = ""
+    while direction != "north" and direction != "east" and direction != "south" and direction != "west":
+        direction = input("Which way do you go?:\n").lower()
+    
+    return direction
+
+# Player welcome screen
 name = input("Type your name:\n").strip()
+clear()
 start_game()
-
-# # Player welcome screen
-# name = input("Type your name:\n").strip()
-# start_game()
-
-# user_input = input("Enter your move:\n")
+starting_room()
+choose_direction()
