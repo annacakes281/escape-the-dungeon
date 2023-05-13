@@ -242,16 +242,44 @@ def room_four():
     """
     current_room = "Room four"
     print(f"Current room: {current_room}")
+    print("you see another key")
+
+    take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+    while take_item != "yes" and take_item != "no":
+        take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+
+    # need to fix code so that player cant take item again
+    try:
+        if take_item == "yes":
+            required_items.append("Key 2")
+            print(f"Current inventory:{required_items}")
+
+            if "Key 2" not in required_items:
+                print("You do not have the item")
+
+            else:
+                print("you have the item")
+        else:
+            print("You left the key")
+
+    except:
+        print("you have the item")
+    
+    print("NPC fairy")
+
+    talk = input("Do you speak to the fairy?:\n").lower()
+    while talk != "yes" and talk != "no":
+        print("The fairy is waiting for a response.")
+        talk = input("Do you speak to the fairy?:\n").lower()
+
+    if talk == "yes":
+        print("You speak to the fairy")
+    else:
+        print("You decide not to speak to the fairy")
+
     print("You can only go South.")
-
-    direction = input("Which way do you go?:\n").lower().strip()
-    while direction != "south":
-        print("You can only go South.")
-        direction = input("Which way do you go?:\n").lower().strip()
-
-    if direction == "south":
-        room_three_completed()
-
+    print("You head south back to the room you camr from")
+    room_three_completed()
 
 def room_five():
     """
