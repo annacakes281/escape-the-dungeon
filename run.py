@@ -69,7 +69,7 @@ def start_game():
     print(f"Current stats: {player_hp}hp and {player_stamina}sp.")
     print(f"Current inventory: {inventory}\n")
 
-
+# need to add correct dialogue to game, currently placeholder dialogue
 def starting_room():
     """
     Starting room
@@ -96,8 +96,60 @@ def room_one():
     """
     Room one - weapon, key and trap
     """
+    clear()
+
     current_room = "Room One"
     print(f"Current room: {current_room}\n")
+    
+    take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+    while take_item != "yes" and take_item != "no":
+        take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+
+    # need to fix code so that player cant take item again
+    try:
+        if take_item == "yes":
+            required_items.append("Key 1")
+            print(f"Current inventory:{required_items}")
+
+            if "Key 1" not in required_items:
+                print("You do not have the item")
+
+            else:
+                print("you have the item")
+        else:
+            print("You left the key")
+
+    except:
+        print("you have the item")
+   
+    print("You see 2 weapons.\n")
+    print("Sword or Bow/Arrow?\n")
+   
+    # need to fix code so that player cant take item again
+    choose_weapon = input("which weapon?").lower().strip()
+    while choose_weapon != "sword" and choose_weapon != "bow":
+        print("choose a weapon")
+        choose_weapon = input("which weapon?").lower().strip()
+
+    if choose_weapon == "sword":
+        required_items.append("Sword")
+        print(f"Current inventory:{required_items}")
+    else:
+        required_items.append("Bow")
+        print(f"Current inventory:{required_items}")
+
+    print("You choose your weapon and this set off a trap.")
+
+    trap = input("disarm trap or jump through it?").lower().strip()
+    while trap != "disarm" and trap != "jump":
+        print("You must choose to do something.")
+        input("disarm trap or jump through it?").lower().strip()
+
+    if trap == "disarm":
+        disarm()
+    else:
+        jump()
+
     print("You can only go South.\n")
 
     direction = input("Which way do you go?:\n").lower().strip()
@@ -113,6 +165,8 @@ def room_two():
     """
     Room two - puzzle, item
     """
+    clear()
+
     current_room = "Room Two"
     print(f"Current room: {current_room}")
     print("You can only go North or East.")
@@ -309,6 +363,26 @@ def boss_room():
     print("Time to fight the boss.")
 
 
+def disarm():
+    """
+    Disarm fire trap with stone
+    """
+    # add random function for using stone whether they hit or miss trap
+    # possibly add a function if they have bow to use that?
+    print("You disarmed the fire trap")
+
+
+def jump():
+    """
+    Jump through fire trap
+    """
+    # add function to take damage and show the hp and sp
+    print("You successfully jumped through the fire trap.")
+    print("You did however take significant damage")
+    print(f"{player_hp}hp")
+    print(f"{player_stamina}sp")
+
+
 # Player welcome screen
 name = input("Type your name:\n").capitalize().strip()
 clear()
@@ -349,11 +423,6 @@ starting_room()
 # def player_attack():
 #     """
 #     Random damage for player attack
-#     """
-
-# def fire_trap():
-#     """
-#     Fire trap in room 1
 #     """
 
 # def river_puzzle():
