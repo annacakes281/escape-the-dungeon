@@ -178,8 +178,15 @@ def room_two():
 
     if direction == "north":
         starting_room()
-    else:
-        room_three()
+    # else:
+    #     if "Key 1" not in required_items:
+    #         print("You need the key and a weapon to pass")
+    #         print("You can only go North.")
+    #         direction = input("Which way do you go?:\n").lower().strip()
+    #     while direction != "north":
+    #         direction = input("Which way do you go?:\n").lower().strip()
+    #     else:
+    #         starting_room()
 
 
 def room_three():
