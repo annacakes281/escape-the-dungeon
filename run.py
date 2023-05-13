@@ -159,7 +159,7 @@ def room_two():
     """
     Room two - puzzle, item
     """
-    
+    #add collect item
     current_room = "Room Two"
     print(f"Current room: {current_room}")
     print("River puzzle")
@@ -352,6 +352,7 @@ def room_seven():
     """
     Room seven - mini boss 2, requires key 2 and weapon
     """
+    #add collect item
     if "Key 2" not in required_items:
         print("You need the key and a weapon to pass")
         room_five()
@@ -451,6 +452,7 @@ def room_nine():
     """
     Room nine - key and item
     """
+    #add collect key and item
     current_room = "Room Nine"
     print(f"Current room: {current_room}")
     print("You can only go West or South.")
@@ -470,6 +472,10 @@ def secret_room():
     """
     Secret room - requires stone and secret room key, master weapon and armour
     """
+    # add need item and key function
+    # add switch weapon
+    # add armour manually option
+    # possbile secret tunnel to boss room?
     current_room = "Secret Room"
     print(f"Current room: {current_room}")
     print("You can only go West.")
