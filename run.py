@@ -159,8 +159,7 @@ def room_two():
     """
     Room two - puzzle, item
     """
-    clear()
-
+    
     current_room = "Room Two"
     print(f"Current room: {current_room}")
     print("River puzzle")
@@ -192,14 +191,30 @@ def room_three():
     """
     Room three - mini boss 1, requires key 1 and weapon
     """
+    clear()
+    
     if "Key 1" not in required_items:
         print("You need the key and a weapon to pass")
         room_two()
     else:
-        # add pop to remove key from inventory
+        required_items.pop(0)
+        print("you use the key to enter the room")
         print(f"{required_items}")
         current_room = "Room Three"
         print(f"Current room: {current_room}")
+
+        print("Mini boss 1")
+        fight = input("do you fight the boss?:\n").lower().strip()
+        while fight != "yes" and fight != "no":
+            print("you must choose.")
+            direction = input("do you fight the boss?:\n").lower().strip()
+
+        if fight == "yes":
+            mini_boss_imp()
+        else:
+            print("You fleed the mini boss fight and lost")
+            quit()
+
         print("You can only go North, East or West.")
         direction = input("Which way do you go?:\n").lower().strip()
         while direction != "north" and direction != "east" and direction != "west":
@@ -280,6 +295,7 @@ def room_four():
     print("You can only go South.")
     print("You head south back to the room you camr from")
     room_three_completed()
+
 
 def room_five():
     """
@@ -431,6 +447,7 @@ def swim():
     print(f"{player_hp}hp")
     print(f"{player_stamina}sp")
 
+
 def hop():
     """
     Hop across pedestals in river
@@ -441,17 +458,19 @@ def hop():
     print(f"{player_stamina}sp")
 
 
+def mini_boss_imp():
+    """
+    Mini boss fight for attack and damage stats
+    """
+    print("mini boss fight")
+
+
 # Player welcome screen
 name = input("Type your name:\n").capitalize().strip()
 clear()
 start_game()
 starting_room()
 
-
-# def mini_boss_imp():
-#     """
-#     Mini boss fight for attack and damage stats
-#     """
 
 # def mini_boss_orc():
 #     """
