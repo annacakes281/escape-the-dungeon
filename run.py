@@ -200,6 +200,7 @@ def room_three():
         required_items.pop(0)
         print("you use the key to enter the room")
         print(f"{required_items}")
+
         current_room = "Room Three"
         print(f"Current room: {current_room}")
 
@@ -207,7 +208,7 @@ def room_three():
         fight = input("do you fight the boss?:\n").lower().strip()
         while fight != "yes" and fight != "no":
             print("you must choose.")
-            direction = input("do you fight the boss?:\n").lower().strip()
+            fight = input("do you fight the boss?:\n").lower().strip()
 
         if fight == "yes":
             mini_boss_imp()
@@ -351,8 +352,29 @@ def room_seven():
     """
     Room seven - mini boss 2, requires key 2 and weapon
     """
+    if "Key 2" not in required_items:
+        print("You need the key and a weapon to pass")
+        room_five()
+    else:
+        required_items.pop(1)
+        print("you use the key to enter the room")
+        print(f"{required_items}")
+
     current_room = "Room Seven"
     print(f"Current room: {current_room}")
+
+    print("Mini boss 1")
+        fight = input("do you fight the boss?:\n").lower().strip()
+        while fight != "yes" and fight != "no":
+            print("you must choose.")
+            fight = input("do you fight the boss?:\n").lower().strip()
+
+        if fight == "yes":
+            mini_boss_orc()
+        else:
+            print("You fleed the mini boss fight and lost")
+            quit()
+
     print("You can only go East, South or West.")
 
     direction = input("Which way do you go?:\n").lower().strip()
@@ -484,12 +506,20 @@ def jungle_puzzle():
     # add not in statement for sword item and auto send to tunnel
     print("jungle")
 
+
 def tunnel_puzzle():
     """
     Tunnel puzzle, linked to jungle puzzle in room 6
     """
     # add jump and duck statements
     print("jump and duck")
+
+
+def mini_boss_orc():
+    """
+    Mini boss fight for attack and damage stats
+    """
+    print("mini boss fight")
     
    
 # Player welcome screen
@@ -498,11 +528,6 @@ clear()
 start_game()
 starting_room()
 
-
-# def mini_boss_orc():
-#     """
-#     Mini boss fight for attack and damage stats
-#     """
 
 # def master_boss():
 #     """
