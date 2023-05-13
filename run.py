@@ -192,7 +192,7 @@ def room_three():
     Room three - mini boss 1, requires key 1 and weapon
     """
     clear()
-    
+
     if "Key 1" not in required_items:
         print("You need the key and a weapon to pass")
         room_two()
@@ -322,6 +322,18 @@ def room_six():
     """
     current_room = "Room Six"
     print(f"Current room: {current_room}")
+    print("Jungle puzzle")
+    
+    trap = input("go through or way around?").lower().strip()
+    while trap != "through" and trap != "around":
+        print("You must choose to do something.")
+        trap = input("go through or way around?").lower().strip()
+
+    if trap == "through":
+        jungle_puzzle()
+    else:
+        tunnel_puzzle()
+
     print("You can only go East or South.")
 
     direction = input("Which way do you go?:\n").lower().strip()
@@ -465,6 +477,21 @@ def mini_boss_imp():
     print("mini boss fight")
 
 
+def jungle_puzzle():
+    """
+    Jungle puzzle in room 6
+    """
+    # add not in statement for sword item and auto send to tunnel
+    print("jungle")
+
+def tunnel_puzzle():
+    """
+    Tunnel puzzle, linked to jungle puzzle in room 6
+    """
+    # add jump and duck statements
+    print("jump and duck")
+    
+   
 # Player welcome screen
 name = input("Type your name:\n").capitalize().strip()
 clear()
@@ -500,15 +527,4 @@ starting_room()
 # def player_attack():
 #     """
 #     Random damage for player attack
-#     """
-
-
-# def jungle_puzzle():
-#     """
-#     Jungle puzzle in room 6
-#     """
-
-# def tunnel_puzzle():
-#     """
-#     Tunnel puzzle, linked to jungle puzzle in room 6
 #     """
