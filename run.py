@@ -150,16 +150,9 @@ def room_one():
     else:
         jump()
 
-    print("You can only go South.\n")
+    print("South is the only way you can go.\n")
+    print("So you head south back to the room you started in.\n")
     starting_room()
-
-    # direction = input("Which way do you go?:\n").lower().strip()
-    # while direction != "south":
-    #     print("You can only go south.")
-    #     direction = input("Which way do you go?:\n").lower().strip()
-
-    # if direction == "south":
-    #     starting_room()
 
 
 def room_two():
@@ -170,6 +163,18 @@ def room_two():
 
     current_room = "Room Two"
     print(f"Current room: {current_room}")
+    print("River puzzle")
+    
+    trap = input("swim through or hop across?").lower().strip()
+    while trap != "swim" and trap != "hop":
+        print("You must choose to do something.")
+        trap = input("swim through or hop across?").lower().strip()
+
+    if trap == "swim":
+        swim()
+    else:
+        hop()
+
     print("You can only go North or East.")
 
     direction = input("Which way do you go?:\n").lower().strip()
@@ -389,6 +394,25 @@ def jump():
     print(f"{player_stamina}sp")
 
 
+def swim():
+    """
+    Swim through river
+    """
+    print("You succssfully swam through the river.")
+    print("You did however take some damage")
+    print(f"{player_hp}hp")
+    print(f"{player_stamina}sp")
+
+def hop():
+    """
+    Hop across pedestals in river
+    """
+    print("You succssfully hopped across the river.")
+    print("You did however take minimal damage")
+    print(f"{player_hp}hp")
+    print(f"{player_stamina}sp")
+
+
 # Player welcome screen
 name = input("Type your name:\n").capitalize().strip()
 clear()
@@ -431,10 +455,6 @@ starting_room()
 #     Random damage for player attack
 #     """
 
-# def river_puzzle():
-#     """
-#     River puzzle in room 2
-#     """
 
 # def jungle_puzzle():
 #     """
