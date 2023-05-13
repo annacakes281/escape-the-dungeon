@@ -62,10 +62,8 @@ def start_game():
     """
     Game start intro message
     """
-    current_room = "Starting Room"
     print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
     print("You have found yourself in a dungeon and must find the way out.\n")
-    print(f"Current room: {current_room}")
     print(f"Current stats: {player_hp}hp and {player_stamina}sp.")
     print(f"Current inventory: {inventory}\n")
 
@@ -74,6 +72,8 @@ def starting_room():
     """
     Starting room
     """
+    current_room = "Starting Room"
+    print(f"Current room: {current_room}")
     print(
         "You are in an empty room with nothing but dim lighting around you.\n"
         "You can't see much but you see 3 possible paths.\n"
@@ -143,7 +143,7 @@ def room_one():
     trap = input("disarm trap or jump through it?").lower().strip()
     while trap != "disarm" and trap != "jump":
         print("You must choose to do something.")
-        input("disarm trap or jump through it?").lower().strip()
+        trap = input("disarm trap or jump through it?").lower().strip()
 
     if trap == "disarm":
         disarm()
@@ -151,14 +151,15 @@ def room_one():
         jump()
 
     print("You can only go South.\n")
+    starting_room()
 
-    direction = input("Which way do you go?:\n").lower().strip()
-    while direction != "south":
-        print("You can only go south.")
-        direction = input("Which way do you go?:\n").lower().strip()
+    # direction = input("Which way do you go?:\n").lower().strip()
+    # while direction != "south":
+    #     print("You can only go south.")
+    #     direction = input("Which way do you go?:\n").lower().strip()
 
-    if direction == "south":
-        starting_room()
+    # if direction == "south":
+    #     starting_room()
 
 
 def room_two():
@@ -178,36 +179,34 @@ def room_two():
 
     if direction == "north":
         starting_room()
-    # else:
-    #     if "Key 1" not in required_items:
-    #         print("You need the key and a weapon to pass")
-    #         print("You can only go North.")
-    #         direction = input("Which way do you go?:\n").lower().strip()
-    #     while direction != "north":
-    #         direction = input("Which way do you go?:\n").lower().strip()
-    #     else:
-    #         starting_room()
+    else:
+        room_three()
 
 
 def room_three():
     """
     Room three - mini boss 1, requires key 1 and weapon
     """
-    current_room = "Room Three"
-    print(f"Current room: {current_room}")
-    print("You can only go North, East or West.")
-
-    direction = input("Which way do you go?:\n").lower().strip()
-    while direction != "north" and direction != "east" and direction != "west":
+    if "Key 1" not in required_items:
+        print("You need the key and a weapon to pass")
+        room_two()
+    else:
+        # add pop to remove key from inventory
+        print(f"{required_items}")
+        current_room = "Room Three"
+        print(f"Current room: {current_room}")
         print("You can only go North, East or West.")
         direction = input("Which way do you go?:\n").lower().strip()
-
-    if direction == "north":
-        room_four()
-    elif direction == "east":
-        secret_room()
-    else:
-        room_two()
+        while direction != "north" and direction != "east" and direction != "west":
+            print("You can only go North, East or West.")
+            direction = input("Which way do you go?:\n").lower().strip()
+        
+        if direction == "north":
+            room_four()
+        elif direction == "east":
+            secret_room()
+        else:
+            room_two()
 
 
 def room_three_completed():
