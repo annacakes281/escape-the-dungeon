@@ -390,12 +390,52 @@ def room_seven():
         room_six()
 
 
+def room_seven_completed():
+    current_room = "Room Seven"
+    print("The mini boss of this room has already been defeated...Yay!")
+    print(f"Current room: {current_room}")
+
+    print("You can only go East, South or West.")
+
+    direction = input("Which way do you go?:\n").lower().strip()
+    while direction != "east" and direction != "south" and direction != "west":
+        print("You can only go East, South or West.")
+        direction = input("Which way do you go?:\n").lower().strip()
+
+    if direction == "east":
+        room_nine()
+    elif direction == "south":
+        room_eight()
+    else:
+        room_six()
+
+
 def room_eight():
     """
     Room eight - key
     """
     current_room = "Room Eight"
     print(f"Current room: {current_room}")
+    print("you see another key")
+
+    take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+    while take_item != "yes" and take_item != "no":
+        take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+
+    # need to fix code so that player cant take item again
+    try:
+        if take_item == "yes":
+            required_items.append("Secret Room Key")
+            print(f"Current inventory:{required_items}")
+
+            if "Key 2" not in required_items:
+                print("You do not have the item")
+
+            else:
+                print("you have the item")
+        else:
+            print("You left the key")
+
     print("You can only go North.")
 
     direction = input("Which way do you go?:\n").lower().strip()
@@ -404,7 +444,7 @@ def room_eight():
         direction = input("Which way do you go?:\n").lower().strip()
 
     if direction == "north":
-        room_seven()
+        room_seven_completed()
 
 
 def room_nine():
