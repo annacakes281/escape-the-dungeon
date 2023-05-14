@@ -164,9 +164,9 @@ def room_two():
         trap = input("swim through or hop across?").lower().strip()
 
     if trap == "swim":
-        swim()
+        swim(player_hp, player_stamina)
     else:
-        hop()
+        hop(player_hp, player_stamina)
 
     if "Potion 1" not in inventory:
         take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
@@ -636,20 +636,43 @@ def jump(player_hp, player_stamina):
     print(f"{player_stamina}sp")
 
 
-def swim():
+def swim_hp_loss(player_hp):
+    player_hp = player_hp - 50
+    return player_hp
+
+
+def swim_sp_loss(player_stamina):
+    player_stamina = player_stamina - 30
+    return player_stamina
+
+def swim(player_hp, player_stamina):
     """
     Swim through river
     """
+    player_hp = swim_hp_loss(player_hp)
+    player_stamina = swim_sp_loss(player_stamina)
     print("You succssfully swam through the river.")
     print("You did however take some damage")
     print(f"{player_hp}hp")
     print(f"{player_stamina}sp")
 
 
-def hop():
+def hop_hp_loss(player_hp):
+    player_hp = player_hp - 5
+    return player_hp
+
+
+def hop_sp_loss(player_stamina):
+    player_stamina = player_stamina - 10
+    return player_stamina
+
+
+def hop(player_hp, player_stamina):
     """
     Hop across pedestals in river
     """
+    player_hp = hop_hp_loss(player_hp)
+    player_stamina = hop_sp_loss(player_stamina)
     print("You succssfully hopped across the river.")
     print("You did however take minimal damage")
     print(f"{player_hp}hp")
@@ -702,6 +725,7 @@ starting_room()
 #     """
 #     Regeneration of stamina per turn
 #     """
+#     if statement? 
 
 # def player_health():
 #     """
