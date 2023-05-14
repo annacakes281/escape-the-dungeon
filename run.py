@@ -101,43 +101,37 @@ def room_one():
     current_room = "Room One"
     print(f"Current room: {current_room}\n")
     
-    take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
-    while take_item != "yes" and take_item != "no":
+    if "Key 1" not in required_items:
         take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
 
-    # need to fix code so that player cant take item again
-    try:
         if take_item == "yes":
             required_items.append("Key 1")
             print(f"Current inventory:{required_items}")
-
-            if "Key 1" not in required_items:
-                print("You do not have the item")
-
-            else:
-                print("you have the item")
         else:
             print("You left the key")
-
-    except:
-        print("you have the item")
-   
-    print("You see 2 weapons.\n")
-    print("Sword or Bow/Arrow?\n")
-   
-    # need to fix code so that player cant take item again
-    choose_weapon = input("which weapon?").lower().strip()
-    while choose_weapon != "sword" and choose_weapon != "bow":
-        print("choose a weapon")
-        choose_weapon = input("which weapon?").lower().strip()
-
-    if choose_weapon == "sword":
-        required_items.append("Sword")
-        print(f"Current inventory:{required_items}")
     else:
-        required_items.append("Bow")
+        print("you have the key")
         print(f"Current inventory:{required_items}")
 
+    if "Sword" not in required_items and "Bow" not in required_items:
+        print("You see 2 weapons.")
+        print("A sword and a bow and arrow")
+        choose_weapon = input("which weapon?").lower().strip()
+        while choose_weapon != "sword" and choose_weapon != "bow":
+            print("choose a weapon")
+            choose_weapon = input("which weapon?").lower().strip()
+
+        if choose_weapon == "sword":
+            required_items.append("Sword")
+            print(f"Current inventory:{required_items}")
+        else:
+            required_items.append("Bow")
+            print(f"Current inventory:{required_items}")
+    else:
+        print("You already have a weapon.")
+    
     print("You choose your weapon and this set off a trap.")
 
     trap = input("disarm trap or jump through it?").lower().strip()
@@ -258,28 +252,20 @@ def room_four():
     """
     current_room = "Room four"
     print(f"Current room: {current_room}")
-    print("you see another key")
-
-    take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
-    while take_item != "yes" and take_item != "no":
+    
+    if "Key 2" not in required_items:
         take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
 
-    # need to fix code so that player cant take item again
-    try:
         if take_item == "yes":
             required_items.append("Key 2")
             print(f"Current inventory:{required_items}")
-
-            if "Key 2" not in required_items:
-                print("You do not have the item")
-
-            else:
-                print("you have the item")
         else:
             print("You left the key")
-
-    except:
-        print("you have the item")
+    else:
+        print("you have the key")
+        print(f"Current inventory:{required_items}")
     
     print("NPC fairy")
 
@@ -365,16 +351,16 @@ def room_seven():
     print(f"Current room: {current_room}")
 
     print("Mini boss 1")
+    fight = input("do you fight the boss?:\n").lower().strip()
+    while fight != "yes" and fight != "no":
+        print("you must choose.")
         fight = input("do you fight the boss?:\n").lower().strip()
-        while fight != "yes" and fight != "no":
-            print("you must choose.")
-            fight = input("do you fight the boss?:\n").lower().strip()
 
-        if fight == "yes":
-            mini_boss_orc()
-        else:
-            print("You fleed the mini boss fight and lost")
-            quit()
+    if fight == "yes":
+        mini_boss_orc()
+    else:
+        print("You fleed the mini boss fight and lost")
+        quit()
 
     print("You can only go East, South or West.")
 
@@ -419,26 +405,25 @@ def room_eight():
     print(f"Current room: {current_room}")
     print("you see another key")
 
-    take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
-    while take_item != "yes" and take_item != "no":
-        take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+    # take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+    # while take_item != "yes" and take_item != "no":
+    #     take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
 
-    # need to fix code so that player cant take item again
-    try:
-        if take_item == "yes":
-            required_items.append("Secret Room Key")
-            print(f"Current inventory:{required_items}")
+    # # need to fix code so that player cant take item again
+    # try:
+    #     if take_item == "yes":
+    #         required_items.append("Secret Room Key")
+    #         print(f"Current inventory:{required_items}")
 
-            if "Key 2" not in required_items:
-                print("You do not have the item")
+    #         if "Key 2" not in required_items:
+    #             print("You do not have the item")
 
-            else:
-                print("you have the item")
-        else:
-            print("You left the key")
+    #         else:
+    #             print("you have the item")
+    #     else:
+    #         print("You left the key")
 
     print("You can only go North.")
-
     direction = input("Which way do you go?:\n").lower().strip()
     while direction != "north":
         print("You can only go North.")
