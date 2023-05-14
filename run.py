@@ -5,47 +5,9 @@ import os
 player_hp = 150
 player_stamina = 50
 
-# Map dictionary
-rooms = {
-    "Starting Room": {"North": "Room 1", "South": "Room 2", "East": "Room 5"},
-    "Room 1": {"South": "Starting Room", "Key": "Key 1", "Weapon Choice 1": "Sword", "Weapon Choice 2": "Bow", "Trap": "Fire"},
-    "Room 2": {"North": "Starting Room", "East": "Room 3", "Item": "Potion", "Trap": "Lake"},
-    "Room 3": {"West": "Room 2", "North": "Room 4", "East": "Secret Room", "Mini Boss": "Imp"},
-    "Room 4": {"South": "Room 3", "Key": "Key 2", "NPC": "Fairy"},
-    "Secret Room": {"West": "Room 3", "Item": "Armour", "Master Weapon 1": "Sword", "Master Weapon 2": "Bow"},
-    "Room 5": {"West": "Starting Room", "North": "Room 6"},
-    "Room 6": {"South": "Room 5", "East": "Room 7", "Item": "Potion", "Trap": "Jungle"},
-    "Room 7": {"West": "Room 6", "East": "Room 9", "South": "Room 8", "Mini Boss": "Orc", "Item": "Stone"},
-    "Room 8": {"North": "Room 7", "Item": "Secret Room Key"},
-    "Room 9": {"West": "Room 7", "South": "Boss Room", "Item": "Potion", "Key": "Master Key"},
-    "Boss Room": {"Boss": "Dragon"}
-}
-
 # List to keep track on invetory items
 inventory = []
 required_items = []
-
-
-def rules():
-    """
-    Rules for the game that will appear at the start so players know the goal
-    """
-    print("This is a text-based game, type your answers into the terminal\n\n")
-    print("The goal is to defeat the Master boss in final room.\n")
-    print("There are required items to gain access to the Boss Room.")
-    print("You must have all 3 required items to defeat the Boss and win!\n")
-
-    return rules
-
-
-intro = rules()
-
-
-# Quits game if user doesn't want to play
-playing = input("Would you like to try to Escape the dungeon (yes/no)\n")
-if playing.lower().strip() != "yes":
-    print("Exiting the game...")
-    quit()
 
 
 def clear():
@@ -55,7 +17,33 @@ def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-clear()
+def rules():
+    """
+    Rules for the game that will appear at the start so players know the goal
+    """
+    print("This is a text-based game, type your answers into the terminal.\n")
+    print("You can type the first letter of the word or the full word.")
+    print("e.g 'n' for 'north' or just type 'north'.\n\n")
+
+    print("The goal is to defeat the Master boss in Boss room.\n")
+
+    print("There are required items to gain access to the Boss Room.")
+    print("You must have a Mastwe Weapon and a Master Key to defeat the Boss!")
+    print("...but the armour won't be a bad chocie to have either.\n\n")
+
+    print("Good luck!\n")
+
+    return rules
+
+
+intro = rules()
+
+
+# Quits game if user doesn't want to play
+playing = input("Would you like to try to Escape the dungeon (yes/no)\n> ").lower().strip()
+if playing != "yes" and playing != "y":
+    print("Exiting the game...")
+    quit()
 
 
 def start_game():
@@ -595,11 +583,13 @@ def boss_room():
         current_room = "Boss Room"
         print(f"Current room: {current_room}")
         print("Time to fight the boss.")
+        master_boss()
 
 
 def disarm_sp_loss(player_stamina):
     player_stamina = player_stamina - 5
     return player_stamina
+
 
 def disarm(player_stamina):
     """
@@ -645,6 +635,7 @@ def swim_sp_loss(player_stamina):
     player_stamina = player_stamina - 30
     return player_stamina
 
+
 def swim(player_hp, player_stamina):
     """
     Swim through river
@@ -684,10 +675,12 @@ def mini_boss_imp():
     Mini boss fight for attack and damage stats
     """
     print("mini boss fight")
-    
+
+
 def jungle_sp_loss(player_stamina):
     player_stamina = player_stamina - 25
     return player_stamina
+
 
 def jungle_puzzle(player_stamina):
     """
@@ -703,13 +696,16 @@ def jungle_puzzle(player_stamina):
         print(f"{player_hp}hp")
         print(f"{player_stamina}sp")
 
+
 def tunnel_hp_loss(player_hp):
     player_hp = player_hp - 10
     return player_hp
 
+
 def tunnel_sp_loss(player_stamina):
     player_stamina = player_stamina - 5
     return player_stamina
+
 
 def tunnel_puzzle(player_hp, player_stamina):
     """
@@ -739,19 +735,21 @@ def mini_boss_orc():
     Mini boss fight for attack and damage stats
     """
     print("mini boss fight")
-    
-   
+
+
+def master_boss():
+    """
+    Master boss fight for attack and damage stats
+    """
+
+
 # Player welcome screen
+clear()
 name = input("Type your name:\n").capitalize().strip()
 clear()
 start_game()
 starting_room()
 
-
-# def master_boss():
-#     """
-#     Master boss fight for attack and damage stats
-#     """
 
 # def stamina_regen():
 #     """
@@ -780,7 +778,7 @@ starting_room()
 # flow of commands 
 # clearing screen
 # formatting 
-#
-#
-#
-#
+# using item
+# boss attacks with random hits
+# player attack random hits
+# stamina regen
