@@ -205,7 +205,7 @@ def room_three():
         print("You need the key and a weapon to pass")
         room_two()
     else:
-        required_items.pop(0)
+        required_items.remove("Key 1")
         print("you use the key to enter the room")
         print(f"{required_items}")
 
@@ -366,57 +366,57 @@ def room_seven():
     """
     Room seven - mini boss 2, requires key 2 and weapon
     """
-    #add collect item
+
     if "Key 2" not in required_items:
         print("You need the key and a weapon to pass")
         room_five()
     else:
-        required_items.pop(1)
+        required_items.remove("Key 2")
         print("you use the key to enter the room")
         print(f"{required_items}")
 
-    current_room = "Room Seven"
-    print(f"Current room: {current_room}")
+        current_room = "Room Seven"
+        print(f"Current room: {current_room}")
 
-    print("Mini boss 1")
-    fight = input("do you fight the boss?:\n").lower().strip()
-    while fight != "yes" and fight != "no":
-        print("you must choose.")
+        print("Mini boss 1")
         fight = input("do you fight the boss?:\n").lower().strip()
+        while fight != "yes" and fight != "no":
+            print("you must choose.")
+            fight = input("do you fight the boss?:\n").lower().strip()
 
-    if fight == "yes":
-        mini_boss_orc()
-    else:
-        print("You fleed the mini boss fight and lost")
-        quit()
-
-    if "Secret Stone" not in required_items:
-        take_item = input("You see a stone, do you take it? (yes/no)").lower().strip()
-        while take_item != "yes" and take_item != "no":
-            take_item = input("You see a stone, do you take it? (yes/no)").lower().strip()
-
-        if take_item == "yes":
-            required_items.append("Stone")
-            print(f"Current inventory:{required_items}")
+        if fight == "yes":
+            mini_boss_orc()
         else:
-            print("You left the stone")
-    else:
-        print("you have the stone")
-        print(f"Current inventory:{required_items}")
+            print("You fleed the mini boss fight and lost")
+            quit()
 
-    print("You can only go East, South or West.")
+        if "Secret Stone" not in required_items:
+            take_item = input("You see a stone, do you take it? (yes/no)").lower().strip()
+            while take_item != "yes" and take_item != "no":
+                take_item = input("You see a stone, do you take it? (yes/no)").lower().strip()
 
-    direction = input("Which way do you go?:\n").lower().strip()
-    while direction != "east" and direction != "south" and direction != "west":
+            if take_item == "yes":
+                required_items.append("Stone")
+                print(f"Current inventory:{required_items}")
+            else:
+                print("You left the stone")
+        else:
+            print("you have the stone")
+            print(f"Current inventory:{required_items}")
+
         print("You can only go East, South or West.")
-        direction = input("Which way do you go?:\n").lower().strip()
 
-    if direction == "east":
-        room_nine()
-    elif direction == "south":
-        room_eight()
-    else:
-        room_six()
+        direction = input("Which way do you go?:\n").lower().strip()
+        while direction != "east" and direction != "south" and direction != "west":
+            print("You can only go East, South or West.")
+            direction = input("Which way do you go?:\n").lower().strip()
+
+        if direction == "east":
+            room_nine()
+        elif direction == "south":
+            room_eight()
+        else:
+            room_six()
 
 
 def room_seven_completed():
@@ -523,30 +523,78 @@ def secret_room():
     """
     Secret room - requires stone and secret room key, master weapon and armour
     """
-    # add need item and key function
-    # add switch weapon
-    # add armour manually option
-    # possbile secret tunnel to boss room?
-    current_room = "Secret Room"
-    print(f"Current room: {current_room}")
-    print("You can only go West.")
-
-    direction = input("Which way do you go?:\n").lower().strip()
-    while direction != "west":
-        print("You can only West.")
-        direction = input("Which way do you go?:\n").lower().strip()
-
-    if direction == "west":
+    if "Secret Key" not in required_items:
+        print("You need the key enterå.")
         room_three_completed()
+    else:
+    # possbile secret tunnel to boss room?
+        required_items.remove("Secret Key")
+        print("You secret key")
+        current_room = "Secret Room"
+        print(f"Current room: {current_room}")
+
+        if "Master Sword" not in required_items and "Master Bow" not in required_items:
+            print("You see 2 weapons.")
+            print("A sword and a bow and arrow")
+            choose_weapon = input("which weapon?").lower().strip()
+            while choose_weapon != "sword" and choose_weapon != "bow":
+                print("choose a weapon")
+                choose_weapon = input("which weapon?").lower().strip()
+
+            if choose_weapon == "sword":
+                required_items.append("Master Sword")
+                required_items.remove("Sword")
+                print(f"Current inventory:{required_items}")
+            else:
+                required_items.append("Master Bow")
+                required_items.remove("Bow")
+                print(f"Current inventory:{required_items}")
+        else:
+            print("You already have a weapon.")
+            print(f"Current inventory:{required_items}")
+
+        print("Armour")
+        if "Stone" in required_items:
+            if "Armour" not in required_items:
+                take_item = input("You see some armour? (yes/no)").lower().strip()
+                while take_item != "yes" and take_item != "no":
+                    take_item = input("You some armour, do you take it? (yes/no)").lower().strip()
+
+                if take_item == "yes":
+                    required_items.append("Armour")
+                    print("You take and put on the armour.")
+                    print("You feel stronger.")
+                    print(f"Current inventory:{required_items}")
+                else:
+                    print("You left the armour")
+            else:
+                print("you have the armour")
+                print(f"Current inventory:{required_items}")
+        else:
+            print("You need the secret stone for the armour")
+
+        print("You can only go West.")
+
+        direction = input("Which way do you go?:\n").lower().strip()
+        while direction != "west":
+            print("You can only West.")
+            direction = input("Which way do you go?:\n").lower().strip()
+
+        if direction == "west":
+            room_three_completed()
 
 
 def boss_room():
     """
     Boss room - Master boss, requires key, armour and master weapon
     """
-    current_room = "Boss Room"
-    print(f"Current room: {current_room}")
-    print("Time to fight the boss.")
+    if "Master Key" not in required_items:
+        print("You need the key and a weapon to pass")
+        room_nine()
+    else:
+        current_room = "Boss Room"
+        print(f"Current room: {current_room}")
+        print("Time to fight the boss.")
 
 
 def disarm():
@@ -650,3 +698,14 @@ starting_room()
 #     """
 #     Random damage for player attack
 #     """
+
+
+# Things to fix:
+# Heading back to prev locked rooms to be opened
+# flow of commands 
+# clearing screen
+# formatting 
+#
+#
+#
+#
