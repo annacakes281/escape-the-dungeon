@@ -7,12 +7,13 @@ player_stamina = 50
 
 # List to keep track on invetory items
 inventory = []
-required_items = []
+weapons = []
+keys = []
 
 
 def clear():
     """
-    Clears terminal before the text adventure starts to clean up space
+    Clears terminal
     """
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -40,6 +41,7 @@ intro = rules()
 # Quits game if user doesn't want to play
 print("Type 'y' or 'yes' to play.")
 playing = input("Would you like to Escape the dungeon?\n> ").lower().strip()
+# Strip used to clear empty space if players type by mistake
 if playing != "yes" and playing != "y":
     print("\nOh well, I guess you're not up for the challenge.")
     print("Exiting the game...")
@@ -56,7 +58,9 @@ def start_game():
     print(f"{player_hp}hp")
     print(f"{player_stamina}sp\n")
 
-    print("You currently have nothing in your inventory.\n\n")
+    print(f"Current inventory:{inventory}")
+    print(f"Current key inventory:{keys}")
+    print(f"Current weapon:{weapons}\n")
 
     print("You fell down a trap door and end up in an empty room.\n")
 
@@ -68,12 +72,17 @@ def starting_room():
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
 
+    print(f"Current inventory:{inventory}")
+    print(f"Current key inventory:{keys}")
+    print(f"Current weapon:{weapons}\n")
+
     print(
         "You look around in the dimmly lit room and see 3 possible paths.\n"
         "You can either go North, South or East.\n")
-    
-    print("Remember you can type just the first letter of the word.")
 
+    print("Remember you can type just the first letter of the word.\n")
+
+    # Players choose which direction they want to go
     direction = input("Which way do you want to go?:\n> ").lower().strip()
     while direction != "n" and direction != "s" and direction != "e":
         print("\nInvalid move, please enter a valid move:")
@@ -102,10 +111,14 @@ def room_one():
     current_room = "Room One"
     print(f"Current room: {current_room}\n")
 
+    print(f"Current inventory:{inventory}")
+    print(f"Current key inventory:{keys}")
+    print(f"Current weapon:{weapons}\n")
+
     print("You enter the room to the North.\n")
-    
+
     # Prompts user to collect key, if not in inventory
-    if "Key 1" not in inventory:
+    if "Key 1" not in keys:
         print("You see a key on a pedestal... it could be important.")
         take_item = input("Do you take it? (y/n)\n> ").lower().strip()
         while take_item != "y" and take_item != "n":
@@ -115,34 +128,35 @@ def room_one():
             take_item = input("\nDo you take it?\n> ").lower().strip()
 
         if take_item == "y":
-            inventory.append("Key 1")
+            keys.append("Key 1")
             print("\nYou picked up the key and added it to your bag.")
-            print(f"Current inventory:{inventory}\n")
+            print(f"Current key inventory:{keys}\n")
         else:
             print("\nYou decided to leave the key on the pedestal.\n")
     else:
         print("You see an empty pedestal.\n")
-        
+    
     # Prompts user to choose their weapon, if not in inventory
-    if "Sword" not in required_items and "Bow" not in required_items:
+    if "Sword" not in weapons and "Bow" not in weapons:
         print(
             "You notice a table in the middle of the room.\n"
             "There are 2 weapons lying on the table.\n"
             "One is a broadsword with a gem encrusted handle and a belt.\n"
             "The other is a bow with a quiver full of arrows.\n\n"
             "There is an inscription on the table:\n"
-            "Please choose one!\n")
+            "Choose a weapon!\n")
 
         weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
         while weapon != "s" and weapon != "b":
             print("\nInvalid choice, please select a valid option:")
             print("'s' for 'sword' or 'b' for 'bow'.\n")
+            print("Choose a weapon!")
             weapon = input("\nWhich do you choose?\n> ").lower().strip()
 
         if weapon == "s":
-            required_items.append("Sword")
-            print("You choose the sword attached it to your side.")
-            print(f"Current required items:{required_items}\n")
+            weapons.append("Sword")
+            print("\nYou choose the sword attached it to your side.")
+            print(f"Current weapon:{weapons}\n")
 
             # Choosing weapon will trigger a trap
             print(
@@ -150,24 +164,24 @@ def room_one():
                 "A wall of fire is blocking the way out.\n")
 
             print(
-                "What will you do?"
+                "What will you do?\n"
                 "Disarm the trap with a stone you see on the ground,\n"
                 "or risk jumping through it?")
 
-            trap = input("Disarm jump? (d/j)\n> ").lower().strip()
+            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
             while trap != "d" and trap != "j":
                 print("\nInvalid choice, please select a valid option:")
-                print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                print("'d' for 'disarm' or 'j' for 'jump'.")
                 trap = input("\nDisarm or jump? (d/j)\n> ").lower().strip()
 
             if trap == "d":
-                disarm(player_stamina)
+                disarm(player_stamina)  # format text
             else:
-                jump(player_hp, player_stamina)
+                jump(player_hp, player_stamina)  # format text
         else:
-            print("You choose the bow and attached it to your back.")
-            required_items.append("Bow")
-            print(f"Current required items:{required_items}\n")
+            print("\nYou choose the bow and attached it to your back.")
+            weapons.append("Bow")
+            print(f"Current required items:{weapons}\n")
 
             # Choosing weapon will trigger a trap
             print(
@@ -176,69 +190,132 @@ def room_one():
 
             # possibly use bow and arrow and remove one arrow from invt.
             print(
-                "What will you do?"
+                "What will you do?\n"
                 "Disarm the trap with a stone you see on the ground,\n"
                 "or risk jumping through it?")
 
             trap = input("Disarm jump? (d/j)\n> ").lower().strip()
             while trap != "d" and trap != "j":
                 print("\nInvalid choice, please select a valid option:")
-                print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                print("'d' for 'disarm' or 'j' for 'jump'.")
                 trap = input("\nDisarm or jump? (d/j)\n> ").lower().strip()
 
             if trap == "d":
-                disarm(player_stamina)
+                disarm(player_stamina)  # format text
             else:
-                jump(player_hp, player_stamina)
+                jump(player_hp, player_stamina)  # format text
+                
     else:
         print("You see an empty table.\n")
-    
+
     print("There is nothing left to do in this room.\n")
     print("So you head south back to the room you started in.\n")
+    clear()
     starting_room()
 
 
 def room_two():
     """
-    Room two - puzzle, item
+    Room two:\n
+    Player choices to either swim across lake or jump across pedestals\n
+    Player can choose to pick up health potion\n
     """
-    current_room = "Room Two"
-    print(f"Current room: {current_room}")
-    print("River puzzle")
-    
-    trap = input("swim through or hop across?").lower().strip()
-    while trap != "swim" and trap != "hop":
-        print("You must choose to do something.")
-        trap = input("swim through or hop across?").lower().strip()
+    clear()
 
-    if trap == "swim":
-        swim(player_hp, player_stamina)
+    print("Remember you just need to type the first letter of the word.\n")
+
+    current_room = "Room Two"
+    print(f"Current room: {current_room}\n")
+
+    print(f"Current inventory:{inventory}")
+    print(f"Current key inventory:{keys}")
+    print(f"Current weapon:{weapons}\n")
+
+    print(
+        "You enter the room to the South and come to a river.\n"
+        "You can either swim through the river, it looks safe...enough.\n"
+        "Or you can jump across the pillars sticking out the river,\n"
+        "although they look a bit unsafe.\n")
+
+    print(
+        "Do you swim across the river, or\n"
+        "take your chances and jump across the pillars?\n")
+
+    # Players must choose to swim or jump for this puzzle
+    trap = input("Swim or jump? (s/j)\n> ").lower().strip()
+    while trap != "s" and trap != "j":
+        print("\nInvalid choice, please select a valid option:")
+        print("'s' for 'swim' or 'j' for 'jump'.")
+        trap = input("\nSwim or jump? (s/j)\n> ").lower().strip()
+
+    if trap == "s":
+        swim(player_hp, player_stamina)  # need to format
     else:
-        hop(player_hp, player_stamina)
+        hop(player_hp, player_stamina)  # need to format
 
     if "Potion 1" not in inventory:
-        take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
-        while take_item != "yes" and take_item != "no":
-            take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+        print(
+            "\nYou look around and see something on the ground.\n"
+            "You take a closer look and see it is a potion...\n"
+            "it could be useful.\n")
 
-        if take_item == "yes":
+        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+        while take_item != "y" and take_item != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.\n")
+            print("You see a potion on the ground, it could be useful...")
+            take_item = input("\nDo you take it? (y/n)\n> ").lower().strip()
+
+        if take_item == "y":
             inventory.append("Potion 1")
-            print(f"Current inventory:{inventory}")
+            print(
+                "\nYou take the potion and read the label.\n"
+                "It reads: 'Health Potion'.\n"
+                "Lucky you!\n")
+            print(f"Current inventory:{inventory}\n")
         else:
-            print("You left the potion")
+            print(
+                "You decided to leave the potion...\n"
+                "I hope it wasn't important.")
     else:
-        print("you have the potion")
-        print(f"Current inventory:{inventory}")
+        print("\nYou look around see nothing on the ground.\n")
 
-    print("You can only go North or East.")
+    print(
+        "After crossing the river you can a path ahead\n"
+        "You can either follow the path East or go back North.\n"
+        )
 
-    direction = input("Which way do you go?:\n").lower().strip()
-    while direction != "north" and direction != "east":
-        print("You can only go North or East.")
-        direction = input("Which way do you go?:\n").lower().strip()
+    direction = input("Which way do you go? (e/n):\n> ").lower().strip()
+    while direction != "n" and direction != "e":
+        print("\nInvalid choice, please select a valid option:")
+        print("'e' for 'east' or 'n' for 'north'.")
+        direction = input("\nWhich way do you go?:\n> ").lower().strip()
 
-    if direction == "north":
-        starting_room()
+    if direction == "n":
+        print(
+            "\nYou have to go back across the river...again\n"
+            "Will you swim or jump this time?\n")
+        trap = input("Swim or jump? (s/j)\n> ").lower().strip()
+
+        while trap != "s" and trap != "j":
+            print("\nInvalid choice, please select a valid option:")
+            print("'s' for 'swim' or 'j' for 'jump'.")
+            trap = input("\nSwim or jump? (s/j)\n> ").lower().strip()
+
+        if trap == "s":
+            swim(player_hp, player_stamina)  # need to format
+            clear()
+            starting_room()
+            print(f"Current inventory:{inventory}")
+            print(f"Current key inventory:{keys}")
+            print(f"Current weapon:{weapons}\n")
+        else:
+            hop(player_hp, player_stamina)  # need to format
+            clear()
+            starting_room()
+            print(f"Current inventory:{inventory}")
+            print(f"Current key inventory:{keys}")
+            print(f"Current weapon:{weapons}\n")
     else:
         room_three()
 
@@ -842,3 +919,4 @@ starting_room()
 # boss attacks with random hits
 # player attack random hits
 # stamina regen
+# function for different ways when entering room
