@@ -22,16 +22,14 @@ def rules():
     Rules for the game that will appear at the start so players know the goal
     """
     print("This is a text-based game, type your answers into the terminal.\n")
-    print("You can type the first letter of the word or the full word.")
-    print("e.g 'n' for 'north' or just type 'north'.\n\n")
+    print("Type the first letter of the word to continue.")
+    print("e.g 'n' for 'north' or 'y' for 'yes'.\n\n")
 
     print("The goal is to defeat the Master boss in Boss room.\n")
 
     print("There are required items to gain access to the Boss Room.")
-    print("You must have a Mastwe Weapon and a Master Key to defeat the Boss!")
+    print("You must have a Master Weapon and a Master Key to defeat the Boss!")
     print("...but the armour won't be a bad chocie to have either.\n\n")
-
-    print("Good luck!\n")
 
     return rules
 
@@ -40,8 +38,10 @@ intro = rules()
 
 
 # Quits game if user doesn't want to play
-playing = input("Would you like to try to Escape the dungeon (yes/no)\n> ").lower().strip()
+print("Type 'y' or 'yes' to play.")
+playing = input("Would you like to Escape the dungeon?\n> ").lower().strip()
 if playing != "yes" and playing != "y":
+    print("Oh well, I guess you're not up for the challenge.")
     print("Exiting the game...")
     quit()
 
@@ -51,30 +51,33 @@ def start_game():
     Game start intro message
     """
     print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
-    print("You have found yourself in a dungeon and must find the way out.\n")
-    print(f"Current stats: {player_hp}hp and {player_stamina}sp.")
-    print(f"Current inventory: {inventory}\n")
+    print(f"Your current stats:")
+    print(f"{player_hp}hp")
+    print(f"{player_stamina}sp")
+    print("You currently have nothing in your inventory.\n\n")
 
-# need to add correct dialogue to game, currently placeholder dialogue
+
 def starting_room():
     """
-    Starting room
+    The main room where the player starts
     """
     current_room = "Starting Room"
-    print(f"Current room: {current_room}")
+    print(f"Current room: {current_room}\n")
     print(
-        "You are in an empty room with nothing but dim lighting around you.\n"
-        "You can't see much but you see 3 possible paths.\n"
+        "You fell down a trap door and end up in an empty room.\n"
+        "You look around in the dimmly lit room and see 3 possible paths.\n"
         "You can either go North, South or East.\n")
+    
+    print("Remember you can type just the first letter of the word.")
+    direction = input("Which way do you want to go?:\n> ").lower().strip()
+    while direction != "n" and direction != "s" and direction != "e":
+        print("Invalid move, please enter a valid move.")
+        print("'n' for 'north, 's' for 'south' or 'e' for 'east'.")
+        direction = input("Which way do you want to go?:\n> ").lower().strip()
 
-    direction = input("Which way do you go?:\n").lower().strip()
-    while direction != "north" and direction != "south" and direction != "east":
-        print("You can only go North, South, or East.")
-        direction = input("Which way do you go?:\n").lower().strip()
-
-    if direction == "north":
+    if direction == "n":
         room_one()
-    elif direction == "south":
+    elif direction == "s":
         room_two()
     else:
         room_five()
@@ -82,7 +85,10 @@ def starting_room():
 
 def room_one():
     """
-    Room one - weapon, key and trap
+    Room one:\n
+    Player can choose to pick up the key (if not in inventory)\n
+    Player chooses weapon (if not in inventory)\n
+    Player has 2 choices to escape trap
     """
     clear()
 
@@ -745,7 +751,7 @@ def master_boss():
 
 # Player welcome screen
 clear()
-name = input("Type your name:\n").capitalize().strip()
+name = input("Type your name:\n> ").capitalize().strip()
 clear()
 start_game()
 starting_room()
