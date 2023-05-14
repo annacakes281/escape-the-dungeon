@@ -331,9 +331,9 @@ def room_six():
         trap = input("go through or way around?").lower().strip()
 
     if trap == "through":
-        jungle_puzzle()
+        jungle_puzzle(player_stamina)
     else:
-        tunnel_puzzle()
+        tunnel_puzzle(player_hp, player_stamina)
 
     if "Potion 2" not in inventory:
         take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
@@ -524,7 +524,7 @@ def secret_room():
     Secret room - requires stone and secret room key, master weapon and armour
     """
     if "Secret Key" not in required_items:
-        print("You need the key enterå.")
+        print("You need the key enter.")
         room_three_completed()
     else:
     # possbile secret tunnel to boss room?
@@ -685,21 +685,53 @@ def mini_boss_imp():
     """
     print("mini boss fight")
     
+def jungle_sp_loss(player_stamina):
+    player_stamina = player_stamina - 25
+    return player_stamina
 
-def jungle_puzzle():
+def jungle_puzzle(player_stamina):
     """
     Jungle puzzle in room 6
     """
-    # add not in statement for sword item and auto send to tunnel
-    print("jungle")
+    if "Sword" not in required_items:
+        print("You need the sword to get through the jungle.")
+        print("So you have to go through the tunnel.")
+        tunnel_puzzle(player_hp, player_stamina)
+    else:
+        player_stamina = jungle_sp_loss(player_stamina)
+        print("jungle")
+        print(f"{player_hp}hp")
+        print(f"{player_stamina}sp")
 
+def tunnel_hp_loss(player_hp):
+    player_hp = player_hp - 10
+    return player_hp
 
-def tunnel_puzzle():
+def tunnel_sp_loss(player_stamina):
+    player_stamina = player_stamina - 5
+    return player_stamina
+
+def tunnel_puzzle(player_hp, player_stamina):
     """
     Tunnel puzzle, linked to jungle puzzle in room 6
     """
     # add jump and duck statements
     print("jump and duck")
+    trap = input("jump or duck?").lower().strip()
+    while trap != "jump" and trap != "duck":
+        print("You must choose to do something.")
+        trap = input("jump or duck?").lower().strip()
+
+    if trap == "jump":
+        player_stamina = tunnel_sp_loss(player_stamina)
+        print("you took some damage")
+        print(f"{player_hp}hp")
+        print(f"{player_stamina}sp")
+    else:
+        player_hp = tunnel_hp_loss(player_hp)
+        print("you took some damage")
+        print(f"{player_hp}hp")
+        print(f"{player_stamina}sp")
 
 
 def mini_boss_orc():
