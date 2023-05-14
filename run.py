@@ -131,6 +131,7 @@ def room_one():
             print(f"Current inventory:{required_items}")
     else:
         print("You already have a weapon.")
+        print(f"Current inventory:{required_items}")
     
     print("You choose your weapon and this set off a trap.")
 
@@ -153,7 +154,6 @@ def room_two():
     """
     Room two - puzzle, item
     """
-    #add collect item
     current_room = "Room Two"
     print(f"Current room: {current_room}")
     print("River puzzle")
@@ -167,6 +167,20 @@ def room_two():
         swim()
     else:
         hop()
+
+    if "Potion 1" not in inventory:
+        take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+
+        if take_item == "yes":
+            inventory.append("Potion 1")
+            print(f"Current inventory:{inventory}")
+        else:
+            print("You left the potion")
+    else:
+        print("you have the potion")
+        print(f"Current inventory:{inventory}")
 
     print("You can only go North or East.")
 
@@ -321,6 +335,20 @@ def room_six():
     else:
         tunnel_puzzle()
 
+    if "Potion 2" not in inventory:
+        take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+
+        if take_item == "yes":
+            inventory.append("Potion 2")
+            print(f"Current inventory:{inventory}")
+        else:
+            print("You left the potion")
+    else:
+        print("you have the potion")
+        print(f"Current inventory:{inventory}")
+
     print("You can only go East or South.")
 
     direction = input("Which way do you go?:\n").lower().strip()
@@ -361,6 +389,20 @@ def room_seven():
     else:
         print("You fleed the mini boss fight and lost")
         quit()
+
+    if "Secret Stone" not in required_items:
+        take_item = input("You see a stone, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a stone, do you take it? (yes/no)").lower().strip()
+
+        if take_item == "yes":
+            required_items.append("Stone")
+            print(f"Current inventory:{required_items}")
+        else:
+            print("You left the stone")
+    else:
+        print("you have the stone")
+        print(f"Current inventory:{required_items}")
 
     print("You can only go East, South or West.")
 
@@ -403,25 +445,20 @@ def room_eight():
     """
     current_room = "Room Eight"
     print(f"Current room: {current_room}")
-    print("you see another key")
 
-    # take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
-    # while take_item != "yes" and take_item != "no":
-    #     take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+    if "Secret Key" not in required_items:
+        take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
 
-    # # need to fix code so that player cant take item again
-    # try:
-    #     if take_item == "yes":
-    #         required_items.append("Secret Room Key")
-    #         print(f"Current inventory:{required_items}")
-
-    #         if "Key 2" not in required_items:
-    #             print("You do not have the item")
-
-    #         else:
-    #             print("you have the item")
-    #     else:
-    #         print("You left the key")
+        if take_item == "yes":
+            required_items.append("Secret Key")
+            print(f"Current inventory:{required_items}")
+        else:
+            print("You left the key")
+    else:
+        print("you have the key")
+        print(f"Current inventory:{required_items}")
 
     print("You can only go North.")
     direction = input("Which way do you go?:\n").lower().strip()
@@ -437,9 +474,38 @@ def room_nine():
     """
     Room nine - key and item
     """
-    #add collect key and item
+    
     current_room = "Room Nine"
     print(f"Current room: {current_room}")
+
+    if "Master Key" not in required_items:
+        take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+
+        if take_item == "yes":
+            required_items.append("Master Key")
+            print(f"Current inventory:{required_items}")
+        else:
+            print("You left the key")
+    else:
+        print("you have the key")
+        print(f"Current inventory:{required_items}")
+
+    if "Potion 3" not in inventory:
+        take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+        while take_item != "yes" and take_item != "no":
+            take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+
+        if take_item == "yes":
+            inventory.append("Potion 3")
+            print(f"Current inventory:{inventory}")
+        else:
+            print("You left the potion")
+    else:
+        print("you have the potion")
+        print(f"Current inventory:{inventory}")
+
     print("You can only go West or South.")
 
     direction = input("Which way do you go?:\n").lower().strip()
