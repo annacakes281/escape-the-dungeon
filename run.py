@@ -281,7 +281,7 @@ def room_two():
         print("\nYou look around see nothing on the ground.\n")
 
     print(
-        "After crossing the river you can a path ahead\n"
+        "After crossing the river you can see a path ahead.\n"
         "You can either follow the path East or go back North.\n"
         )
 
@@ -320,20 +320,80 @@ def room_two():
         room_three()
 
 
+def room_two_west():
+    """
+    Room two:\n
+    Only avaliable if player enters room 2 from room 3
+    Player choices to either swim across lake or jump across pedestals\n
+    Player can choose to pick up health potion\n
+    """
+   
+    print(
+        "You head back West.\n"
+        "Looks like you have to cross the river...again.\n"
+        "Will you jump or swim across?\n")
+
+    # Players must choose to swim or jump for this puzzle
+    trap = input("Swim or jump? (s/j)\n> ").lower().strip()
+    while trap != "s" and trap != "j":
+        print("\nInvalid choice, please select a valid option:")
+        print("'s' for 'swim' or 'j' for 'jump'.")
+        trap = input("\nSwim or jump? (s/j)\n> ").lower().strip()
+
+    if trap == "s":
+        swim(player_hp, player_stamina)  # need to format
+    else:
+        hop(player_hp, player_stamina)  # need to format
+
+    if "Potion 1" not in inventory:
+        print(
+            "\nYou look around and see something on the ground.\n"
+            "You take a closer look and see it is a potion...\n"
+            "it could be useful.\n")
+
+        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+        while take_item != "y" and take_item != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.\n")
+            print("You see a potion on the ground, it could be useful...")
+            take_item = input("\nDo you take it? (y/n)\n> ").lower().strip()
+
+        if take_item == "y":
+            inventory.append("Potion 1")
+            print(
+                "\nYou take the potion and read the label.\n"
+                "It reads: 'Health Potion'.\n"
+                "Lucky you!\n")
+            print(f"Current inventory:{inventory}\n")
+        else:
+            print(
+                "You decided to leave the potion...\n"
+                "I hope it wasn't important.")
+    else:
+        print(
+            "\nYou cross the river and look around...\n"
+            "you see nothing on the ground.\n"
+            )
+
+    print("After crossing the river you head back north.\n")
+    starting_room()
+
+
 def room_three():
     """
-    Room three - mini boss 1, requires key 1 and weapon
+    Room two:\n
+    Player requires the key to enter this room\n
+    Player can decide to fight the mini boss\n
     """
     clear()
 
-    if "Key 1" not in required_items:
-        print("You need the key and a weapon to pass")
-        room_two()
+    if "Key 1" not in keys:
+        print("The door is locked and you need a key to open it.\n")
+        room_two_west()
     else:
-        required_items.remove("Key 1")
+        keys.remove("Key 1")
         print("you use the key to enter the room")
-        print(f"{required_items}")
-
+        
         current_room = "Room Three"
         print(f"Current room: {current_room}")
 
