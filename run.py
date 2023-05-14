@@ -141,9 +141,9 @@ def room_one():
         trap = input("disarm trap or jump through it?").lower().strip()
 
     if trap == "disarm":
-        disarm()
+        disarm(player_stamina)
     else:
-        jump()
+        jump(player_hp, player_stamina)
 
     print("South is the only way you can go.\n")
     print("So you head south back to the room you started in.\n")
@@ -597,20 +597,39 @@ def boss_room():
         print("Time to fight the boss.")
 
 
-def disarm():
+def disarm_sp_loss(player_stamina):
+    player_stamina = player_stamina - 5
+    return player_stamina
+
+def disarm(player_stamina):
     """
     Disarm fire trap with stone
     """
     # add random function for using stone whether they hit or miss trap
     # possibly add a function if they have bow to use that?
+    player_stamina = disarm_sp_loss(player_stamina)
     print("You disarmed the fire trap")
+    print(f"{player_hp}hp")
+    print(f"{player_stamina}sp")
 
 
-def jump():
+def jump_hp_loss(player_hp):
+    player_hp = player_hp - 100
+    return player_hp
+
+
+def jump_sp_loss(player_stamina):
+    player_stamina = player_stamina - 50
+    return player_stamina
+
+
+def jump(player_hp, player_stamina):
     """
     Jump through fire trap
     """
     # add function to take damage and show the hp and sp
+    player_hp = jump_hp_loss(player_hp)
+    player_stamina = jump_sp_loss(player_stamina)
     print("You successfully jumped through the fire trap.")
     print("You did however take significant damage")
     print(f"{player_hp}hp")
@@ -642,7 +661,7 @@ def mini_boss_imp():
     Mini boss fight for attack and damage stats
     """
     print("mini boss fight")
-
+    
 
 def jungle_puzzle():
     """
