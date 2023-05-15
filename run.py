@@ -1,7 +1,7 @@
 import random
 import os
 
-# Player health and stamina
+# Player health and stamina - fix so that it changes with damage and potion
 player_hp = 150
 player_stamina = 50
 
@@ -26,11 +26,11 @@ def rules():
     print("Type the first letter of the word to continue.")
     print("e.g 'n' for 'north' or 'y' for 'yes'.\n\n")
 
-    print("The goal is to defeat the Master boss in Boss room.\n")
+    print("The goal is to defeat the Master Boss in Boss Room.\n")
 
     print("There are required items to gain access to the Boss Room.")
     print("You must have a Master Weapon and a Master Key to defeat the Boss!")
-    print("...but the armour won't be a bad chocie to have either.\n\n")
+    print("...but the armour won't be a bad choice to have either.\n\n")
 
     return rules
 
@@ -54,14 +54,6 @@ def start_game():
     """
     print(f"Welcome {name} to the Escape the Dungeon Game. Good luck!\n")
 
-    print(f"Your current stats:")
-    print(f"{player_hp}hp")
-    print(f"{player_stamina}sp\n")
-
-    print(f"Current inventory:{inventory}")
-    print(f"Current key inventory:{keys}")
-    print(f"Current weapon:{weapons}\n")
-
     print("You fell down a trap door and end up in an empty room.\n")
 
 
@@ -72,22 +64,21 @@ def starting_room():
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
 
-    print(f"Current inventory:{inventory}")
-    print(f"Current key inventory:{keys}")
-    print(f"Current weapon:{weapons}\n")
+    view_stats()
+    view_items()
 
     print(
         "You look around in the dimmly lit room and see 3 possible paths.\n"
-        "You can either go North, South or East.\n")
+        "You can either go north, south or east.\n")
 
     print("Remember you can type just the first letter of the word.\n")
 
     # Players choose which direction they want to go
-    direction = input("Which way do you want to go?:\n> ").lower().strip()
+    direction = input("Which way do you go?:\n> ").lower().strip()
     while direction != "n" and direction != "s" and direction != "e":
         print("\nInvalid move, please enter a valid move:")
         print("'n' for 'north, 's' for 'south' or 'e' for 'east'.")
-        direction = input("\nWhich way do you want to go?:\n> ").lower().strip()
+        direction = input("\nWhich way do you go?:\n> ").lower().strip()
 
     if direction == "n":
         room_one()
@@ -111,11 +102,10 @@ def room_one():
     current_room = "Room One"
     print(f"Current room: {current_room}\n")
 
-    print(f"Current inventory:{inventory}")
-    print(f"Current key inventory:{keys}")
-    print(f"Current weapon:{weapons}\n")
+    view_stats()
+    view_items()
 
-    print("You enter the room to the North.\n")
+    print("You enter the room to the north.\n")
 
     # Prompts user to collect key, if not in inventory
     if "Key 1" not in keys:
@@ -160,13 +150,13 @@ def room_one():
 
             # Choosing weapon will trigger a trap
             print(
-                "Picking up your weapon set off a trap.\n"
+                "Picking up your weapon sets off a trap.\n"
                 "A wall of fire is blocking the way out.\n")
 
             print(
                 "What will you do?\n"
                 "Disarm the trap with a stone you see on the ground,\n"
-                "or risk jumping through it?")
+                "or risk jumping through it?\n")
 
             trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
             while trap != "d" and trap != "j":
@@ -185,16 +175,16 @@ def room_one():
 
             # Choosing weapon will trigger a trap
             print(
-                "Picking up your weapon set off a trap.\n"
+                "Picking up your weapon sets off a trap.\n"
                 "A wall of fire is blocking the way out.\n")
 
             # possibly use bow and arrow and remove one arrow from invt.
             print(
                 "What will you do?\n"
                 "Disarm the trap with a stone you see on the ground,\n"
-                "or risk jumping through it?")
+                "or risk jumping through it?\n")
 
-            trap = input("Disarm jump? (d/j)\n> ").lower().strip()
+            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
             while trap != "d" and trap != "j":
                 print("\nInvalid choice, please select a valid option:")
                 print("'d' for 'disarm' or 'j' for 'jump'.")
@@ -204,13 +194,12 @@ def room_one():
                 disarm(player_stamina)  # format text
             else:
                 jump(player_hp, player_stamina)  # format text
-                
+            
     else:
         print("You see an empty table.\n")
 
     print("There is nothing left to do in this room.\n")
     print("So you head south back to the room you started in.\n")
-    clear()
     starting_room()
 
 
@@ -227,9 +216,8 @@ def room_two():
     current_room = "Room Two"
     print(f"Current room: {current_room}\n")
 
-    print(f"Current inventory:{inventory}")
-    print(f"Current key inventory:{keys}")
-    print(f"Current weapon:{weapons}\n")
+    view_stats()
+    view_items()
 
     print(
         "You enter the room to the South and come to a river.\n"
@@ -238,7 +226,7 @@ def room_two():
         "although they look a bit unsafe.\n")
 
     print(
-        "Do you swim across the river, or\n"
+        "Do you swim across the river, or"
         "take your chances and jump across the pillars?\n")
 
     # Players must choose to swim or jump for this puzzle
@@ -253,6 +241,7 @@ def room_two():
     else:
         hop(player_hp, player_stamina)  # need to format
 
+    # Prompts player to take potion of not in inventory
     if "Potion 1" not in inventory:
         print(
             "\nYou look around and see something on the ground.\n"
@@ -275,8 +264,8 @@ def room_two():
             print(f"Current inventory:{inventory}\n")
         else:
             print(
-                "You decided to leave the potion...\n"
-                "I hope it wasn't important.")
+                "You decided to leave the potion..."
+                "I hope it wasn't important.\n")
     else:
         print("\nYou look around see nothing on the ground.\n")
 
@@ -285,6 +274,7 @@ def room_two():
         "You can either follow the path East or go back North.\n"
         )
 
+    # Prompts player which direction they want to go
     direction = input("Which way do you go? (e/n):\n> ").lower().strip()
     while direction != "n" and direction != "e":
         print("\nInvalid choice, please select a valid option:")
@@ -304,18 +294,10 @@ def room_two():
 
         if trap == "s":
             swim(player_hp, player_stamina)  # need to format
-            clear()
             starting_room()
-            print(f"Current inventory:{inventory}")
-            print(f"Current key inventory:{keys}")
-            print(f"Current weapon:{weapons}\n")
         else:
             hop(player_hp, player_stamina)  # need to format
-            clear()
             starting_room()
-            print(f"Current inventory:{inventory}")
-            print(f"Current key inventory:{keys}")
-            print(f"Current weapon:{weapons}\n")
     else:
         room_three()
 
@@ -327,7 +309,12 @@ def room_two_west():
     Player choices to either swim across lake or jump across pedestals\n
     Player can choose to pick up health potion\n
     """
-   
+    current_room = "Room Two"
+    print(f"Current room: {current_room}\n")
+
+    view_stats()
+    view_items()
+
     print(
         "You head back West.\n"
         "Looks like you have to cross the river...again.\n"
@@ -381,7 +368,7 @@ def room_two_west():
 
 def room_three():
     """
-    Room two:\n
+    Room three:\n
     Player requires the key to enter this room\n
     Player can decide to fight the mini boss\n
     """
@@ -392,79 +379,110 @@ def room_three():
         room_two_west()
     else:
         keys.remove("Key 1")
-        print("you use the key to enter the room")
-        
+        print("You use the key and open the door to the room\n")
+
         current_room = "Room Three"
-        print(f"Current room: {current_room}")
+        print(f"Current room: {current_room}\n")
 
-        print("Mini boss 1")
-        fight = input("do you fight the boss?:\n").lower().strip()
-        while fight != "yes" and fight != "no":
-            print("you must choose.")
-            fight = input("do you fight the boss?:\n").lower().strip()
+        view_stats()
+        view_items()
 
-        if fight == "yes":
-            mini_boss_imp()
+        print(
+            "You enter the room and the door shuts behind you.\n"
+            "You notice an imp looking at you... it is ready to fight you!\n"
+            )
+        print("What do you do?")
+        fight = input("Do you fight? (y/n):\n> ").lower().strip()
+        while fight != "y" and fight != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.")
+            fight = input("\nDo you fight?:\n> ").lower().strip()
+
+        if fight == "y":
+            mini_boss_imp()  # code and format
         else:
-            print("You fleed the mini boss fight and lost")
+            print(
+                "You decided to try and flee the imp\n"
+                "...but as soon as you turned to open the door,\n"
+                "it kept attacking you and you died...")
             quit()
 
-        print("You can only go North, East or West.")
-        direction = input("Which way do you go?:\n").lower().strip()
-        while direction != "north" and direction != "east" and direction != "west":
-            print("You can only go North, East or West.")
-            direction = input("Which way do you go?:\n").lower().strip()
+        print("You look around and can go north, east or west.\n")
+        direction = input("Which way do you go?:\n> ").lower().strip()
+        while direction != "n" and direction != "e" and direction != "w":
+            print("\nInvalid choice, please select a valid option:")
+            print("'n' for 'n', 'e' for 'east' or 'w' for 'west'.")
+            direction = input("\nWhich way do you go?:\n> ").lower().strip()
         
         if direction == "north":
             room_four()
         elif direction == "east":
             secret_room()
         else:
-            room_two()
+            room_two_west()
 
 
 def room_three_completed():
     """
-    Room three - when boss has been defeated
+    Room three:\n
+    Player enters this room when boss has already been defeated
     """
+    clear()
+
     current_room = "Room Three"
     print(f"Current room: {current_room}")
-    print("The mini boss of this room has already been defeated...Yay!")
-    print("You can only go North, East or West.")
 
-    direction = input("Which way do you go?:\n").lower()
-    while direction != "north" and direction != "east" and direction != "west":
-        print("You can only go North, East or West.")
-        direction = input("Which way do you go?:\n").lower()
+    view_stats()
+    view_items()
 
+    print(
+        "You enter the room and see the imp you defeated on the ground.\n"
+        "You take a moment to remember your triumph!\n")
+
+    print("You look around and can go north, east, or west.\n")
+    direction = input("Which way do you go?:\n> ").lower().strip()
+    while direction != "n" and direction != "e" and direction != "w":
+        print("\nInvalid choice, please select a valid option:")
+        print("'n' for 'n', 'e' for 'east' or 'w' for 'west'.")
+        direction = input("\nWhich way do you go?:\n> ").lower().strip()
+   
     if direction == "north":
         room_four()
     elif direction == "east":
         secret_room()
     else:
-        room_two()
+        room_two_west()
 
 
 def room_four():
     """
-    Room four - key
+    Room four:\n
+    Player can choose to collect key (if not in inventory)\n
+    Player can choose to speak to NPC
     """
     current_room = "Room four"
-    print(f"Current room: {current_room}")
-    
-    if "Key 2" not in required_items:
-        take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
-        while take_item != "yes" and take_item != "no":
-            take_item = input("You see a key, do you take it? (yes/no)").lower().strip()
+    print(f"Current room: {current_room}\n")
 
-        if take_item == "yes":
-            required_items.append("Key 2")
-            print(f"Current inventory:{required_items}")
+    view_stats()
+    view_items()
+    
+    if "Key 2" not in keys:
+        print("You see a key on a pedestal... it could be important.")
+        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+        while take_item != "y" and take_item != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.\n")
+            print("You see a key on a pedestal... it could be important.")
+            take_item = input("\nDo you take it?\n> ").lower().strip()
+
+        if take_item == "y":
+            keys.append("Key 2")
+            print("\nYou picked up the key and added it to your bag.")
+            print(f"Current key inventory:{keys}\n")
         else:
-            print("You left the key")
+            print("\nYou decided to leave the key on the pedestal.\n")
     else:
-        print("you have the key")
-        print(f"Current inventory:{required_items}")
+        print("You see an empty pedestal.\n")
     
     print("NPC fairy")
 
@@ -940,6 +958,42 @@ def master_boss():
     """
 
 
+def view_stats():
+    """
+    Asks player if they want to view their stats
+    """
+    stats = input("View your current stats? (y/n)\n> ").lower().strip()
+    while stats != "y" and stats != "n":
+        print("\nInvalid choice, please enter a valid choice:")
+        print("'y' for 'yes or 'n' for 'no'.")
+        stats = input("\nView your current stats? (y/n)\n> ").lower().strip()
+ 
+    if stats == "y":
+        print(f"\nYour current stats:")
+        print(f"{player_hp}hp")
+        print(f"{player_stamina}sp\n")
+    else:
+        print("\nYou decided not to view your current stats.\n")
+
+
+def view_items():
+    """
+    Asks player if they want to view their items
+    """
+    items = input("View your current items? (y/n)\n> ").lower().strip()
+    while items != "y" and items != "n":
+        print("\nInvalid choice, please enter a valid choice:")
+        print("'y' for 'yes or 'n' for 'no'.")
+        items = input("\nView your current items? (y/n)\n> ").lower().strip()
+
+    if items == "y":
+        print(f"\nYour current items:")
+        print(f"Inventory:{inventory}")
+        print(f"Key inventory:{keys}")
+        print(f"Weapon:{weapons}\n")
+    else:
+        print("\nYou decided not to view your current items.\n")
+
 # Player welcome screen
 clear()
 name = input("Type your name:\n> ").capitalize().strip()
@@ -980,3 +1034,4 @@ starting_room()
 # player attack random hits
 # stamina regen
 # function for different ways when entering room
+# should i make seprate functions inside functions if it is too long?
