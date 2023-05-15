@@ -137,7 +137,7 @@ def room_one():
                 "I hope it wasn't important...\n")
     else:
         print("You see an empty pedestal.\n")
-    
+
     # Prompts user to choose their weapon, if not in inventory
     if "Sword" not in weapons and "Bow" not in weapons:
         print(
@@ -206,7 +206,7 @@ def room_one():
                 disarm(player_stamina)  # format text
             else:
                 jump(player_hp, player_stamina)  # format text
-            
+
     else:
         print("You see an empty table.\n")
 
@@ -434,7 +434,7 @@ def room_three():
             print("\nInvalid move, please enter a valid move:")
             print("'n' for 'n', 'e' for 'east' or 'w' for 'west'.\n")
             direction = input("Which way do you go?:\n> ").lower().strip()
-  
+
         if direction == "n":
             room_four()
         elif direction == "e":
@@ -470,7 +470,7 @@ def room_three_completed():
         print("\nInvalid move, please enter a valid move:")
         print("'n' for 'n', 'e' for 'east' or 'w' for 'west'.\n")
         direction = input("Which way do you go?:\n> ").lower().strip()
- 
+
     if direction == "n":
         room_four()
     elif direction == "e":
@@ -553,7 +553,7 @@ def room_five():
     print(
         "You head east and enter an empty room that smells musty.\n"
         "There are only 2 ways to go, north or west.\n")
-    
+
     # Prompts user to choose a direction to go
     direction = input("Which way do you go? (n/w)\n> ").lower().strip()
     while direction != "n" and direction != "w":
@@ -586,7 +586,7 @@ def room_five_south():
     print(
         "You head south and enter an empty room that smells musty.\n"
         "There are only 2 ways to go, north or west.\n")
-    
+
     # Prompts user to choose a direction to go
     direction = input("Which way do you go? (n/w)\n> ").lower().strip()
     while direction != "n" and direction != "w":
@@ -1092,7 +1092,7 @@ def room_nine():
         "with a skeleton shaped keyhole.\n"
         "You also feel a heat coming off that door...\n"
         "You can either go through the door or turn back west.\n")
-    
+
     # Prompts player for direction choice
     direction = input("Which way do you go? (s/w)\n> ").lower().strip()
     while direction != "s" and direction != "w":
@@ -1180,7 +1180,7 @@ def secret_room():
                     print("\nInvalid choice, please select a valid option:")
                     print("'y' for 'yes' or 'n' for 'no'.\n")
                     print("The armour can be taken.")
-                    take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+                    take_item = input("Take item? (y/n)\n> ").lower().strip()
 
                 if take_item == "y":
                     inventory.append("Armour")
@@ -1188,17 +1188,17 @@ def secret_room():
                         "You take the armour off the stand,\n"
                         "and put it on... You feel stronger")
                     print(f"Current inventory:{inventory}\n")
-                    
+
                     print(
                         "The wall then suddenly sides open...\n"
                         "This reveals a passageway.\n")
 
-                    direction = input("Do you enter? (y/n)\n> ").lower().strip()
+                    direction = input("Enter? (y/n)\n> ").lower().strip()
                     while direction != "y" and direction != "n":
-                        print("\nInvalid choice, please select a valid option:")
+                        print("\nInvalid choice, select a valid option:")
                         print("'y' for 'yes' or 'n' for 'no'.\n")
                         print("You look at the passageway.")
-                        direction = input("Do you enter? (y/n)\n> ").lower().strip()
+                        direction = input("Enter? (y/n)\n> ").lower().strip()
 
                     if direction == "y":
                         room_eight_secret()
@@ -1207,7 +1207,7 @@ def secret_room():
                             "You decide to not enter the passageway.\n"
                             "The only way left to go is west.")
                         room_three_completed()
-                        
+
                 else:
                     print(
                         "You decided to leave the armour...\n"
@@ -1222,7 +1222,7 @@ def secret_room():
                     print("\nInvalid choice, please select a valid option:")
                     print("'y' for 'yes' or 'n' for 'no'.\n")
                     print("You look at the passageway.")
-                    direction = input("Do you enter? (y/n)\n> ").lower().strip()
+                    direction = input("Enter? (y/n)\n> ").lower().strip()
 
                 if direction == "y":
                     room_eight_secret()
@@ -1253,7 +1253,7 @@ def boss_room():
     else:
         keys.remove("Master Key")
         print("You use the key and open the door to the room\n")
-        
+
         current_room = "Boss Room"
         print(f"Current room: {current_room}\n")
 
@@ -1262,9 +1262,9 @@ def boss_room():
 
         print(
             "You enter the room and the door shuts behind you.\n"
-            "You start feeling very hot..."
-            "You notice a huge dragon looking at you... it is ready to fight you!\n"
-            )
+            "You start feeling very hot...\n"
+            "You notice a huge dragon looking at you...\n"
+            "it is ready to fight you!\n")
 
         print("What do you do?")
         fight = input("Do you fight? (y/n):\n> ").lower().strip()
@@ -1281,7 +1281,7 @@ def boss_room():
                     print("\nInvalid choice, please select a valid option:")
                     print("'y' for 'yes' or 'n' for 'no'.\n")
                     input("Will you fight? (y/n)\n> ").lower().strip()
-                
+
                 if chance == "y":
                     print("If you're sure then...\n")
                     master_boss()  # code and format
@@ -1303,6 +1303,9 @@ def boss_room():
 
 
 def disarm_sp_loss(player_stamina):
+    """
+    Reduces players stamina when disarming the trap
+    """
     player_stamina = player_stamina - 5
     return player_stamina
 
@@ -1311,20 +1314,28 @@ def disarm(player_stamina):
     """
     Disarm fire trap with stone
     """
-    # add random function for using stone whether they hit or miss trap
-    # possibly add a function if they have bow to use that?
+    # add random function for using stone whether they hit or miss trap?
     player_stamina = disarm_sp_loss(player_stamina)
-    print("You disarmed the fire trap")
-    print(f"{player_hp}hp")
-    print(f"{player_stamina}sp")
+    print(
+        "You see some stones on the ground and pick one up.\n"
+        "You throw the stone at the target above the door.\n"
+        "This action did take some of your stamnia.\n")
+    # if not doing random do a statement saying successful
+    print(f"{player_stamina}sp\n")
 
 
 def jump_hp_loss(player_hp):
+    """
+    Reduces players health when jumping through the trap
+    """
     player_hp = player_hp - 100
     return player_hp
 
 
 def jump_sp_loss(player_stamina):
+    """
+    Reduces players stamina when jumping through the trap
+    """
     player_stamina = player_stamina - 50
     return player_stamina
 
@@ -1333,21 +1344,27 @@ def jump(player_hp, player_stamina):
     """
     Jump through fire trap
     """
-    # add function to take damage and show the hp and sp
     player_hp = jump_hp_loss(player_hp)
     player_stamina = jump_sp_loss(player_stamina)
-    print("You successfully jumped through the fire trap.")
-    print("You did however take significant damage")
+    print(
+        "You successfully jumped through the fire trap.\n"
+        "However you did take significant damage.\n")
     print(f"{player_hp}hp")
-    print(f"{player_stamina}sp")
+    print(f"{player_stamina}sp\n")
 
 
 def swim_hp_loss(player_hp):
+    """
+    Reduces players health when swimming through river
+    """
     player_hp = player_hp - 50
     return player_hp
 
 
 def swim_sp_loss(player_stamina):
+    """
+    Reduces players stamina when disarming the trap
+    """
     player_stamina = player_stamina - 30
     return player_stamina
 
@@ -1358,32 +1375,43 @@ def swim(player_hp, player_stamina):
     """
     player_hp = swim_hp_loss(player_hp)
     player_stamina = swim_sp_loss(player_stamina)
-    print("You succssfully swam through the river.")
-    print("You did however take some damage")
+    print(
+        "You succssfully swam through the river.\n"
+        "You did feel something biting at you the whole time.\n"
+        "You also took some damage.\n"
+        )
     print(f"{player_hp}hp")
-    print(f"{player_stamina}sp")
+    print(f"{player_stamina}sp\n")
 
 
 def hop_hp_loss(player_hp):
+    """
+    Reduces players health when jumping on pillars
+    """
     player_hp = player_hp - 5
     return player_hp
 
 
 def hop_sp_loss(player_stamina):
+    """
+    Reduces players stamina when jumping on pillars
+    """
     player_stamina = player_stamina - 10
     return player_stamina
 
 
 def hop(player_hp, player_stamina):
     """
-    Hop across pedestals in river
+    Hop across pillars in river
     """
     player_hp = hop_hp_loss(player_hp)
     player_stamina = hop_sp_loss(player_stamina)
-    print("You succssfully hopped across the river.")
-    print("You did however take minimal damage")
+    print(
+        "You succssfully hopped across the river.\n"
+        "You however took minimal damage.\n"
+        )
     print(f"{player_hp}hp")
-    print(f"{player_stamina}sp")
+    print(f"{player_stamina}sp\n")
 
 
 def mini_boss_imp():
@@ -1394,6 +1422,9 @@ def mini_boss_imp():
 
 
 def jungle_sp_loss(player_stamina):
+    """
+    Reduces players stamnia when going through jungle
+    """
     player_stamina = player_stamina - 25
     return player_stamina
 
@@ -1402,24 +1433,33 @@ def jungle_puzzle(player_stamina):
     """
     Jungle puzzle in room 6
     """
-    if "Sword" not in required_items:
-        print("You need the sword to get through the jungle.")
-        print("So you have to go through the tunnel.")
+    if "Sword" not in weapons:
+        print(
+            "The vines are too thick to get through...\n"
+            "It looks like you have to use the tunnel.\n")
         tunnel_puzzle(player_hp, player_stamina)
     else:
         player_stamina = jungle_sp_loss(player_stamina)
-        print("jungle")
-        print(f"{player_hp}hp")
-        print(f"{player_stamina}sp")
+        print(
+            "You successfully made your way through the vines.\n"
+            "Chopping them as you make your way through...\n"
+            "but they grow back as you pass.\n")
+        print(f"{player_stamina}sp\n")
 
 
 def tunnel_hp_loss(player_hp):
-    player_hp = player_hp - 10
+    """
+    Reduces players health when going through tunnel
+    """
+    player_hp = player_hp - 50
     return player_hp
 
 
 def tunnel_sp_loss(player_stamina):
-    player_stamina = player_stamina - 5
+    """
+    Reduces players stamina when going through tunnel
+    """
+    player_stamina = player_stamina - 15
     return player_stamina
 
 
@@ -1427,21 +1467,31 @@ def tunnel_puzzle(player_hp, player_stamina):
     """
     Tunnel puzzle, linked to jungle puzzle in room 6
     """
-    # add jump and duck statements
-    print("jump and duck")
-    trap = input("jump or duck?").lower().strip()
-    while trap != "jump" and trap != "duck":
-        print("You must choose to do something.")
-        trap = input("jump or duck?").lower().strip()
+    # is there a way to randomise?
+    print(
+        "You see a huge branch coming towards you.\n"
+        "What do you do?")
 
-    if trap == "jump":
+    trap = input("Jump or duck? (j/d)\n> ").lower().strip()
+    while trap != "j" and trap != "d":
+        print("\nInvalid choice, please select a valid option:")
+        print("'j' for 'jump' or 'd' for 'duck'.\n")
+        print(
+            "You see a huge branch coming towards you.\n"
+            "What do you do?")
+        trap = input("Jump or duck? (j/d)\n> ").lower().strip()
+
+    if trap == "j":
         player_stamina = tunnel_sp_loss(player_stamina)
-        print("you took some damage")
-        print(f"{player_hp}hp")
+        print("You jumped over the low swinging branch")
         print(f"{player_stamina}sp")
     else:
         player_hp = tunnel_hp_loss(player_hp)
-        print("you took some damage")
+        player_stamina = tunnel_sp_loss(player_stamina)
+        print(
+            "You tried to duck...\n"
+            "But it was a low swinging branch...\n"
+            "You took some damage from getting hit.\n")
         print(f"{player_hp}hp")
         print(f"{player_stamina}sp")
 
@@ -1457,6 +1507,7 @@ def master_boss():
     """
     Master boss fight for attack and damage stats
     """
+    print("master boss fight")
 
 
 def view_stats():
@@ -1468,7 +1519,7 @@ def view_stats():
         print("\nInvalid choice, please enter a valid choice:")
         print("'y' for 'yes or 'n' for 'no'.")
         stats = input("\nView your current stats? (y/n)\n> ").lower().strip()
- 
+
     if stats == "y":
         print(f"\nYour current stats:")
         print(f"{player_hp}hp")
@@ -1521,6 +1572,7 @@ def fairy():
             "'To access that room you need a special key'\n"
             "'In that room you can find some strong weapons'\n"
             "'There is also a special piece of armour'\n"
+            "'This will be needed to kill the dragon'\n"
             "'But you need a special stone to access it\n"
             "'The stone will also open a secret path'\n"
             "'That is all I can tell you.'\n")
@@ -1539,6 +1591,7 @@ def fairy():
             "You head back south to the room you just came from.\n")
         room_three_completed()
 
+
 # Player welcome screen
 clear()
 name = input("Type your name:\n> ").capitalize().strip()
@@ -1551,7 +1604,7 @@ starting_room()
 #     """
 #     Regeneration of stamina per turn
 #     """
-#     if statement? 
+#     if statement?
 
 # def player_health():
 #     """
@@ -1569,15 +1622,16 @@ starting_room()
 #     """
 
 
-# Things to fix:
-# Heading back to prev locked rooms to be opened
-# flow of commands 
-# clearing screen - auto do it or ask player?
-# formatting 
-# using item
-# boss attacks with random hits
+# Left to add:
+# boss attack random hits
 # player attack random hits
-# stamina regen
-# function for different ways when entering room
-# should i make seprate functions inside functions if it is too long?
-# if statement for boss defeated? append to a list? 
+# stamina regen per turn IF not at max
+# use potion before boss room IF not at max
+# story for boss attacks
+
+# Questions to ask:
+# should i make sperate functions if function too long?
+# if statement for boss defeated rather than different rooms?
+# randomise whether stone hits tatget?
+# is there a way to randomise jump/duck option?
+# how to keep health/stamina bar the changed values
