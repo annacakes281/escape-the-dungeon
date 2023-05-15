@@ -1111,8 +1111,8 @@ def secret_room():
     Secret Room:\n
     Requires secret key to enter\n
     Player can choose a master weapon\n
-    Player can take armour - requires stone
-    Tunnel to room 8 - requires armour to be taken?
+    Player can take armour - requires stone\n
+    Tunnel to room 8 - revealled when armour is taken
     """
     clear_terminal()
 
@@ -1131,6 +1131,7 @@ def secret_room():
         view_stats()
         view_items()
 
+        # Prompts players to choose a new weapon
         if "Master Sword" not in weapons and "Master Bow" not in weapons:
             print(
                 "You notice a table in the middle of the room.\n"
@@ -1159,11 +1160,12 @@ def secret_room():
                 print(f"Current inventory:{weapons}")
         else:
             print("You see an empty table.\n")
-        
+
         print(
             "You see some armour leaning against the wall in a case.\n"
             "There is some of slot in the wall next to it.\n"
             "It seems like you need to place an item into the slot.\n")
+
         # Prompt whether players take the armour - requires stone
         if "Stone" in inventory:
             print("You don't have the stone to unlock the armour.\n")
@@ -1237,17 +1239,67 @@ def secret_room():
 
 def boss_room():
     """
-    Boss room - Master boss, requires key, armour and master weapon
+    Master boss room:\n
+    Requires master key to enter\n
+    PLayer must defeat the boss to win and escape\n
     """
-    print("Remember you just need to type the first letter of the word.\n")
-    if "Master Key" not in required_items:
-        print("You need the key and a weapon to pass")
+    clear_terminal()
+
+    print("\nRemember you just need to type the first letter of the word.\n")
+
+    if "Master Key" not in keys:
+        print("The door is locked...try using the skeleton shaped key...\n")
         room_nine()
     else:
+        keys.remove("Master Key")
+        print("You use the key and open the door to the room\n")
+        
         current_room = "Boss Room"
-        print(f"Current room: {current_room}")
-        print("Time to fight the boss.")
-        master_boss()
+        print(f"Current room: {current_room}\n")
+
+        view_stats()
+        view_items()
+
+        print(
+            "You enter the room and the door shuts behind you.\n"
+            "You start feeling very hot..."
+            "You notice a huge dragon looking at you... it is ready to fight you!\n"
+            )
+
+        print("What do you do?")
+        fight = input("Do you fight? (y/n):\n> ").lower().strip()
+        while fight != "y" and fight != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.\n")
+            fight = input("Do you fight?:\n> ").lower().strip()
+
+        if fight == "y":
+            if "Armour" not in inventory:
+                print("You don't have the armour on...\n")
+                chance = input("Will you fight? (y/n)\n> ").lower().strip()
+                while chance != 'y' and chance != 'n':
+                    print("\nInvalid choice, please select a valid option:")
+                    print("'y' for 'yes' or 'n' for 'no'.\n")
+                    input("Will you fight? (y/n)\n> ").lower().strip()
+                
+                if chance == "y":
+                    print("If you're sure then...\n")
+                    master_boss()  # code and format
+                else:
+                    print(
+                        "Good choice...\n"
+                        "However it's too late now...\n"
+                        "Should have picked it up when you had the chance.\n"
+                        "The dragon eats you...\n"
+                        "No one is surviving that...\n")
+                    quit()
+        else:
+            print(
+                "You decided to try and flee the dragon\n"
+                "...but as soon as you turned to open the door,\n"
+                "The dragon eats you...\n"
+                "No one is surviving that...\n")
+            quit()
 
 
 def disarm_sp_loss(player_stamina):
