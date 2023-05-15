@@ -18,6 +18,16 @@ def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 
+def clear_terminal():
+    """
+    Prompts players whether they want to cleat terminal
+    """
+    print("\nType 'y' to clear the terminal:")
+    clear_term = input("Clear the terminal?\n> ").lower().strip()
+    if clear_term == "y":
+        clear()
+
+
 def rules():
     """
     Rules for the game that will appear at the start so players know the goal
@@ -95,9 +105,9 @@ def room_one():
     Player chooses weapon (if not in inventory)\n
     Player has 2 choices to escape trap
     """
-    clear()
+    clear_terminal()
 
-    print("Remember you just need to type the first letter of the word.\n")
+    print("\nRemember you just need to type the first letter of the word.\n")
 
     current_room = "Room One"
     print(f"Current room: {current_room}\n")
@@ -122,7 +132,9 @@ def room_one():
             print("\nYou picked up the key and added it to your bag.")
             print(f"Current key inventory:{keys}\n")
         else:
-            print("\nYou decided to leave the key on the pedestal.\n")
+            print(
+                "\nYou decided to leave the key on the pedestal..."
+                "I hope it wasn't important...\n")
     else:
         print("You see an empty pedestal.\n")
     
@@ -209,9 +221,9 @@ def room_two():
     Player choices to either swim across lake or jump across pedestals\n
     Player can choose to pick up health potion\n
     """
-    clear()
+    clear_terminal()
 
-    print("Remember you just need to type the first letter of the word.\n")
+    print("\nRemember you just need to type the first letter of the word.\n")
 
     current_room = "Room Two"
     print(f"Current room: {current_room}\n")
@@ -220,16 +232,15 @@ def room_two():
     view_items()
 
     print(
-        "You enter the room to the South and come to a river.\n"
+        "You enter the room to the south and come to a river.\n"
         "You can either swim through the river, it looks safe...enough.\n"
         "Or you can jump across the pillars sticking out the river,\n"
         "although they look a bit unsafe.\n")
 
+    # Players must choose to swim or jump for this puzzle
     print(
         "Do you swim across the river, or"
         "take your chances and jump across the pillars?\n")
-
-    # Players must choose to swim or jump for this puzzle
     trap = input("Swim or jump? (s/j)\n> ").lower().strip()
     while trap != "s" and trap != "j":
         print("\nInvalid choice, please select a valid option:")
@@ -271,7 +282,7 @@ def room_two():
 
     print(
         "After crossing the river you can see a path ahead.\n"
-        "You can either follow the path East or go back North.\n"
+        "You can either follow the path east or go back north.\n"
         )
 
     # Prompts player which direction they want to go
@@ -309,9 +320,9 @@ def room_two_west():
     Player choices to either swim across lake or jump across pedestals\n
     Player can choose to pick up health potion\n
     """
-    clear()
+    clear_terminal()
 
-    print("Remember you just need to type the first letter of the word.\n")
+    print("\nRemember you just need to type the first letter of the word.\n")
 
     current_room = "Room Two"
     print(f"Current room: {current_room}\n")
@@ -320,7 +331,7 @@ def room_two_west():
     view_items()
 
     print(
-        "You head back West.\n"
+        "You head back west.\n"
         "Looks like you have to cross the river...again.\n"
         "Will you jump or swim across?\n")
 
@@ -377,9 +388,9 @@ def room_three():
     Player requires the key to enter this room\n
     Player can decide to fight the mini boss\n
     """
-    clear()
+    clear_terminal()
 
-    print("Remember you just need to type the first letter of the word.\n")
+    print("\nRemember you just need to type the first letter of the word.\n")
 
     if "Key 1" not in keys:
         print("The door is locked and you need a key to open it.\n")
@@ -422,7 +433,7 @@ def room_three():
             print("\nInvalid move, please enter a valid move:")
             print("'n' for 'n', 'e' for 'east' or 'w' for 'west'.\n")
             direction = input("Which way do you go?:\n> ").lower().strip()
-     
+  
         if direction == "n":
             room_four()
         elif direction == "e":
@@ -437,7 +448,9 @@ def room_three_completed():
     Player enters this room when boss has already been defeated
     """
 
-    print("Remember you just need to type the first letter of the word.\n")
+    clear_terminal()
+
+    print("\nRemember you just need to type the first letter of the word.\n")
 
     current_room = "Room Three"
     print(f"Current room: {current_room}")
@@ -456,7 +469,7 @@ def room_three_completed():
         print("\nInvalid move, please enter a valid move:")
         print("'n' for 'n', 'e' for 'east' or 'w' for 'west'.\n")
         direction = input("Which way do you go?:\n> ").lower().strip()
-   
+ 
     if direction == "n":
         room_four()
     elif direction == "e":
@@ -471,10 +484,10 @@ def room_four():
     Player can choose to collect key (if not in inventory)\n
     Player can choose to speak to NPC
     """
-    clear()
+    clear_terminal()
 
-    print("Remember you just need to type the first letter of the word.\n")
-  
+    print("\nRemember you just need to type the first letter of the word.\n")
+
     current_room = "Room four"
     print(f"Current room: {current_room}\n")
 
@@ -496,7 +509,9 @@ def room_four():
             print("\nYou picked up the key and added it to your bag.")
             print(f"Current key inventory:{keys}\n")
         else:
-            print("\nYou decided to leave the key on the pedestal.\n")
+            print(
+                "\nYou decided to leave the key on the pedestal..."
+                "I hope it wasn't important...\n")
     else:
         print("You see an empty pedestal.\n")
 
@@ -527,9 +542,9 @@ def room_five():
     An empty room where the player just has to choose a direction to go
     """
 
-    clear()
+    clear_terminal()
 
-    print("Remember you just need to type the first letter of the word.\n")
+    print("\nRemember you just need to type the first letter of the word.\n")
 
     current_room = "Room Five"
     print(f"Current room: {current_room}")
@@ -554,6 +569,38 @@ def room_five():
         starting_room()
 
 
+def room_five_south():
+    """
+    Room five:\n
+    An empty room where the player just has to choose a direction to go
+    """
+    clear_terminal()
+
+    print("\nRemember you just need to type the first letter of the word.\n")
+
+    current_room = "Room Five"
+    print(f"Current room: {current_room}")
+
+    view_stats()
+    view_items()
+
+    print(
+        "You head south and enter an empty room that smells musty.\n"
+        "There are only 2 ways to go, north or west.\n")
+    
+    # Prompts user to choose a direction to go
+    direction = input("Which way do you go? (n/w)\n> ").lower().strip()
+    while direction != "n" and direction != "w":
+        print("\nInvalid move, please enter a valid move:")
+        print("'n' for 'north' or 'w' for 'west'.\n")
+        direction = input("Which way do you go?:\n> ").lower().strip()
+
+    if direction == "n":
+        room_six()
+    else:
+        starting_room()
+
+
 def room_six():
     """
     Room six:\n
@@ -561,38 +608,62 @@ def room_six():
     or player can go through the tunnel\n
     Player has option to pick up a potion if not in inventory
     """
-    clear()
+    clear_terminal()
 
-    print("Remember you just need to type the first letter of the word.\n")
+    print("\nRemember you just need to type the first letter of the word.\n")
 
     current_room = "Room Six"
     print(f"Current room: {current_room}")
-    
-    print("Jungle puzzle")
-    
-    trap = input("go through or way around?").lower().strip()
-    while trap != "through" and trap != "around":
-        print("You must choose to do something.")
-        trap = input("go through or way around?").lower().strip()
 
-    if trap == "through":
-        jungle_puzzle(player_stamina)
+    view_stats()
+    view_items()
+
+    print(
+        "You enter the room to the north.\n"
+        "You see 2 possible paths ahead of you.\n"
+        "Either through the thick vines \n"
+        "or through a small tunnel.\n")
+  
+    # Player must choose which way to go, the vines require the sword
+    print("Which route do you take?\n")
+    trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
+    while trap != "v" and trap != "t":
+        print("\nInvalid choice, please select a valid option:")
+        print("'v' for 'vines' or 't' for 'tunnel'.\n")
+        trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
+
+    if trap == "v":
+        jungle_puzzle(player_stamina)  # need to format
     else:
-        tunnel_puzzle(player_hp, player_stamina)
+        tunnel_puzzle(player_hp, player_stamina)  # need to format
 
+    # Prompts player to take potion of not in inventory
     if "Potion 2" not in inventory:
-        take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
-        while take_item != "yes" and take_item != "no":
-            take_item = input("You see a potion, do you take it? (yes/no)").lower().strip()
+        print(
+            "\nYou look around and see something on the ground.\n"
+            "You take a closer look and see it is a potion...\n"
+            "it could be useful.\n")
 
-        if take_item == "yes":
+        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+        while take_item != "y" and take_item != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.\n")
+            print("You see a potion on the ground, it could be useful...")
+            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+
+        if take_item == "y":
             inventory.append("Potion 2")
-            print(f"Current inventory:{inventory}")
+            print(
+                "\nYou take the potion and read the label.\n"
+                "It reads: 'Health Potion'.\n"
+                "Lucky you!\n")
+            print(f"Current inventory:{inventory}\n")
         else:
-            print("You left the potion")
+            print(
+                "You decided to leave the potion..."
+                "I hope it wasn't important.\n")
     else:
-        print("you have the potion")
-        print(f"Current inventory:{inventory}")
+        print("\nYou look around see nothing on the ground.\n")
 
     print("You can only go East or South.")
 
@@ -604,7 +675,7 @@ def room_six():
     if direction == "east":
         room_seven()
     else:
-        room_five()
+        room_five_south()
 
 
 def room_seven():
@@ -1086,7 +1157,6 @@ def fairy():
             "The only path you can take is south.\n"
             "You head back south to the room you just came from.\n")
         room_three_completed()
-
 
 # Player welcome screen
 clear()
