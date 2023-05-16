@@ -2,8 +2,13 @@ import random
 import os
 
 # Player health and stamina - fix so that it changes with damage and potion
-player_hp = 150
+max_hp = 150
+player_hp = 125
+max_stamina = 50
 player_stamina = 50
+
+# Armour hp - this can decrease with damage 
+armour_hp = 100
 
 # List to keep track on inventory items
 inventory = []
@@ -253,7 +258,7 @@ def room_two():
         hop(player_hp, player_stamina)  # need to format
 
     # Prompts player to take potion of not in inventory
-    if "Potion 1" not in inventory:
+    if "Potion" not in inventory:
         print(
             "\nYou look around and see something on the ground.\n"
             "You take a closer look and see it is a potion...\n"
@@ -267,7 +272,7 @@ def room_two():
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
         if take_item == "y":
-            inventory.append("Potion 1")
+            inventory.append("Potion")
             print(
                 "\nYou take the potion and read the label.\n"
                 "It reads: 'Health Potion'.\n"
@@ -348,7 +353,7 @@ def room_two_west():
         hop(player_hp, player_stamina)  # need to format
 
     # Player can choose to take potion if not in inventory
-    if "Potion 1" not in inventory:
+    if "Potion" not in inventory:
         print(
             "\nYou look around and see something on the ground.\n"
             "You take a closer look and see it is a potion...\n"
@@ -362,7 +367,7 @@ def room_two_west():
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
         if take_item == "y":
-            inventory.append("Potion 1")
+            inventory.append("Potion")
             print(
                 "\nYou take the potion and read the label.\n"
                 "It reads: 'Health Potion'.\n"
@@ -637,7 +642,7 @@ def room_six():
         tunnel_puzzle(player_hp, player_stamina)  # need to format
 
     # Prompts player to take potion of not in inventory
-    if "Potion 2" not in inventory:
+    if "Potion" not in inventory:
         print(
             "\nYou look around and see something on the ground.\n"
             "You take a closer look and see it is a potion...\n"
@@ -651,7 +656,7 @@ def room_six():
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
         if take_item == "y":
-            inventory.append("Potion 2")
+            inventory.append("Potion")
             print(
                 "\nYou take the potion and read the label.\n"
                 "It reads: 'Health Potion'.\n"
@@ -716,7 +721,7 @@ def room_six_west():
     print("You enter the room to the west.\n")
 
     # Prompts player to take potion of not in inventory
-    if "Potion 2" not in inventory:
+    if "Potion" not in inventory:
         print(
             "\nYou look around and see something on the ground.\n"
             "You take a closer look and see it is a potion...\n"
@@ -730,7 +735,7 @@ def room_six_west():
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
         if take_item == "y":
-            inventory.append("Potion 2")
+            inventory.append("Potion")
             print(
                 "\nYou take the potion and read the label.\n"
                 "It reads: 'Health Potion'.\n"
@@ -1060,7 +1065,7 @@ def room_nine():
         print("You see an empty pedestal.\n")
 
     # Player prompted to take potion if not in inventory
-    if "Potion 3" not in inventory:
+    if "Potion" not in inventory:
         print(
             "\nYou look around and see something on the ground.\n"
             "You take a closer look and see it is a potion...\n"
@@ -1074,7 +1079,7 @@ def room_nine():
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
         if take_item == "y":
-            inventory.append("Potion 3")
+            inventory.append("Potion")
             print(
                 "\nYou take the potion and read the label.\n"
                 "It reads: 'Health Potion'.\n"
@@ -1349,8 +1354,9 @@ def jump(player_hp, player_stamina):
     print(
         "You successfully jumped through the fire trap.\n"
         "However you did take significant damage.\n")
-    print(f"{player_hp}hp")
-    print(f"{player_stamina}sp\n")
+    player_health()
+    # print(f"{player_hp}hp")
+    # print(f"{player_stamina}sp\n")
 
 
 def swim_hp_loss(player_hp):
@@ -1592,6 +1598,40 @@ def fairy():
         room_three_completed()
 
 
+def player_health():
+    """
+    Players health display - TEST
+    """
+    hp_lost = max_hp - player_hp
+    hp_left = hp_lost - player_hp
+    print(f"{hp_left}hp")
+
+
+def use_potion(player_hp):
+    """
+    Using potion to restore health
+    """
+    if "Potion" not in inventory:
+        print("You don't have any health potions to use...\n")
+    else:
+        print("You have health potions in your inventory.\n")
+        print(f"Inventory:{inventory}\n")
+        use_potion = input("Use a potion? (y/n)\n> ").lower().strip()
+        while use_potion != "y" and use_potion != "n":
+            print("\nInvalid choice, please enter a valid choice:")
+            print("'y' for 'yes or 'n' for 'no'.\n")
+            input("Use a potion? (y/n)\n> ").lower().strip()
+
+            if use_potion == "y":
+                inventory.remove("Potion")
+                print(
+                    "You drink the health potion and your"
+                    "health is restored to the max.\n")
+                # player_hp = player_hp + 50
+            else:
+                print("You decide not to drink a health potion.\n")
+
+
 # Player welcome screen
 clear()
 name = input("Type your name:\n> ").capitalize().strip()
@@ -1606,15 +1646,6 @@ starting_room()
 #     """
 #     if statement?
 
-# def player_health():
-#     """
-#     Players health damage
-#     """
-
-# def use_item():
-#     """
-#     Using an item
-#     """
 
 # def player_attack():
 #     """
@@ -1628,6 +1659,7 @@ starting_room()
 # stamina regen per turn IF not at max
 # use potion before boss room IF not at max
 # story for boss attacks
+# rather than quit when die, play again statement that takes to game start
 
 # Questions to ask:
 # should i make sperate functions if function too long?
