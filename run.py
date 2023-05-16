@@ -1,17 +1,16 @@
 import random
 import os
 
-# Player health and stamina - fix so that it changes with damage and potion
-max_hp = 150
-player_hp = 125
-max_stamina = 50
-player_stamina = 50
+# Player health and stamina - need potion to restore health
+MAX_HP = 150
+PLAYER_HP = 145
+PLAYER_STAMINA = 50  # this restores on its own
 
-# Armour hp - this can decrease with damage 
+# Armour hp - this can decrease with damage
 armour_hp = 100
 
 # List to keep track on inventory items
-inventory = []
+inventory = ["Potion"]
 weapons = []
 keys = []
 
@@ -31,6 +30,7 @@ def clear_terminal():
     clear_term = input("Clear the terminal?\n> ").lower().strip()
     if clear_term == "y":
         clear()
+    # add an else
 
 
 def rules():
@@ -79,6 +79,8 @@ def starting_room():
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
 
+    use_potion(PLAYER_HP)
+
     view_stats()
     view_items()
 
@@ -110,7 +112,9 @@ def room_one():
     Player chooses weapon (if not in inventory)\n
     Player has 2 choices to escape trap
     """
+    # global PLAYER_HP
     clear_terminal()
+    # global hp global stamina
 
     print("\nRemember you just need to type the first letter of the word.\n")
 
@@ -121,6 +125,7 @@ def room_one():
     view_items()
 
     print("You enter the room to the north.\n")
+
 
     # Prompts user to collect key, if not in inventory
     if "Key 1" not in keys:
@@ -182,9 +187,9 @@ def room_one():
                 trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
 
             if trap == "d":
-                disarm(player_stamina)  # format text
+                disarm(PLAYER_STAMINA)  # format text
             else:
-                jump(player_hp, player_stamina)  # format text
+                jump(PLAYER_HP, PLAYER_STAMINA)  # format text
         else:
             print("\nYou choose the bow and attached it to your back.\n")
             weapons.append("Bow")
@@ -208,9 +213,9 @@ def room_one():
                 trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
 
             if trap == "d":
-                disarm(player_stamina)  # format text
+                disarm(PLAYER_STAMINA)  # format text
             else:
-                jump(player_hp, player_stamina)  # format text
+                jump(PLAYER_HP, PLAYER_STAMINA)  # format text
 
     else:
         print("You see an empty table.\n")
@@ -253,9 +258,9 @@ def room_two():
         trap = input("Swim or jump? (s/j)\n> ").lower().strip()
 
     if trap == "s":
-        swim(player_hp, player_stamina)  # need to format
+        swim(PLAYER_HP, PLAYER_STAMINA)  # need to format
     else:
-        hop(player_hp, player_stamina)  # need to format
+        hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
     # Prompts player to take potion of not in inventory
     if "Potion" not in inventory:
@@ -309,10 +314,10 @@ def room_two():
             trap = input("Swim or jump? (s/j)\n> ").lower().strip()
 
         if trap == "s":
-            swim(player_hp, player_stamina)  # need to format
+            swim(PLAYER_HP, PLAYER_STAMINA)  # need to format
             starting_room()
         else:
-            hop(player_hp, player_stamina)  # need to format
+            hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
             starting_room()
     else:
         room_three()
@@ -348,9 +353,9 @@ def room_two_west():
         trap = input("Swim or jump? (s/j)\n> ").lower().strip()
 
     if trap == "s":
-        swim(player_hp, player_stamina)  # need to format
+        swim(PLAYER_HP, PLAYER_STAMINA)  # need to format
     else:
-        hop(player_hp, player_stamina)  # need to format
+        hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
     # Player can choose to take potion if not in inventory
     if "Potion" not in inventory:
@@ -637,9 +642,9 @@ def room_six():
         trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
     if trap == "v":
-        jungle_puzzle(player_stamina)  # need to format
+        jungle_puzzle(PLAYER_STAMINA)  # need to format
     else:
-        tunnel_puzzle(player_hp, player_stamina)  # need to format
+        tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
     # Prompts player to take potion of not in inventory
     if "Potion" not in inventory:
@@ -694,9 +699,9 @@ def room_six():
             trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
         if trap == "v":
-            jungle_puzzle(player_stamina)  # need to format
+            jungle_puzzle(PLAYER_STAMINA)  # need to format
         else:
-            tunnel_puzzle(player_hp, player_stamina)  # need to format
+            tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
             room_five_south()
 
 
@@ -762,9 +767,9 @@ def room_six_west():
         trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
     if trap == "v":
-        jungle_puzzle(player_stamina)  # need to format
+        jungle_puzzle(PLAYER_STAMINA)  # need to format
     else:
-        tunnel_puzzle(player_hp, player_stamina)  # need to format
+        tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
     print("You look around and see a path ahead, or you can turn back.\n")
 
@@ -791,9 +796,9 @@ def room_six_west():
             trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
         if trap == "v":
-            jungle_puzzle(player_stamina)  # need to format
+            jungle_puzzle(PLAYER_STAMINA)  # need to format
         else:
-            tunnel_puzzle(player_hp, player_stamina)  # need to format
+            tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
             room_seven()
 
 
@@ -1307,135 +1312,143 @@ def boss_room():
             quit()
 
 
-def disarm_sp_loss(player_stamina):
+def disarm_sp_loss(PLAYER_STAMINA):
     """
     Reduces players stamina when disarming the trap
     """
-    player_stamina = player_stamina - 5
-    return player_stamina
+    PLAYER_STAMINA = PLAYER_STAMINA - 5
+    return PLAYER_STAMINA
 
 
-def disarm(player_stamina):
+def disarm(PLAYER_STAMINA):
     """
     Disarm fire trap with stone
     """
-    # add random function for using stone whether they hit or miss trap?
-    player_stamina = disarm_sp_loss(player_stamina)
+    PLAYER_STAMINA = disarm_sp_loss(PLAYER_STAMINA)
     print(
         "You see some stones on the ground and pick one up.\n"
         "You throw the stone at the target above the door.\n"
         "This action did take some of your stamnia.\n")
     # if not doing random do a statement saying successful
-    print(f"{player_stamina}sp\n")
+    print(f"{PLAYER_STAMINA}sp\n")
 
 
-def jump_hp_loss(player_hp):
+def jump_hp_loss():
     """
     Reduces players health when jumping through the trap
     """
-    player_hp = player_hp - 100
-    return player_hp
+    global PLAYER_HP
+    PLAYER_HP = PLAYER_HP - 100
+    return PLAYER_HP
 
 
-def jump_sp_loss(player_stamina):
+def jump_sp_loss(PLAYER_STAMINA):
     """
     Reduces players stamina when jumping through the trap
     """
-    player_stamina = player_stamina - 50
-    return player_stamina
+    PLAYER_STAMINA = PLAYER_STAMINA - 50
+    return PLAYER_STAMINA
 
 
-def jump(player_hp, player_stamina):
+def jump(PLAYER_HP, PLAYER_STAMINA):
     """
     Jump through fire trap
     """
-    player_hp = jump_hp_loss(player_hp)
-    player_stamina = jump_sp_loss(player_stamina)
+    PLAYER_HP = jump_hp_loss()
+    PLAYER_STAMINA = jump_sp_loss(PLAYER_STAMINA)
     print(
         "You successfully jumped through the fire trap.\n"
         "However you did take significant damage.\n")
-    player_health()
-    # print(f"{player_hp}hp")
-    # print(f"{player_stamina}sp\n")
+    print(f"{PLAYER_HP}hp")
+    print(f"{PLAYER_STAMINA}sp\n")
 
 
-def swim_hp_loss(player_hp):
+def swim_hp_loss():
     """
     Reduces players health when swimming through river
     """
-    player_hp = player_hp - 50
-    return player_hp
+    global PLAYER_HP
+    PLAYER_HP = PLAYER_HP - 25
+    return PLAYER_HP
 
 
-def swim_sp_loss(player_stamina):
+def swim_sp_loss(PLAYER_STAMINA):
     """
     Reduces players stamina when disarming the trap
     """
-    player_stamina = player_stamina - 30
-    return player_stamina
+    PLAYER_STAMINA = PLAYER_STAMINA - 30
+    return PLAYER_STAMINA
 
 
-def swim(player_hp, player_stamina):
+def swim(PLAYER_HP, PLAYER_STAMINA):
     """
     Swim through river
     """
-    player_hp = swim_hp_loss(player_hp)
-    player_stamina = swim_sp_loss(player_stamina)
+    PLAYER_HP = swim_hp_loss()
+    PLAYER_STAMINA = swim_sp_loss(PLAYER_STAMINA)
     print(
         "You succssfully swam through the river.\n"
         "You did feel something biting at you the whole time.\n"
         "You also took some damage.\n"
         )
-    print(f"{player_hp}hp")
-    print(f"{player_stamina}sp\n")
+    print(f"{PLAYER_HP}hp")
+    print(f"{PLAYER_STAMINA}sp\n")
 
 
-def hop_hp_loss(player_hp):
+def hop_hp_loss():
     """
     Reduces players health when jumping on pillars
     """
-    player_hp = player_hp - 5
-    return player_hp
+    global PLAYER_HP
+    PLAYER_HP = PLAYER_HP - 5
+    return PLAYER_HP
 
 
-def hop_sp_loss(player_stamina):
+def hop_sp_loss(PLAYER_STAMINA):
     """
     Reduces players stamina when jumping on pillars
     """
-    player_stamina = player_stamina - 10
-    return player_stamina
+    PLAYER_STAMINA = PLAYER_STAMINA - 10
+    return PLAYER_STAMINA
 
 
-def hop(player_hp, player_stamina):
+def hop(PLAYER_HP, PLAYER_STAMINA):
     """
     Hop across pillars in river
     """
-    player_hp = hop_hp_loss(player_hp)
-    player_stamina = hop_sp_loss(player_stamina)
+    PLAYER_HP = hop_hp_loss()
+    PLAYER_STAMINA = hop_sp_loss(PLAYER_STAMINA)
     print(
         "You succssfully hopped across the river.\n"
         "You however took minimal damage.\n"
         )
-    print(f"{player_hp}hp")
-    print(f"{player_stamina}sp\n")
+    print(f"{PLAYER_HP}hp")
+    print(f"{PLAYER_STAMINA}sp\n")
 
 
 def mini_boss_imp():
     """
     Mini boss fight for attack and damage stats
     """
+    # combat function - hit each time
+    # damage stats for weapons
+    # while loop until hp loss
+    # choice to attack/def, attack/run
+    # break loop if boss/player hp low, or player flee
+    # use randrange for dmg - all within while true loop
+    # seperate function for weapon dmg
     print("mini boss fight")
 
 
-def jungle_sp_loss(player_stamina):
+def jungle_sp_loss(PLAYER_STAMINA):
     """
     Reduces players stamnia when going through jungle
     """
-    player_stamina = player_stamina - 25
-    return player_stamina
+    PLAYER_STAMINA = PLAYER_STAMINA - 25
+    return PLAYER_STAMINA
 
 
-def jungle_puzzle(player_stamina):
+def jungle_puzzle(PLAYER_STAMINA):
     """
     Jungle puzzle in room 6
     """
@@ -1443,37 +1456,37 @@ def jungle_puzzle(player_stamina):
         print(
             "The vines are too thick to get through...\n"
             "It looks like you have to use the tunnel.\n")
-        tunnel_puzzle(player_hp, player_stamina)
+        tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)
     else:
-        player_stamina = jungle_sp_loss(player_stamina)
+        PLAYER_STAMINA = jungle_sp_loss(PLAYER_STAMINA)
         print(
             "You successfully made your way through the vines.\n"
             "Chopping them as you make your way through...\n"
             "but they grow back as you pass.\n")
-        print(f"{player_stamina}sp\n")
+        print(f"{PLAYER_STAMINA}sp\n")
 
 
-def tunnel_hp_loss(player_hp):
+def tunnel_hp_loss():
     """
     Reduces players health when going through tunnel
     """
-    player_hp = player_hp - 50
-    return player_hp
+    global PLAYER_HP
+    PLAYER_HP = PLAYER_HP - 30
+    return PLAYER_HP
 
 
-def tunnel_sp_loss(player_stamina):
+def tunnel_sp_loss(PLAYER_STAMINA):
     """
     Reduces players stamina when going through tunnel
     """
-    player_stamina = player_stamina - 15
-    return player_stamina
+    PLAYER_STAMINA = PLAYER_STAMINA - 15
+    return PLAYER_STAMINA
 
 
-def tunnel_puzzle(player_hp, player_stamina):
+def tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA):
     """
     Tunnel puzzle, linked to jungle puzzle in room 6
     """
-    # is there a way to randomise?
     print(
         "You see a huge branch coming towards you.\n"
         "What do you do?")
@@ -1488,18 +1501,18 @@ def tunnel_puzzle(player_hp, player_stamina):
         trap = input("Jump or duck? (j/d)\n> ").lower().strip()
 
     if trap == "j":
-        player_stamina = tunnel_sp_loss(player_stamina)
+        PLAYER_STAMINA = tunnel_sp_loss(PLAYER_STAMINA)
         print("You jumped over the low swinging branch")
-        print(f"{player_stamina}sp")
+        print(f"{PLAYER_STAMINA}sp")
     else:
-        player_hp = tunnel_hp_loss(player_hp)
-        player_stamina = tunnel_sp_loss(player_stamina)
+        PLAYER_HP = tunnel_hp_loss()
+        PLAYER_STAMINA = tunnel_sp_loss(PLAYER_STAMINA)
         print(
             "You tried to duck...\n"
             "But it was a low swinging branch...\n"
             "You took some damage from getting hit.\n")
-        print(f"{player_hp}hp")
-        print(f"{player_stamina}sp")
+        print(f"{PLAYER_HP}hp")
+        print(f"{PLAYER_STAMINA}sp")
 
 
 def mini_boss_orc():
@@ -1528,8 +1541,8 @@ def view_stats():
 
     if stats == "y":
         print(f"\nYour current stats:")
-        print(f"{player_hp}hp")
-        print(f"{player_stamina}sp\n")
+        print(f"{PLAYER_HP}hp")
+        print(f"{PLAYER_STAMINA}sp\n")
     else:
         print("\nYou decided not to view your current stats.\n")
 
@@ -1598,16 +1611,8 @@ def fairy():
         room_three_completed()
 
 
-def player_health():
-    """
-    Players health display - TEST
-    """
-    hp_lost = max_hp - player_hp
-    hp_left = hp_lost - player_hp
-    print(f"{hp_left}hp")
 
-
-def use_potion(player_hp):
+def use_potion(PLAYER_HP):
     """
     Using potion to restore health
     """
@@ -1622,14 +1627,19 @@ def use_potion(player_hp):
             print("'y' for 'yes or 'n' for 'no'.\n")
             input("Use a potion? (y/n)\n> ").lower().strip()
 
-            if use_potion == "y":
-                inventory.remove("Potion")
-                print(
-                    "You drink the health potion and your"
-                    "health is restored to the max.\n")
-                # player_hp = player_hp + 50
+        if use_potion == "y":
+            if PLAYER_HP == MAX_HP:
+                print("Your health is full...\n")
             else:
-                print("You decide not to drink a health potion.\n")
+                inventory.remove("Potion")
+            print(
+                "You drink the health potion and your "
+                "health is restored to the max.\n")
+            if PLAYER_HP != MAX_HP:
+                PLAYER_HP += 100
+                print(f"{PLAYER_HP}")
+        else:
+            print("You decide not to drink a health potion.\n")
 
 
 # Player welcome screen
@@ -1644,7 +1654,7 @@ starting_room()
 #     """
 #     Regeneration of stamina per turn
 #     """
-#     if statement?
+#     if statement? - simialr to hp restore
 
 
 # def player_attack():
@@ -1660,6 +1670,7 @@ starting_room()
 # use potion before boss room IF not at max
 # story for boss attacks
 # rather than quit when die, play again statement that takes to game start
+# refactor hp/sp loss once everything working
 
 # Questions to ask:
 # should i make sperate functions if function too long?
