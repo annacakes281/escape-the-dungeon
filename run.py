@@ -30,7 +30,8 @@ def clear_terminal():
     clear_term = input("Clear the terminal?\n> ").lower().strip()
     if clear_term == "y":
         clear()
-    # add an else
+    else:
+        print("Terminal not cleared.\n\n")
 
 
 def rules():
@@ -79,7 +80,7 @@ def starting_room():
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
 
-    use_potion(PLAYER_HP)
+    use_potion(PLAYER_HP)  # TEST
 
     view_stats()
     view_items()
@@ -112,9 +113,7 @@ def room_one():
     Player chooses weapon (if not in inventory)\n
     Player has 2 choices to escape trap
     """
-    # global PLAYER_HP
     clear_terminal()
-    # global hp global stamina
 
     print("\nRemember you just need to type the first letter of the word.\n")
 
@@ -125,7 +124,6 @@ def room_one():
     view_items()
 
     print("You enter the room to the north.\n")
-
 
     # Prompts user to collect key, if not in inventory
     if "Key 1" not in keys:
@@ -1124,16 +1122,16 @@ def secret_room():
     Player can take armour - requires stone\n
     Tunnel to room 8 - revealled when armour is taken
     """
-    clear_terminal()
-
-    print("\nRemember you just need to type the first letter of the word.\n")
-
     if "Secret Key" not in keys:
         print("The door is locked and you need a key to open it.\n")
         room_three_completed()
     else:
         keys.remove("Secret Key")
         print("You use the key and open the door to the room\n")
+
+        clear_terminal()
+
+        print("\nRemember you just need to type the first letter of the word.\n")
 
         current_room = "Secret Room"
         print(f"Current room: {current_room}\n")
@@ -1426,6 +1424,14 @@ def hop(PLAYER_HP, PLAYER_STAMINA):
     print(f"{PLAYER_STAMINA}sp\n")
 
 
+def imp_attack():
+    # TEST
+    global PLAYER_HP
+    # imp_hp = 50
+    imp_att = 15
+    PLAYER_HP = PLAYER_HP - imp_attack
+
+
 def mini_boss_imp():
     """
     Mini boss fight for attack and damage stats
@@ -1438,6 +1444,46 @@ def mini_boss_imp():
     # use randrange for dmg - all within while true loop
     # seperate function for weapon dmg
     print("mini boss fight")
+    attack = input("Attack or defend?\n >").lower().strip()
+    while attack != "a" and attack != "d":
+        print("\nInvalid move, please enter a valid move:")
+        print("'a' for 'attack' or 'd' for 'defend'.\n")
+        direction = input("Attack for defend?:\n> ").lower().strip()
+
+    if attack == "a":
+        imp_attack()
+        if PLAYER_HP != 0:
+            imp_attack()
+            print(f"{PLAYER_HP}")
+        else:
+            print("you died")
+
+    # if attack == "a":
+    #     health = PLAYER_HP
+    #     while health != 0:
+    #         imp_attack()
+    #         print(f"{PLAYER_HP}")
+    #     if health == 0:
+    #         print("You died")
+    #     else:
+    #         imp_attack()
+    #         print(f"{PLAYER_HP}")
+            
+
+  
+
+    direction = input("Which way do you go?:\n> ").lower().strip()
+    while direction != "n" and direction != "s" and direction != "e":
+        print("\nInvalid move, please enter a valid move:")
+        print("'n' for 'north, 's' for 'south' or 'e' for 'east'.\n")
+        direction = input("Which way do you go?:\n> ").lower().strip()
+
+    if direction == "n":
+        room_one()
+    elif direction == "s":
+        room_two()
+    else:
+        room_five()
 
 
 def jungle_sp_loss(PLAYER_STAMINA):
@@ -1611,10 +1657,9 @@ def fairy():
         room_three_completed()
 
 
-
 def use_potion(PLAYER_HP):
     """
-    Using potion to restore health
+    Using potion to restore health - TO FIX, if cant fix then remove potions...
     """
     if "Potion" not in inventory:
         print("You don't have any health potions to use...\n")
