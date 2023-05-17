@@ -3,8 +3,7 @@ import os
 
 # Player health and stamina - need potion to restore health
 MAX_HP = 150
-MIN_HP = 0
-PLAYER_HP = 150
+PLAYER_HP = 50
 PLAYER_HP_ARMOUR = 275
 PLAYER_STAMINA = 50  # this restores on its own
 
@@ -13,17 +12,19 @@ IMP_HP = 50
 ORC_HP = 100
 DRAGON_HP = 250
 
+# Universal minimum health
+MIN_HP = 0
 
 # List to keep track on inventory items
-inventory = ["Armour"]
-weapons = ["Bow"]
-keys = ["Secret Key"]
+inventory = []
+weapons = []
+keys = []
 
 # List for current boss
 current_boss = []
 
 # List for completed rooms
-completed_rooms = ["Room Three", "Armour Unlocked"]
+completed_rooms = []
 
 
 def clear():
@@ -90,8 +91,6 @@ def starting_room():
     """
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
-
-    secret_room()
 
     view_stats()
     view_items()
@@ -1462,11 +1461,17 @@ def jump(PLAYER_HP, PLAYER_STAMINA):
     """
     PLAYER_HP = jump_hp_loss()
     PLAYER_STAMINA = jump_sp_loss(PLAYER_STAMINA)
-    print(
-        "You successfully jumped through the fire trap.\n"
-        "However you did take significant damage.\n")
-    print(f"{PLAYER_HP}hp")
-    print(f"{PLAYER_STAMINA}sp\n")
+    if PLAYER_HP < MIN_HP:
+        print(
+            "Your HP hit 0...\n"
+            "You lost...")
+        quit()
+    else:
+        print(
+            "You successfully jumped through the fire trap.\n"
+            "However you did take significant damage.\n")
+        print(f"{PLAYER_HP}hp")
+        print(f"{PLAYER_STAMINA}sp\n")
 
 
 def swim_hp_loss():
@@ -1492,13 +1497,19 @@ def swim(PLAYER_HP, PLAYER_STAMINA):
     """
     PLAYER_HP = swim_hp_loss()
     PLAYER_STAMINA = swim_sp_loss(PLAYER_STAMINA)
-    print(
-        "You succssfully swam through the river.\n"
-        "You did feel something biting at you the whole time.\n"
-        "You also took some damage.\n"
-        )
-    print(f"{PLAYER_HP}hp")
-    print(f"{PLAYER_STAMINA}sp\n")
+    if PLAYER_HP < MIN_HP:
+        print(
+            "Your HP hit 0...\n"
+            "You lost...")
+        quit()
+    else:
+        print(
+            "You succssfully swam through the river.\n"
+            "You did feel something biting at you the whole time.\n"
+            "You also took some damage.\n"
+            )
+        print(f"{PLAYER_HP}hp")
+        print(f"{PLAYER_STAMINA}sp\n")
 
 
 def hop_hp_loss():
@@ -1524,12 +1535,18 @@ def hop(PLAYER_HP, PLAYER_STAMINA):
     """
     PLAYER_HP = hop_hp_loss()
     PLAYER_STAMINA = hop_sp_loss(PLAYER_STAMINA)
-    print(
-        "You succssfully hopped across the river.\n"
-        "You however took minimal damage.\n"
-        )
-    print(f"{PLAYER_HP}hp")
-    print(f"{PLAYER_STAMINA}sp\n")
+    if PLAYER_HP < MIN_HP:
+        print(
+            "Your HP hit 0...\n"
+            "You lost...")
+        quit()
+    else:
+        print(
+            "You succssfully hopped across the river.\n"
+            "You however took minimal damage.\n"
+            )
+        print(f"{PLAYER_HP}hp")
+        print(f"{PLAYER_STAMINA}sp\n")
 
 
 def sword_attack():
@@ -1730,12 +1747,18 @@ def tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA):
     else:
         PLAYER_HP = tunnel_hp_loss()
         PLAYER_STAMINA = tunnel_sp_loss(PLAYER_STAMINA)
-        print(
-            "You tried to duck...\n"
-            "But it was a low swinging branch...\n"
-            "You took some damage from getting hit.\n")
-        print(f"{PLAYER_HP}hp")
-        print(f"{PLAYER_STAMINA}sp")
+        if PLAYER_HP < MIN_HP:
+            print(
+                "Your HP hit 0...\n"
+                "You lost...")
+            quit()
+        else:
+            print(
+                "You tried to duck...\n"
+                "But it was a low swinging branch...\n"
+                "You took some damage from getting hit.\n")
+            print(f"{PLAYER_HP}hp")
+            print(f"{PLAYER_STAMINA}sp")
 
 
 def orc_attack():
@@ -1747,7 +1770,7 @@ def orc_attack():
     orc_att = random_attack
     PLAYER_HP = PLAYER_HP - orc_att
     print("The orc attacks you:")
-    print("You took",orc_att, "damage.")
+    print("You took" ,orc_att, "damage.")
     if PLAYER_HP > MIN_HP:
         print(f"You have {PLAYER_HP}HP remaining.\n")
     else: 
@@ -1818,7 +1841,7 @@ def dragon_attack():
             print("The dragon managed to kill you...")
             quit()
 
-    
+
 def master_boss():
     """
     Master boss fight for attack and damage stats
@@ -1887,18 +1910,32 @@ def view_stats():
     """
     Asks player if they want to view their stats
     """
-    stats = input("View your current stats? (y/n)\n> ").lower().strip()
-    while stats != "y" and stats != "n":
-        print("\nInvalid choice, please enter a valid choice:")
-        print("'y' for 'yes or 'n' for 'no'.")
-        stats = input("\nView your current stats? (y/n)\n> ").lower().strip()
+    if "Armour" not in inventory:
+        stats = input("View your current stats? (y/n)\n> ").lower().strip()
+        while stats != "y" and stats != "n":
+            print("\nInvalid choice, please enter a valid choice:")
+            print("'y' for 'yes or 'n' for 'no'.")
+            stats = input("\nView your current stats? (y/n)\n> ").lower().strip()
 
-    if stats == "y":
-        print(f"\nYour current stats:")
-        print(f"{PLAYER_HP}hp")
-        print(f"{PLAYER_STAMINA}sp\n")
+        if stats == "y":
+            print(f"\nYour current stats:")
+            print(f"{PLAYER_HP}hp")
+            print(f"{PLAYER_STAMINA}sp\n")
+        else:
+            print("\nYou decided not to view your current stats.\n")
     else:
-        print("\nYou decided not to view your current stats.\n")
+        stats = input("View your current stats? (y/n)\n> ").lower().strip()
+        while stats != "y" and stats != "n":
+            print("\nInvalid choice, please enter a valid choice:")
+            print("'y' for 'yes or 'n' for 'no'.\n")
+            stats = input("View your current stats? (y/n)\n> ").lower().strip()
+
+        if stats == "y":
+            print(f"\nYour current stats:")
+            print(f"{PLAYER_HP_ARMOUR}hp")
+            print(f"{PLAYER_STAMINA}sp\n")
+        else:
+            print("\nYou decided not to view your current stats.\n")
 
 
 def view_items():
@@ -2011,9 +2048,3 @@ starting_room()
 # rather than quit when die, play again statement that takes to game start
 # refactor hp/sp loss once everything working
 # add raise to check for input is a string equilivant to all input choices
-# add player death if hp reaches 0 when doing puzzle/traps
-# potion respawns... normal for rpg tbf...
-# add completed rooms list....
-# rename for potion 1, potion 2,
-# fix stone appearing in inventory twice
-# current stats if armour on
