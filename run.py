@@ -3,15 +3,19 @@ import os
 
 # Player health and stamina - need potion to restore health
 MAX_HP = 150
-PLAYER_HP = 145
+MIN_HP = 0
+PLAYER_HP = 125
 PLAYER_STAMINA = 50  # this restores on its own
+
+# # Boss health
+IMP_HP = 50
 
 # Armour hp - this can decrease with damage
 armour_hp = 100
 
 # List to keep track on inventory items
 inventory = ["Potion"]
-weapons = []
+weapons = ["Bow"]
 keys = []
 
 
@@ -81,6 +85,7 @@ def starting_room():
     print(f"Current room: {current_room}\n")
 
     use_potion(PLAYER_HP)  # TEST
+    mini_boss_imp()
 
     view_stats()
     view_items()
@@ -1424,12 +1429,35 @@ def hop(PLAYER_HP, PLAYER_STAMINA):
     print(f"{PLAYER_STAMINA}sp\n")
 
 
+def sword_attack():
+    """
+    Random damage for sword attack
+    """
+    global IMP_HP
+    if "Sword" in weapons:
+        sword_dmg = random.randrange(10, 20)
+        sword_att = sword_dmg
+        IMP_HP = IMP_HP - sword_att
+
+def bow_attack():
+    """
+    Random damage for bow attack
+    """
+    global IMP_HP
+    if "Bow" in weapons:
+        random_dmg = random.randrange(10, 15)
+        bow_att = random_dmg
+        IMP_HP = IMP_HP - bow_att
+
+
 def imp_attack():
-    # TEST
+    """
+    Imp attack function
+    """
     global PLAYER_HP
-    # imp_hp = 50
-    imp_att = 15
-    PLAYER_HP = PLAYER_HP - imp_attack
+    random_attack = random.randrange(5, 15)
+    imp_att = random_attack
+    PLAYER_HP = PLAYER_HP - imp_att
 
 
 def mini_boss_imp():
@@ -1443,47 +1471,33 @@ def mini_boss_imp():
     # break loop if boss/player hp low, or player flee
     # use randrange for dmg - all within while true loop
     # seperate function for weapon dmg
-    print("mini boss fight")
-    attack = input("Attack or defend?\n >").lower().strip()
+    attack = input("Attack or defend?\n> ").lower().strip()
     while attack != "a" and attack != "d":
         print("\nInvalid move, please enter a valid move:")
         print("'a' for 'attack' or 'd' for 'defend'.\n")
-        direction = input("Attack for defend?:\n> ").lower().strip()
-
-    if attack == "a":
-        imp_attack()
-        if PLAYER_HP != 0:
-            imp_attack()
-            print(f"{PLAYER_HP}")
-        else:
-            print("you died")
+        attack = input("Attack for defend?:\n> ").lower().strip()
 
     # if attack == "a":
-    #     health = PLAYER_HP
-    #     while health != 0:
+    #     print("mini boss fight")
+    #     while PLAYER_HP != MIN_HP:
     #         imp_attack()
     #         print(f"{PLAYER_HP}")
-    #     if health == 0:
-    #         print("You died")
-    #     else:
-    #         imp_attack()
-    #         print(f"{PLAYER_HP}")
+    #         if PLAYER_HP <= MIN_HP:
+    #             print("TEST 2")
+    #             break
+
+    if attack == "a":
+        print("mini boss fight")
+        while IMP_HP != 0:
+            sword_attack()
+            bow_attack()
+            print(f"{IMP_HP}")
+            if IMP_HP <= 0:
+                print("TEST 2")
+                break
             
-
-  
-
-    direction = input("Which way do you go?:\n> ").lower().strip()
-    while direction != "n" and direction != "s" and direction != "e":
-        print("\nInvalid move, please enter a valid move:")
-        print("'n' for 'north, 's' for 'south' or 'e' for 'east'.\n")
-        direction = input("Which way do you go?:\n> ").lower().strip()
-
-    if direction == "n":
-        room_one()
-    elif direction == "s":
-        room_two()
     else:
-        room_five()
+        print("TEST")
 
 
 def jungle_sp_loss(PLAYER_STAMINA):
@@ -1693,19 +1707,6 @@ name = input("Type your name:\n> ").capitalize().strip()
 clear()
 start_game()
 starting_room()
-
-
-# def stamina_regen():
-#     """
-#     Regeneration of stamina per turn
-#     """
-#     if statement? - simialr to hp restore
-
-
-# def player_attack():
-#     """
-#     Random damage for player attack
-#     """
 
 
 # Left to add:
