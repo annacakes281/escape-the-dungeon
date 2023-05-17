@@ -5,6 +5,7 @@ import os
 MAX_HP = 150
 MIN_HP = 0
 PLAYER_HP = 150
+PLAYER_HP_ARMOUR = 275
 PLAYER_STAMINA = 50  # this restores on its own
 
 # Boss health
@@ -12,16 +13,17 @@ IMP_HP = 50
 ORC_HP = 100
 DRAGON_HP = 250
 
-# Armour hp - this can decrease with damage
-armour_hp = 100
 
 # List to keep track on inventory items
-inventory = ["Potion"]
-weapons = ["Sword"]
+inventory = []
+weapons = []
 keys = []
 
 # List for current boss
 current_boss = []
+
+# List for completed rooms
+completed_rooms = []
 
 
 def clear():
@@ -89,8 +91,6 @@ def starting_room():
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
 
-    # mini_boss_imp()
-    mini_boss_orc()
 
     view_stats()
     view_items()
@@ -135,98 +135,101 @@ def room_one():
 
     print("You enter the room to the north.\n")
 
-    # Prompts user to collect key, if not in inventory
-    if "Key 1" not in keys:
-        print("You see a key on a pedestal... it could be important.")
-        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
+    if "Room One" not in completed_rooms:
+
+        # Prompts user to collect key, if not in inventory
+        if "Key 1" not in keys:
             print("You see a key on a pedestal... it could be important.")
-            take_item = input("Do you take it?\n> ").lower().strip()
-
-        if take_item == "y":
-            keys.append("Key 1")
-            print("\nYou picked up the key and added it to your bag.")
-            print(f"Current key inventory:{keys}\n")
-        else:
-            print(
-                "\nYou decided to leave the key on the pedestal..."
-                "I hope it wasn't important...\n")
-    else:
-        print("You see an empty pedestal.\n")
-
-    # Prompts user to choose their weapon, if not in inventory
-    if "Sword" not in weapons and "Bow" not in weapons:
-        print(
-            "You notice a table in the middle of the room.\n"
-            "There are 2 weapons lying on the table.\n"
-            "One is a broadsword and a belt.\n"
-            "The other is a bow with a quiver full of arrows.\n\n"
-            "There is an inscription on the table:\n"
-            "Choose a weapon!\n")
-
-        weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
-        while weapon != "s" and weapon != "b":
-            print("\nInvalid choice, please select a valid option:")
-            print("'s' for 'sword' or 'b' for 'bow'.\n")
-            print("Choose a weapon!\n")
-            weapon = input("Which do you choose?\n> ").lower().strip()
-
-        if weapon == "s":
-            weapons.append("Sword")
-            print("\nYou choose the sword attached it to your side.\n")
-            print(f"Current weapon:{weapons}\n")
-
-            # Choosing weapon will trigger a trap
-            print(
-                "Picking up your weapon sets off a trap.\n"
-                "A wall of fire is blocking the way out.\n")
-
-            print(
-                "What will you do?\n"
-                "Disarm the trap with a stone you see on the ground,\n"
-                "or risk jumping through it?\n")
-
-            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-            while trap != "d" and trap != "j":
+            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
                 print("\nInvalid choice, please select a valid option:")
-                print("'d' for 'disarm' or 'j' for 'jump'.\n")
-                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a key on a pedestal... it could be important.")
+                take_item = input("Do you take it?\n> ").lower().strip()
 
-            if trap == "d":
-                disarm(PLAYER_STAMINA)  # format text
+            if take_item == "y":
+                keys.append("Key 1")
+                completed_rooms.append("Room One")
+                print("\nYou picked up the key and added it to your bag.")
+                print(f"Current key inventory:{keys}\n")
             else:
-                jump(PLAYER_HP, PLAYER_STAMINA)  # format text
+                print(
+                    "\nYou decided to leave the key on the pedestal..."
+                    "I hope it wasn't important...\n")
         else:
-            print("\nYou choose the bow and attached it to your back.\n")
-            weapons.append("Bow")
-            print(f"Current required items:{weapons}\n")
+            print("You see an empty pedestal.\n")
 
-            # Choosing weapon will trigger a trap
+        # Prompts user to choose their weapon, if not in inventory
+        if "Sword" not in weapons and "Bow" not in weapons:
             print(
-                "Picking up your weapon sets off a trap.\n"
-                "A wall of fire is blocking the way out.\n")
+                "You notice a table in the middle of the room.\n"
+                "There are 2 weapons lying on the table.\n"
+                "One is a broadsword and a belt.\n"
+                "The other is a bow with a quiver full of arrows.\n\n"
+                "There is an inscription on the table:\n"
+                "Choose a weapon!\n")
 
-            # possibly use bow and arrow and remove one arrow from invt.
-            print(
-                "What will you do?\n"
-                "Disarm the trap with a stone you see on the ground,\n"
-                "or risk jumping through it?\n")
-
-            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-            while trap != "d" and trap != "j":
+            weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
+            while weapon != "s" and weapon != "b":
                 print("\nInvalid choice, please select a valid option:")
-                print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                print("'s' for 'sword' or 'b' for 'bow'.\n")
+                print("Choose a weapon!\n")
+                weapon = input("Which do you choose?\n> ").lower().strip()
+
+            if weapon == "s":
+                weapons.append("Sword")
+                print("\nYou choose the sword attached it to your side.\n")
+                print(f"Current weapon:{weapons}\n")
+
+                # Choosing weapon will trigger a trap
+                print(
+                    "Picking up your weapon sets off a trap.\n"
+                    "A wall of fire is blocking the way out.\n")
+
+                print(
+                    "What will you do?\n"
+                    "Disarm the trap with a stone you see on the ground,\n"
+                    "or risk jumping through it?\n")
+
                 trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+                while trap != "d" and trap != "j":
+                    print("\nInvalid choice, please select a valid option:")
+                    print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                    trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
 
-            if trap == "d":
-                disarm(PLAYER_STAMINA)  # format text
+                if trap == "d":
+                    disarm(PLAYER_STAMINA)  # format text
+                else:
+                    jump(PLAYER_HP, PLAYER_STAMINA)  # format text
             else:
-                jump(PLAYER_HP, PLAYER_STAMINA)  # format text
+                print("\nYou choose the bow and attached it to your back.\n")
+                weapons.append("Bow")
+                print(f"Current required items:{weapons}\n")
 
-    else:
-        print("You see an empty table.\n")
+                # Choosing weapon will trigger a trap
+                print(
+                    "Picking up your weapon sets off a trap.\n"
+                    "A wall of fire is blocking the way out.\n")
+
+                # possibly use bow and arrow and remove one arrow from invt.
+                print(
+                    "What will you do?\n"
+                    "Disarm the trap with a stone you see on the ground,\n"
+                    "or risk jumping through it?\n")
+
+                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+                while trap != "d" and trap != "j":
+                    print("\nInvalid choice, please select a valid option:")
+                    print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                    trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+
+                if trap == "d":
+                    disarm(PLAYER_STAMINA)  # format text
+                else:
+                    jump(PLAYER_HP, PLAYER_STAMINA)  # format text
+
+        else:
+            print("You see an empty table.\n")
 
     print("There is nothing left to do in this room.\n")
     print("So you head south back to the room you started in.\n")
@@ -428,6 +431,10 @@ def room_three():
             "You enter the room and the door shuts behind you.\n"
             "You notice an imp looking at you... it is ready to fight you!\n"
             )
+
+        # Asks players if they want to use a potion
+        use_potion()
+
         # Prompts players whether they fight the mini boss
         print("What do you do?")
         fight = input("Do you fight? (y/n):\n> ").lower().strip()
@@ -437,7 +444,6 @@ def room_three():
             fight = input("Do you fight?:\n> ").lower().strip()
 
         if fight == "y":
-            use_potion()
             mini_boss_imp()  # code and format
         else:
             print(
@@ -1445,8 +1451,9 @@ def sword_attack():
     """
     global IMP_HP
     global ORC_HP
+    global DRAGON_HP
     if "Sword" in weapons:
-        sword_dmg = random.randrange(10, 20)
+        sword_dmg = random.randrange(10, 21)
         sword_att = sword_dmg
         IMP_HP = IMP_HP - sword_att
         ORC_HP = ORC_HP - sword_att
@@ -1454,37 +1461,70 @@ def sword_attack():
         if "Imp" in current_boss:
             print("You attack the imp:")
             print("The imp took",sword_att, "damage.")
-            print(f"The imp has {IMP_HP} remaining.\n")
+            if IMP_HP > MIN_HP:
+                print(f"The imp has {IMP_HP}HP remaining.\n")
+            else: 
+                print("The imp has 0HP remaining.\n")
         
         if "Orc" in current_boss:
             print("You attack the orc:")
             print("The orc took",sword_att, "damage.")
-            print(f"The orc has {ORC_HP} remaining.\n")
-    # else:
-    #     if "Master Sword" in weapons:
-    #         sword_dmg = random.randrange(40, 55)
-    #         sword_att = sword_dmg
-    #         # IMP_HP = IMP_HP - sword_att
+            if ORC_HP > MIN_HP:
+                print(f"The orc has {ORC_HP}HP remaining.\n")
+            else: 
+                print("The orc has 0HP remaining.\n")
+    else:
+        if "Master Sword" in weapons:
+            master_sword_dmg = random.randrange(40, 56)
+            master_sword_att = master_sword_dmg
+            DRAGON_HP = DRAGON_HP - master_sword_att
+            print("You attack the dragon:")
+            print("The dragon took",master_sword_att, "damage.")
+            if IMP_HP > MIN_HP:
+                print(f"The dragon has {DRAGON_HP}HP remaining.\n")
+            else: 
+                print("The dragon has 0HP remaining.\n")
 
 
-# def bow_attack():
-#     """
-#     Random damage for bow attack
-#     """
-#     global IMP_HP
-#     if "Bow" in weapons:
-#         random_dmg = random.randrange(10, 15)
-#         bow_att = random_dmg
-#         IMP_HP = IMP_HP - bow_att
+def bow_attack():
+    """
+    Random damage for bow attack
+    """
+    global IMP_HP
+    global ORC_HP
+    global DRAGON_HP
+    if "Bow" in weapons:
+        bow_dmg = random.randrange(10, 16)
+        bow_att = bow_dmg
+        IMP_HP = IMP_HP - bow_att
+        ORC_HP = ORC_HP - bow_att
 
-#         if "Imp" in current_boss:
-#             print("You attack the imp:")
-#             print(f"The imp has {IMP_HP} remaining.\n")
-#     # else:
-#     #     if "Master Bow" in weapons:
-#     #         sword_dmg = random.randrange(35, 50)
-#     #         sword_att = sword_dmg
-#     #         # IMP_HP = IMP_HP - sword_att
+        if "Imp" in current_boss:
+            print("You attack the imp:")
+            print("The imp took",bow_att, "damage.")
+            if IMP_HP > MIN_HP:
+                print(f"The imp has {IMP_HP}HP remaining.\n")
+            else: 
+                print("The imp has 0HP remaining.\n")
+        
+        if "Orc" in current_boss:
+            print("You attack the orc:")
+            print("The orc took",bow_att, "damage.")
+            if ORC_HP > MIN_HP:
+                print(f"The orc has {ORC_HP}HP remaining.\n")
+            else: 
+                print("The orc has 0HP remaining.\n")
+    else:
+        if "Master Bow" in weapons:
+            master_bow_dmg = random.randrange(35, 51)
+            master_bow_att = master_bow_dmg
+            DRAGON_HP = DRAGON_HP - master_bow_att
+            print("You attack the dragon:")
+            print("The dragon took",master_bow_att, "damage.")
+            if DRAGON_HP > MIN_HP:
+                print(f"The dragon has {DRAGON_HP}HP remaining.\n")
+            else: 
+                print("The dragon has 0HP remaining.\n")
 
 
 def imp_attack():
@@ -1492,12 +1532,17 @@ def imp_attack():
     Imp attack function
     """
     global PLAYER_HP
-    random_attack = random.randrange(5, 15)
+    random_attack = random.randrange(5, 16)
     imp_att = random_attack
     PLAYER_HP = PLAYER_HP - imp_att
     print("The imp attacks you:")
     print("You took",imp_att, "damage.")
-    print(f"You have {PLAYER_HP} remaining.\n")
+    if PLAYER_HP > MIN_HP:
+            print(f"You have {PLAYER_HP}HP remaining.\n")
+    else: 
+        print("You have 0HP remaining.\n")
+        print("The little imp managed to kill you...")
+        quit()
 
 
 def mini_boss_imp():
@@ -1512,10 +1557,10 @@ def mini_boss_imp():
         attack = input("Attack for defend?:\n> ").lower().strip()
 
     if attack == "a":
-        print("mini boss fight")
         while PLAYER_HP != MIN_HP and IMP_HP != MIN_HP:
             imp_attack()
             sword_attack()
+            bow_attack()
             if PLAYER_HP < MIN_HP:
                 print("The little imp managed to kill you...")
                 quit()
@@ -1611,12 +1656,17 @@ def orc_attack():
     Orc attack function
     """
     global PLAYER_HP
-    random_attack = random.randrange(10, 25)
+    random_attack = random.randrange(10, 26)
     orc_att = random_attack
     PLAYER_HP = PLAYER_HP - orc_att
     print("The orc attacks you:")
     print("You took",orc_att, "damage.")
-    print(f"You have {PLAYER_HP} remaining.\n")
+    if PLAYER_HP > MIN_HP:
+        print(f"You have {PLAYER_HP}HP remaining.\n")
+    else: 
+        print("You have 0HP remaining.\n")
+        print("The orc managed to kill you...")
+        quit()
 
 
 def mini_boss_orc():
@@ -1631,10 +1681,10 @@ def mini_boss_orc():
         attack = input("Attack for defend?:\n> ").lower().strip()
 
     if attack == "a":
-        print("mini boss fight")
         while PLAYER_HP != MIN_HP and ORC_HP != MIN_HP:
             orc_attack()
             sword_attack()
+            bow_attack()
             if PLAYER_HP < MIN_HP:
                 print("The orc managed to kill you...")
                 quit()
@@ -1650,11 +1700,100 @@ def mini_boss_orc():
         quit()
 
 
+def dragon_attack():
+    """
+    Dragon attack function
+    """
+    global PLAYER_HP_ARMOUR
+    global PLAYER_HP
+    if "Armour" in inventory:
+        random_attack = random.randrange(35, 51)
+        dragon_att = random_attack
+        PLAYER_HP_ARMOUR = PLAYER_HP_ARMOUR - dragon_att
+        print("The dragon attacks you:")
+        print("You took",dragon_att, "damage.")
+        if PLAYER_HP_ARMOUR > MIN_HP:
+            print(f"You have {PLAYER_HP_ARMOUR}HP remaining.\n")
+        else: 
+            print("You have 0HP remaining.\n")
+            print("The dragon managed to kill you...")
+            quit()
+    else:
+        random_attack = random.randrange(35, 51)
+        dragon_att = random_attack
+        PLAYER_HP = PLAYER_HP - dragon_att
+        print("The dragon attacks you:")
+        print("You took",dragon_att, "damage.")
+        if PLAYER_HP > MIN_HP:
+            print(f"You have {PLAYER_HP}HP remaining.\n")
+        else: 
+            print("You have 0HP remaining.\n")
+            print("The dragon managed to kill you...")
+            quit()
+
+    
 def master_boss():
     """
     Master boss fight for attack and damage stats
     """
-    print("master boss fight")
+    if "Armour" in inventory:
+        current_boss.append("Dragon")
+        attack = input("Attack or flee? (a/f)\n> ").lower().strip()
+        while attack != "a" and attack != "f":
+            print("\nInvalid move, please enter a valid move:")
+            print("'a' for 'attack' or 'd' for 'defend'.\n")
+            attack = input("Attack for defend?:\n> ").lower().strip()
+
+        if attack == "a":
+            while PLAYER_HP_ARMOUR != MIN_HP and DRAGON_HP != MIN_HP:
+                dragon_attack()
+                sword_attack()
+                bow_attack()
+                if PLAYER_HP_ARMOUR < MIN_HP:
+                    print("The dragon managed to kill you...")
+                    quit()
+                elif DRAGON_HP < MIN_HP or DRAGON_HP == MIN_HP:
+                    print(
+                        "You defeated the dragon...Well done!\n"
+                        "You look up and see the way out...\n"
+                        "You have escaped and won the game!\n")
+                    current_boss.remove("Dragon")
+                    quit()
+        else:
+            print(
+                "You decided to flee...\n"
+                "but the orc managed to kill you while you\n"
+                "struggle to get the door open.")
+            quit()
+    else:
+        current_boss.append("Dragon")
+        attack = input("Attack or flee? (a/f)\n> ").lower().strip()
+        while attack != "a" and attack != "f":
+            print("\nInvalid move, please enter a valid move:")
+            print("'a' for 'attack' or 'd' for 'defend'.\n")
+            attack = input("Attack for defend?:\n> ").lower().strip()
+
+        if attack == "a":
+            while PLAYER_HP != MIN_HP and DRAGON_HP != MIN_HP:
+                dragon_attack()
+                sword_attack()
+                bow_attack()
+                if PLAYER_HP < MIN_HP:
+                    print("The dragon managed to kill you...")
+                    quit()
+                elif DRAGON_HP < MIN_HP or DRAGON_HP == MIN_HP:
+                    print(
+                        "You defeated the dragon...Well done!\n"
+                        "You look up and see the way out...\n"
+                        "You have escaped and won the game!\n")
+                    current_boss.remove("Dragon")
+                    quit()
+        else:
+            print(
+                "You decided to flee...\n"
+                "but the orc managed to kill you while you\n"
+                "struggle to get the door open.")
+            quit()
 
 
 def view_stats():
@@ -1764,7 +1903,7 @@ def use_potion():
                 "You drink the health potion and your "
                 "health is restored to the max.\n")
             if PLAYER_HP < MAX_HP:
-                PLAYER_HP += 100
+                PLAYER_HP += 200
                 if PLAYER_HP > MAX_HP:
                     PLAYER_HP = MAX_HP
                 print(f"{PLAYER_HP}")
@@ -1781,17 +1920,12 @@ starting_room()
 
 
 # Left to add:
-# boss attack random hits
-# player attack random hits
-# stamina regen per turn IF not at max
-# use potion before boss room IF not at max
-# story for boss attacks
+# format where hp/sp stats show
 # rather than quit when die, play again statement that takes to game start
 # refactor hp/sp loss once everything working
-
-# Questions to ask:
-# should i make sperate functions if function too long?
-# if statement for boss defeated rather than different rooms?
-# randomise whether stone hits tatget?
-# is there a way to randomise jump/duck option?
-# how to keep health/stamina bar the changed values
+# add raise to check for input is a string equilivant to all input choices
+# add player death if hp reaches 0 when doing puzzle/traps
+# potion respawns... normal for rpg tbf...
+# add completed rooms list....
+# rename for potion 1, potion 2,
+# fix stone appearing in inventory twice
