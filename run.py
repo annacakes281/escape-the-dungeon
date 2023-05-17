@@ -3,7 +3,7 @@ import os
 
 # Player health and stamina - need potion to restore health
 MAX_HP = 150
-PLAYER_HP = 50
+PLAYER_HP = 135  # Player has inital fall damage
 PLAYER_HP_ARMOUR = 275
 PLAYER_STAMINA = 50  # this restores on its own
 
@@ -23,8 +23,8 @@ keys = []
 # List for current boss
 current_boss = []
 
-# List for completed rooms
-completed_rooms = []
+# List for completed rooms/tasks
+completed_tasks = []
 
 
 def clear():
@@ -51,6 +51,7 @@ def rules():
     Rules for the game that will appear at the start so players know the goal
     """
     print("This is a text-based game, type your answers into the terminal.\n")
+    
     print("Type the first letter of the word to continue.")
     print("e.g 'n' for 'north' or 'y' for 'yes'.\n\n")
 
@@ -135,7 +136,7 @@ def room_one():
 
     print("You enter the room to the north.\n")
 
-    if "Room One" not in completed_rooms:
+    if "Room One" not in completed_tasks:
 
         # Prompts user to collect key, if not in inventory
         if "Key 1" not in keys:
@@ -149,7 +150,7 @@ def room_one():
 
             if take_item == "y":
                 keys.append("Key 1")
-                completed_rooms.append("Room One")
+                completed_tasks.append("Room One")
                 print("\nYou picked up the key and added it to your bag.")
                 print(f"Current key inventory:{keys}\n")
             else:
@@ -157,7 +158,7 @@ def room_one():
                     "\nYou decided to leave the key on the pedestal..."
                     "I hope it wasn't important...\n")
     else:
-            print("You see an empty pedestal.\n")
+        print("You see an empty pedestal.\n")
 
     # Prompts user to choose their weapon, if not in inventory
     if "Sword" not in weapons and "Bow" not in weapons:
@@ -272,8 +273,8 @@ def room_two():
     else:
         hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
-    if "Room Two" not in completed_rooms:
-    # Prompts player to take potion of not in inventory
+    if "Room Two" not in completed_tasks:
+        # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
                 "\nYou look around and see something on the ground.\n"
@@ -289,7 +290,7 @@ def room_two():
 
             if take_item == "y":
                 inventory.append("Potion")
-                completed_rooms.append("Room Two")
+                completed_tasks.append("Room Two")
                 print(
                     "\nYou take the potion and read the label.\n"
                     "It reads: 'Health Potion'.\n"
@@ -370,7 +371,7 @@ def room_two_west():
         hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
     # Player can choose to take potion if not in inventory
-    if "Room Two" not in completed_rooms:
+    if "Room Two" not in completed_tasks:
     # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
@@ -387,7 +388,7 @@ def room_two_west():
 
             if take_item == "y":
                 inventory.append("Potion")
-                completed_rooms.append("Room Two")
+                completed_tasks.append("Room Two")
                 print(
                     "\nYou take the potion and read the label.\n"
                     "It reads: 'Health Potion'.\n"
@@ -420,13 +421,13 @@ def room_three():
     print("\nRemember you just need to type the first letter of the word.\n")
 
     # Player must have key to enter
-    if "Room Three" not in completed_rooms:
+    if "Room Three" not in completed_tasks:
         if "Key 1" not in keys:
             print("The door is locked and you need a key to open it.\n")
             room_two_west()
         else:
             keys.remove("Key 1")
-            completed_rooms.append("Room Three")
+            completed_tasks.append("Room Three")
             print("You use the key and open the door to the room\n")
 
             current_room = "Room Three"
@@ -532,7 +533,7 @@ def room_four():
     view_stats()
     view_items()
 
-    if "Room Four" not in completed_rooms:
+    if "Room Four" not in completed_tasks:
     # Prompts player to take key if not in inventory
         if "Key 2" not in keys:
             print("You see a key on a pedestal... it could be important.")
@@ -545,7 +546,7 @@ def room_four():
 
             if take_item == "y":
                 keys.append("Key 2")
-                completed_rooms.append("Room Four")
+                completed_tasks.append("Room Four")
                 print("\nYou picked up the key and added it to your bag.")
                 print(f"Current key inventory:{keys}\n")
             else:
@@ -675,7 +676,7 @@ def room_six():
     else:
         tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
-    if "Room Six" not in completed_rooms:
+    if "Room Six" not in completed_tasks:
         # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
@@ -692,7 +693,7 @@ def room_six():
 
             if take_item == "y":
                 inventory.append("Potion")
-                completed_rooms.append("Room Six")
+                completed_tasks.append("Room Six")
                 print(
                     "\nYou take the potion and read the label.\n"
                     "It reads: 'Health Potion'.\n"
@@ -705,7 +706,7 @@ def room_six():
     else:
         print("\nYou look around see nothing on the ground.\n")
 
-    print("You look around and see a path ahead, or you can turn back.\n")
+    print("\nYou look around and see a path ahead, or you can turn back.\n")
 
     # Player has choice in direction
     direction = input("Which way do you go? (e/s)\n> ").lower().strip()
@@ -756,7 +757,7 @@ def room_six_west():
 
     print("You enter the room to the west.\n")
 
-    if "Room Six" not in completed_rooms:
+    if "Room Six" not in completed_tasks:
         # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
@@ -773,7 +774,7 @@ def room_six_west():
 
             if take_item == "y":
                 inventory.append("Potion")
-                completed_rooms("Room Six")
+                completed_tasks("Room Six")
                 print(
                     "\nYou take the potion and read the label.\n"
                     "It reads: 'Health Potion'.\n"
@@ -846,14 +847,14 @@ def room_seven():
 
     print("\nRemember you just need to type the first letter of the word.\n")
 
-    if "Room Seven" not in completed_rooms:
+    if "Room Seven" not in completed_tasks:
         # Player must have key to enter
         if "Key 2" not in keys:
             print("The door is locked and you need a key to open it.\n")
             room_six_west()
         else:
             keys.remove("Key 2")
-            completed_rooms.append("Room Seven")
+            completed_tasks.append("Room Seven")
             print("You use the key and open the door to the room\n")
 
             current_room = "Room Seven"
@@ -947,9 +948,9 @@ def room_seven_completed():
         "You enter the room and see the orc you defeated on the ground.\n"
         "You take a moment to remember your triumph!\n")
 
-    if "Secret Room" not in completed_rooms:
+    if "Secret Room" not in completed_tasks:
         # Prompts players to choose whether to take the stone
-        if "Secret Stone" not in inventory:
+        if "Stone" not in inventory:
 
             print(
                 "You see a shiny looking stone around the orcs neck.\n"
@@ -1010,7 +1011,7 @@ def room_eight():
     print("You enter the room to the south.\n")
 
     # Prompts user to take secret room key if not in inventory
-    if "Room Eight" not in completed_rooms:
+    if "Room Eight" not in completed_tasks:
         if "Secret Key" not in keys:
             print(
                 "You see a key on a pedestal in the middle of the room.\n"
@@ -1025,7 +1026,7 @@ def room_eight():
 
             if take_item == "y":
                 keys.append("Secret Key")
-                completed_rooms.append("Room Eight")
+                completed_tasks.append("Room Eight")
                 print("You took the key off the pedestal.")
                 print(f"Current inventory:{keys}\n")
                 print("Since there is nothing left to do here, you head back.\n")
@@ -1083,7 +1084,7 @@ def room_nine():
 
     print("You enter the room to the east and get an eerie feeling.\n")
 
-    if "Room Nine" not in completed_rooms:
+    if "Room Nine" not in completed_tasks:
         # Player prompted to take master key if not in inventory
         if "Master Key" not in keys:
             print(
@@ -1099,7 +1100,7 @@ def room_nine():
 
             if take_item == "y":
                 keys.append("Master Key")
-                completed_rooms.append("Room Nine")
+                completed_tasks.append("Room Nine")
                 print("You take the flowing skeleton key off the pedestal.")
                 print(f"Current inventory:{keys}\n")
             else:
@@ -1109,7 +1110,6 @@ def room_nine():
     else:
         print("You see an empty pedestal.\n")
 
-    if "Room Nine" not in completed_rooms:
     # Player prompted to take potion if not in inventory
         if "Potion" not in inventory:
             print(
@@ -1126,7 +1126,7 @@ def room_nine():
 
             if take_item == "y":
                 inventory.append("Potion")
-                completed_rooms.append("Room Nine")
+                completed_tasks.append("Room Nine")
                 print(
                     "\nYou take the potion and read the label.\n"
                     "It reads: 'Health Potion'.\n"
@@ -1166,13 +1166,13 @@ def secret_room():
     Player can take armour - requires stone\n
     Tunnel to room 8 - revealed when armour is taken
     """
-    if "Secret Room Opened" not in completed_rooms:
+    if "Secret Room Opened" not in completed_tasks:
         if "Secret Key" not in keys:
             print("The door is locked and you need a key to open it.\n")
             room_three_completed()
         else:
             keys.remove("Secret Key")
-            completed_rooms.append("Secret Room Opened")
+            completed_tasks.append("Secret Room Opened")
             print("You use the key and open the door to the room\n")
 
         clear_terminal()
@@ -1232,7 +1232,7 @@ def collect_armour():
     Player to collect armour if not in inventory
     """
     if "Armour" not in inventory:
-        if "Armour Unlocked" not in completed_rooms:
+        if "Armour Unlocked" not in completed_tasks:
             if "Stone" in inventory:
                 print(
                     "You see some armour leaning against the wall in a case.\n"
@@ -1243,7 +1243,7 @@ def collect_armour():
                     "You place the stone into the wall.\n"
                     "The case around the armour decends into the ground.\n")
                 inventory.remove("Stone")
-                completed_rooms.append("Armour Unlocked")
+                completed_tasks.append("Armour Unlocked")
 
                 take_item = input("Do you take it? (y/n)\n> ").lower().strip()
                 while take_item != "y" and take_item != "n":
@@ -1468,7 +1468,7 @@ def jump(PLAYER_HP, PLAYER_STAMINA):
         quit()
     else:
         print(
-            "You successfully jumped through the fire trap.\n"
+            "/nYou successfully jumped through the fire trap.\n"
             "However you did take significant damage.\n")
         print(f"{PLAYER_HP}hp")
         print(f"{PLAYER_STAMINA}sp\n")
@@ -1542,7 +1542,7 @@ def hop(PLAYER_HP, PLAYER_STAMINA):
         quit()
     else:
         print(
-            "You succssfully hopped across the river.\n"
+            "\nYou successfully hopped across the river.\n"
             "You however took minimal damage.\n"
             )
         print(f"{PLAYER_HP}hp")
@@ -1694,16 +1694,16 @@ def jungle_puzzle(PLAYER_STAMINA):
     """
     if "Sword" not in weapons:
         print(
-            "The vines are too thick to get through...\n"
+            "\nThe vines are too thick to get through...\n"
             "It looks like you have to use the tunnel.\n")
         tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)
     else:
         PLAYER_STAMINA = jungle_sp_loss(PLAYER_STAMINA)
         print(
-            "You successfully made your way through the vines.\n"
+            "\nYou successfully made your way through the vines.\n"
             "Chopping them as you make your way through...\n"
             "but they grow back as you pass.\n")
-        print(f"{PLAYER_STAMINA}sp\n")
+        print(f"{PLAYER_STAMINA}sp")
 
 
 def tunnel_hp_loss():
@@ -1729,7 +1729,7 @@ def tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA):
     """
     print(
         "You see a huge branch coming towards you.\n"
-        "What do you do?")
+        "What do you do?\n")
 
     trap = input("Jump or duck? (j/d)\n> ").lower().strip()
     while trap != "j" and trap != "d":
@@ -2042,9 +2042,12 @@ clear()
 start_game()
 starting_room()
 
-
 # Left to add:
 # format where hp/sp stats show
-# rather than quit when die, play again statement that takes to game start
 # refactor hp/sp loss once everything working
 # add raise to check for input is a string equilivant to all input choices
+# change potion names?
+# show dmg stats for puzzles/traps
+# fix potion room 9, room 6 - use code from room 2 to fix
+# fix stone pick up twice
+# secret room sword pick up.....
