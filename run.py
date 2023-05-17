@@ -4,11 +4,13 @@ import os
 # Player health and stamina - need potion to restore health
 MAX_HP = 150
 MIN_HP = 0
-PLAYER_HP = 125
+PLAYER_HP = 150
 PLAYER_STAMINA = 50  # this restores on its own
 
-# # Boss health
+# Boss health
 IMP_HP = 50
+ORC_HP = 100
+DRAGON_HP = 250
 
 # Armour hp - this can decrease with damage
 armour_hp = 100
@@ -17,6 +19,9 @@ armour_hp = 100
 inventory = ["Potion"]
 weapons = ["Sword"]
 keys = []
+
+# List for current boss
+current_boss = []
 
 
 def clear():
@@ -84,8 +89,8 @@ def starting_room():
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
 
-    use_potion()  # TEST
     # mini_boss_imp()
+    mini_boss_orc()
 
     view_stats()
     view_items()
@@ -432,6 +437,7 @@ def room_three():
             fight = input("Do you fight?:\n> ").lower().strip()
 
         if fight == "y":
+            use_potion()
             mini_boss_imp()  # code and format
         else:
             print(
@@ -843,6 +849,7 @@ def room_seven():
             fight = input("Do you fight?:\n> ").lower().strip()
 
         if fight == "y":
+            use_potion()
             mini_boss_orc()  # code and format
         else:
             print(
@@ -1297,6 +1304,7 @@ def boss_room():
 
                 if chance == "y":
                     print("If you're sure then...\n")
+                    use_potion()
                     master_boss()  # code and format
                 else:
                     print(
@@ -1306,6 +1314,8 @@ def boss_room():
                         "The dragon eats you...\n"
                         "No one is surviving that...\n")
                     quit()
+            use_potion()
+            master_boss()
         else:
             print(
                 "You decided to try and flee the dragon\n"
@@ -1434,21 +1444,47 @@ def sword_attack():
     Random damage for sword attack
     """
     global IMP_HP
+    global ORC_HP
     if "Sword" in weapons:
         sword_dmg = random.randrange(10, 20)
         sword_att = sword_dmg
         IMP_HP = IMP_HP - sword_att
+        ORC_HP = ORC_HP - sword_att
+
+        if "Imp" in current_boss:
+            print("You attack the imp:")
+            print("The imp took",sword_att, "damage.")
+            print(f"The imp has {IMP_HP} remaining.\n")
+        
+        if "Orc" in current_boss:
+            print("You attack the orc:")
+            print("The orc took",sword_att, "damage.")
+            print(f"The orc has {ORC_HP} remaining.\n")
+    # else:
+    #     if "Master Sword" in weapons:
+    #         sword_dmg = random.randrange(40, 55)
+    #         sword_att = sword_dmg
+    #         # IMP_HP = IMP_HP - sword_att
 
 
-def bow_attack():
-    """
-    Random damage for bow attack
-    """
-    global IMP_HP
-    if "Bow" in weapons:
-        random_dmg = random.randrange(10, 15)
-        bow_att = random_dmg
-        IMP_HP = IMP_HP - bow_att
+# def bow_attack():
+#     """
+#     Random damage for bow attack
+#     """
+#     global IMP_HP
+#     if "Bow" in weapons:
+#         random_dmg = random.randrange(10, 15)
+#         bow_att = random_dmg
+#         IMP_HP = IMP_HP - bow_att
+
+#         if "Imp" in current_boss:
+#             print("You attack the imp:")
+#             print(f"The imp has {IMP_HP} remaining.\n")
+#     # else:
+#     #     if "Master Bow" in weapons:
+#     #         sword_dmg = random.randrange(35, 50)
+#     #         sword_att = sword_dmg
+#     #         # IMP_HP = IMP_HP - sword_att
 
 
 def imp_attack():
@@ -1459,46 +1495,40 @@ def imp_attack():
     random_attack = random.randrange(5, 15)
     imp_att = random_attack
     PLAYER_HP = PLAYER_HP - imp_att
+    print("The imp attacks you:")
+    print("You took",imp_att, "damage.")
+    print(f"You have {PLAYER_HP} remaining.\n")
 
 
 def mini_boss_imp():
     """
     Mini boss fight for attack and damage stats
     """
-    # combat function - hit each time
-    # damage stats for weapons
-    # while loop until hp loss
-    # choice to attack/def, attack/run
-    # break loop if boss/player hp low, or player flee
-    # use randrange for dmg - all within while true loop
-    # seperate function for weapon dmg
-    attack = input("Attack or defend?\n> ").lower().strip()
-    while attack != "a" and attack != "d":
+    current_boss.append("Imp")
+    attack = input("Attack or flee? (a/f)\n> ").lower().strip()
+    while attack != "a" and attack != "f":
         print("\nInvalid move, please enter a valid move:")
         print("'a' for 'attack' or 'd' for 'defend'.\n")
         attack = input("Attack for defend?:\n> ").lower().strip()
 
-    # if attack == "a":
-    #     print("mini boss fight")
-    #     while PLAYER_HP != MIN_HP:
-    #         imp_attack()
-    #         print(f"{PLAYER_HP}")
-    #         if PLAYER_HP <= MIN_HP:
-    #             print("TEST 2")
-    #             break
-
     if attack == "a":
         print("mini boss fight")
-        while IMP_HP != 0:
+        while PLAYER_HP != MIN_HP and IMP_HP != MIN_HP:
+            imp_attack()
             sword_attack()
-            bow_attack()
-            print(f"{IMP_HP}")
-            if IMP_HP <= 0:
-                print("TEST 2")
+            if PLAYER_HP < MIN_HP:
+                print("The little imp managed to kill you...")
+                quit()
+            elif IMP_HP < MIN_HP or IMP_HP == MIN_HP:
+                print("You defeated the imp...Well done!\n")
+                current_boss.remove("Imp")
                 break
-            
     else:
-        print("TEST")
+        print(
+            "You decided to flee...\n"
+            "but the imp managed to kill you while you\n"
+            "struggle to get the door open.")
+        quit()
 
 
 def jungle_sp_loss(PLAYER_STAMINA):
@@ -1576,11 +1606,48 @@ def tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA):
         print(f"{PLAYER_STAMINA}sp")
 
 
+def orc_attack():
+    """
+    Orc attack function
+    """
+    global PLAYER_HP
+    random_attack = random.randrange(10, 25)
+    orc_att = random_attack
+    PLAYER_HP = PLAYER_HP - orc_att
+    print("The orc attacks you:")
+    print("You took",orc_att, "damage.")
+    print(f"You have {PLAYER_HP} remaining.\n")
+
+
 def mini_boss_orc():
     """
     Mini boss fight for attack and damage stats
     """
-    print("mini boss fight")
+    current_boss.append("Orc")
+    attack = input("Attack or flee? (a/f)\n> ").lower().strip()
+    while attack != "a" and attack != "f":
+        print("\nInvalid move, please enter a valid move:")
+        print("'a' for 'attack' or 'd' for 'defend'.\n")
+        attack = input("Attack for defend?:\n> ").lower().strip()
+
+    if attack == "a":
+        print("mini boss fight")
+        while PLAYER_HP != MIN_HP and ORC_HP != MIN_HP:
+            orc_attack()
+            sword_attack()
+            if PLAYER_HP < MIN_HP:
+                print("The orc managed to kill you...")
+                quit()
+            elif ORC_HP < MIN_HP or ORC_HP == MIN_HP:
+                print("You defeated the orc...Well done!\n")
+                current_boss.remove("Orc")
+                break
+    else:
+        print(
+            "You decided to flee...\n"
+            "but the orc managed to kill you while you\n"
+            "struggle to get the door open.")
+        quit()
 
 
 def master_boss():
