@@ -15,9 +15,9 @@ DRAGON_HP = 250
 
 
 # List to keep track on inventory items
-inventory = []
-weapons = []
-keys = []
+inventory = ["Stone"]
+weapons = ["Bow"]
+keys = ["Secret Key"]
 
 # List for current boss
 current_boss = []
@@ -156,80 +156,79 @@ def room_one():
                 print(
                     "\nYou decided to leave the key on the pedestal..."
                     "I hope it wasn't important...\n")
-        else:
+    else:
             print("You see an empty pedestal.\n")
 
-        # Prompts user to choose their weapon, if not in inventory
-        if "Sword" not in weapons and "Bow" not in weapons:
+    # Prompts user to choose their weapon, if not in inventory
+    if "Sword" not in weapons and "Bow" not in weapons:
+        print(
+            "You notice a table in the middle of the room.\n"
+            "There are 2 weapons lying on the table.\n"
+            "One is a broadsword and a belt.\n"
+            "The other is a bow with a quiver full of arrows.\n\n"
+            "There is an inscription on the table:\n"
+            "Choose a weapon!\n")
+
+        weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
+        while weapon != "s" and weapon != "b":
+            print("\nInvalid choice, please select a valid option:")
+            print("'s' for 'sword' or 'b' for 'bow'.\n")
+            print("Choose a weapon!\n")
+            weapon = input("Which do you choose?\n> ").lower().strip()
+
+        if weapon == "s":
+            weapons.append("Sword")
+            print("\nYou choose the sword attached it to your side.\n")
+            print(f"Current weapon:{weapons}\n")
+
+            # Choosing weapon will trigger a trap
             print(
-                "You notice a table in the middle of the room.\n"
-                "There are 2 weapons lying on the table.\n"
-                "One is a broadsword and a belt.\n"
-                "The other is a bow with a quiver full of arrows.\n\n"
-                "There is an inscription on the table:\n"
-                "Choose a weapon!\n")
+                "Picking up your weapon sets off a trap.\n"
+                "A wall of fire is blocking the way out.\n")
 
-            weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
-            while weapon != "s" and weapon != "b":
+            print(
+                "What will you do?\n"
+                "Disarm the trap with a stone you see on the ground,\n"
+                "or risk jumping through it?\n")
+
+            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+            while trap != "d" and trap != "j":
                 print("\nInvalid choice, please select a valid option:")
-                print("'s' for 'sword' or 'b' for 'bow'.\n")
-                print("Choose a weapon!\n")
-                weapon = input("Which do you choose?\n> ").lower().strip()
-
-            if weapon == "s":
-                weapons.append("Sword")
-                print("\nYou choose the sword attached it to your side.\n")
-                print(f"Current weapon:{weapons}\n")
-
-                # Choosing weapon will trigger a trap
-                print(
-                    "Picking up your weapon sets off a trap.\n"
-                    "A wall of fire is blocking the way out.\n")
-
-                print(
-                    "What will you do?\n"
-                    "Disarm the trap with a stone you see on the ground,\n"
-                    "or risk jumping through it?\n")
-
+                print("'d' for 'disarm' or 'j' for 'jump'.\n")
                 trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-                while trap != "d" and trap != "j":
-                    print("\nInvalid choice, please select a valid option:")
-                    print("'d' for 'disarm' or 'j' for 'jump'.\n")
-                    trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
 
-                if trap == "d":
-                    disarm(PLAYER_STAMINA)  # format text
-                else:
-                    jump(PLAYER_HP, PLAYER_STAMINA)  # format text
+            if trap == "d":
+                disarm(PLAYER_STAMINA)  
             else:
-                print("\nYou choose the bow and attached it to your back.\n")
-                weapons.append("Bow")
-                print(f"Current required items:{weapons}\n")
-
-                # Choosing weapon will trigger a trap
-                print(
-                    "Picking up your weapon sets off a trap.\n"
-                    "A wall of fire is blocking the way out.\n")
-
-                # possibly use bow and arrow and remove one arrow from invt.
-                print(
-                    "What will you do?\n"
-                    "Disarm the trap with a stone you see on the ground,\n"
-                    "or risk jumping through it?\n")
-
-                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-                while trap != "d" and trap != "j":
-                    print("\nInvalid choice, please select a valid option:")
-                    print("'d' for 'disarm' or 'j' for 'jump'.\n")
-                    trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-
-                if trap == "d":
-                    disarm(PLAYER_STAMINA)  # format text
-                else:
-                    jump(PLAYER_HP, PLAYER_STAMINA)  # format text
-
+                jump(PLAYER_HP, PLAYER_STAMINA)  
         else:
-            print("You see an empty table.\n")
+            print("\nYou choose the bow and attached it to your back.\n")
+            weapons.append("Bow")
+            print(f"Current required items:{weapons}\n")
+
+            # Choosing weapon will trigger a trap
+            print(
+                "Picking up your weapon sets off a trap.\n"
+                "A wall of fire is blocking the way out.\n")
+
+            print(
+                "What will you do?\n"
+                "Disarm the trap with a stone you see on the ground,\n"
+                "or risk jumping through it?\n")
+
+            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+            while trap != "d" and trap != "j":
+                print("\nInvalid choice, please select a valid option:")
+                print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+
+            if trap == "d":
+                disarm(PLAYER_STAMINA)  
+            else:
+                jump(PLAYER_HP, PLAYER_STAMINA)  
+
+    else:
+        print("You see an empty table.\n")
 
     print("There is nothing left to do in this room.\n")
     print("So you head south back to the room you started in.\n")
@@ -300,7 +299,7 @@ def room_two():
                 print(
                     "You decided to leave the potion..."
                     "I hope it wasn't important.\n")
-        else:
+    else:
             print("\nYou look around see nothing on the ground.\n")
 
     print(
@@ -436,31 +435,30 @@ def room_three():
             view_stats()
             view_items()
 
+        print(
+            "You enter the room and the door shuts behind you.\n"
+            "You notice an imp looking at you... it is ready to fight you!\n"
+            )
+
+        # Asks players if they want to use a potion
+        use_potion()
+
+        # Prompts players whether they fight the mini boss
+        print("What do you do?")
+        fight = input("Do you fight? (y/n):\n> ").lower().strip()
+        while fight != "y" and fight != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.\n")
+            fight = input("Do you fight?:\n> ").lower().strip()
+
+        if fight == "y":
+            mini_boss_imp()  # code and format
+        else:
             print(
-                "You enter the room and the door shuts behind you.\n"
-                "You notice an imp looking at you... it is ready to fight you!\n"
-                )
-
-            # Asks players if they want to use a potion
-            use_potion()
-
-            # Prompts players whether they fight the mini boss
-            print("What do you do?")
-            fight = input("Do you fight? (y/n):\n> ").lower().strip()
-            while fight != "y" and fight != "n":
-                print("\nInvalid choice, please select a valid option:")
-                print("'y' for 'yes' or 'n' for 'no'.\n")
-                fight = input("Do you fight?:\n> ").lower().strip()
-
-            if fight == "y":
-                mini_boss_imp()  # code and format
-            else:
-                print(
-                    "You decided to try and flee the imp\n"
-                    "...but as soon as you turned to open the door,\n"
-                    "it kept attacking you and you died...")
-                quit()
-
+                "You decided to try and flee the imp\n"
+                "...but as soon as you turned to open the door,\n"
+                "it kept attacking you and you died...")
+            quit()
     else:
         room_three_completed()
 
@@ -517,26 +515,28 @@ def room_four():
     view_stats()
     view_items()
 
-    # Prompsts player to take key if not in inventory
-    if "Key 2" not in keys:
-        print("You see a key on a pedestal... it could be important.")
-        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You see a key on a pedestal... it could be important.\n")
-            take_item = input("Do you take it?\n> ").lower().strip()
+    if "Room Four" not in completed_rooms:
+    # Prompts player to take key if not in inventory
+        if "Key 2" not in keys:
+            print("You see a key on a pedestal... it could be important.")
+            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a key on a pedestal... it could be important.\n")
+                take_item = input("Do you take it?\n> ").lower().strip()
 
-        if take_item == "y":
-            keys.append("Key 2")
-            print("\nYou picked up the key and added it to your bag.")
-            print(f"Current key inventory:{keys}\n")
+            if take_item == "y":
+                keys.append("Key 2")
+                completed_rooms.append("Room Four")
+                print("\nYou picked up the key and added it to your bag.")
+                print(f"Current key inventory:{keys}\n")
+            else:
+                print(
+                    "\nYou decided to leave the key on the pedestal..."
+                    "I hope it wasn't important...\n")
         else:
-            print(
-                "\nYou decided to leave the key on the pedestal..."
-                "I hope it wasn't important...\n")
-    else:
-        print("You see an empty pedestal.\n")
+            print("You see an empty pedestal.\n")
 
     # Prompts players if they want to speak to the NPC
     print("You see a fairy appear and she smiles at you.\n")
@@ -658,31 +658,33 @@ def room_six():
     else:
         tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
 
-    # Prompts player to take potion of not in inventory
-    if "Potion" not in inventory:
-        print(
-            "\nYou look around and see something on the ground.\n"
-            "You take a closer look and see it is a potion...\n"
-            "it could be useful.\n")
+    if "Room Six" not in completed_rooms:
+        # Prompts player to take potion of not in inventory
+        if "Potion" not in inventory:
+            print(
+                "\nYou look around and see something on the ground.\n"
+                "You take a closer look and see it is a potion...\n"
+                "it could be useful.\n")
 
-        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You see a potion on the ground, it could be useful...")
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a potion on the ground, it could be useful...")
+                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
-        if take_item == "y":
-            inventory.append("Potion")
-            print(
-                "\nYou take the potion and read the label.\n"
-                "It reads: 'Health Potion'.\n"
-                "Lucky you!\n")
-            print(f"Current inventory:{inventory}\n")
-        else:
-            print(
-                "You decided to leave the potion..."
-                "I hope it wasn't important.\n")
+            if take_item == "y":
+                inventory.append("Potion")
+                completed_rooms.append("Room Six")
+                print(
+                    "\nYou take the potion and read the label.\n"
+                    "It reads: 'Health Potion'.\n"
+                    "Lucky you!\n")
+                print(f"Current inventory:{inventory}\n")
+            else:
+                print(
+                    "You decided to leave the potion..."
+                    "I hope it wasn't important.\n")
     else:
         print("\nYou look around see nothing on the ground.\n")
 
@@ -737,31 +739,33 @@ def room_six_west():
 
     print("You enter the room to the west.\n")
 
-    # Prompts player to take potion of not in inventory
-    if "Potion" not in inventory:
-        print(
-            "\nYou look around and see something on the ground.\n"
-            "You take a closer look and see it is a potion...\n"
-            "it could be useful.\n")
+    if "Room Six" not in completed_rooms:
+        # Prompts player to take potion of not in inventory
+        if "Potion" not in inventory:
+            print(
+                "\nYou look around and see something on the ground.\n"
+                "You take a closer look and see it is a potion...\n"
+                "it could be useful.\n")
 
-        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You see a potion on the ground, it could be useful...")
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a potion on the ground, it could be useful...")
+                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
-        if take_item == "y":
-            inventory.append("Potion")
-            print(
-                "\nYou take the potion and read the label.\n"
-                "It reads: 'Health Potion'.\n"
-                "Lucky you!\n")
-            print(f"Current inventory:{inventory}\n")
-        else:
-            print(
-                "You decided to leave the potion..."
-                "I hope it wasn't important.\n")
+            if take_item == "y":
+                inventory.append("Potion")
+                completed_rooms("Room Six")
+                print(
+                    "\nYou take the potion and read the label.\n"
+                    "It reads: 'Health Potion'.\n"
+                    "Lucky you!\n")
+                print(f"Current inventory:{inventory}\n")
+            else:
+                print(
+                    "You decided to leave the potion..."
+                    "I hope it wasn't important.\n")
     else:
         print("\nYou look around see nothing on the ground.\n")
 
@@ -825,45 +829,46 @@ def room_seven():
 
     print("\nRemember you just need to type the first letter of the word.\n")
 
-    # Player must have key to enter
-    if "Key 2" not in keys:
-        print("The door is locked and you need a key to open it.\n")
-        room_six_west()
-    else:
-        keys.remove("Key 2")
-        print("You use the key and open the door to the room\n")
-
-        current_room = "Room Seven"
-        print(f"Current room: {current_room}\n")
-
-        view_stats()
-        view_items()
-
-        print(
-            "You enter the room and the door shuts behind you.\n"
-            "You notice an orc looking at you... it is ready to fight you!\n"
-            )
-        # Prompts players whether they fight the mini boss
-        print("What do you do?")
-        fight = input("Do you fight? (y/n):\n> ").lower().strip()
-        while fight != "y" and fight != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            fight = input("Do you fight?:\n> ").lower().strip()
-
-        if fight == "y":
-            use_potion()
-            mini_boss_orc()  # code and format
+    if "Room Seven" not in completed_rooms:
+        # Player must have key to enter
+        if "Key 2" not in keys:
+            print("The door is locked and you need a key to open it.\n")
+            room_six_west()
         else:
+            keys.remove("Key 2")
+            completed_rooms.append("Room Seven")
+            print("You use the key and open the door to the room\n")
+
+            current_room = "Room Seven"
+            print(f"Current room: {current_room}\n")
+
+            view_stats()
+            view_items()
+
             print(
-                "You decided to try and flee the orc\n"
-                "...but as soon as you turned to open the door,\n"
-                "it kept attacking you and you died...")
-            quit()
+                "You enter the room and the door shuts behind you.\n"
+                "You notice an orc looking at you... it is ready to fight you!\n"
+                )
+            # Prompts players whether they fight the mini boss
+            print("What do you do?")
+            fight = input("Do you fight? (y/n):\n> ").lower().strip()
+            while fight != "y" and fight != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                fight = input("Do you fight?:\n> ").lower().strip()
+
+            if fight == "y":
+                use_potion()
+                mini_boss_orc()  
+            else:
+                print(
+                    "You decided to try and flee the orc\n"
+                    "...but as soon as you turned to open the door,\n"
+                    "it kept attacking you and you died...")
+                quit()
 
         # Prompts players to choose whether to take the stone
-        if "Secret Stone" not in inventory:
-
+        if "Stone" not in inventory:
             print(
                 "You see a shiny looking stone around the orcs neck.\n"
                 "It could be important...\n")
@@ -925,28 +930,29 @@ def room_seven_completed():
         "You enter the room and see the orc you defeated on the ground.\n"
         "You take a moment to remember your triumph!\n")
 
-    # Prompts players to choose whether to take the stone
-    if "Secret Stone" not in inventory:
+    if "Secret Room" not in completed_rooms:
+        # Prompts players to choose whether to take the stone
+        if "Secret Stone" not in inventory:
 
-        print(
-            "You see a shiny looking stone around the orcs neck.\n"
-            "It could be important...\n")
-
-        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You see a shiny looking stone around the orcs neck.")
-            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-
-        if take_item == "y":
-            inventory.append("Stone")
-            print("You take the shiny looking stone.\n")
-            print(f"Current inventory:{inventory}\n")
-        else:
             print(
-                "You decided to leave the stone...\n"
-                "hopefully it wasn't important.\n")
+                "You see a shiny looking stone around the orcs neck.\n"
+                "It could be important...\n")
+
+            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a shiny looking stone around the orcs neck.")
+                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+
+            if take_item == "y":
+                inventory.append("Stone")
+                print("You take the shiny looking stone.\n")
+                print(f"Current inventory:{inventory}\n")
+            else:
+                print(
+                    "You decided to leave the stone...\n"
+                    "hopefully it wasn't important.\n")
     else:
         print("You see the orc you defeated, and smile.\n")
 
@@ -987,30 +993,32 @@ def room_eight():
     print("You enter the room to the south.\n")
 
     # Prompts user to take secret room key if not in inventory
-    if "Secret Key" not in keys:
-        print(
-            "You see a key on a pedestal in the middle of the room.\n"
-            "If you've learned anything so far about keys...\n"
-            "They seem to be very useful!\n")
-        take_item = input("Do you take the key? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You see a key.")
-            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-
-        if take_item == "y":
-            keys.append("Secret Key")
-            print("You took the key off the pedestal.")
-            print(f"Current inventory:{keys}\n")
-            print("Since there is nothing left to do here, you head back.\n")
-            room_seven_completed()
-        else:
+    if "Room Eight" not in completed_rooms:
+        if "Secret Key" not in keys:
             print(
-                "\nYou decided to leave the key on the pedestal..."
-                "I hope it wasn't important...\n")
-            print("Since there is nothing left to do here, you head back.\n")
-            room_seven_completed()
+                "You see a key on a pedestal in the middle of the room.\n"
+                "If you've learned anything so far about keys...\n"
+                "They seem to be very useful!\n")
+            take_item = input("Do you take the key? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a key.")
+                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+
+            if take_item == "y":
+                keys.append("Secret Key")
+                completed_rooms.append("Room Eight")
+                print("You took the key off the pedestal.")
+                print(f"Current inventory:{keys}\n")
+                print("Since there is nothing left to do here, you head back.\n")
+                room_seven_completed()
+            else:
+                print(
+                    "\nYou decided to leave the key on the pedestal..."
+                    "I hope it wasn't important...\n")
+                print("Since there is nothing left to do here, you head back.\n")
+                room_seven_completed()
     else:
         print("You see an empty pedestal.\n")
         print("Since there is nothing left to do here, you head back.\n")
@@ -1058,55 +1066,59 @@ def room_nine():
 
     print("You enter the room to the east and get an eerie feeling.\n")
 
-    # Player prompted to take master key if not in inventory
-    if "Master Key" not in keys:
-        print(
-            "You see a large glowing skeleton key on a pedestal...\n"
-            "It looks pretty ominous...but important.\n")
-
-        take_item = input("Do you take the key? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You see a key.")
-            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-
-        if take_item == "y":
-            keys.append("Master Key")
-            print("You take the flowing skeleton key off the pedestal.")
-            print(f"Current inventory:{keys}\n")
-        else:
+    if "Room Nine" not in completed_rooms:
+        # Player prompted to take master key if not in inventory
+        if "Master Key" not in keys:
             print(
-                "\nYou decided to leave the key on the pedestal..."
-                "I hope it wasn't important...\n")
+                "You see a large glowing skeleton key on a pedestal...\n"
+                "It looks pretty ominous...but important.\n")
+
+            take_item = input("Do you take the key? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a key.")
+                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+
+            if take_item == "y":
+                keys.append("Master Key")
+                completed_rooms.append("Room Nine")
+                print("You take the flowing skeleton key off the pedestal.")
+                print(f"Current inventory:{keys}\n")
+            else:
+                print(
+                    "\nYou decided to leave the key on the pedestal..."
+                    "I hope it wasn't important...\n")
     else:
         print("You see an empty pedestal.\n")
 
+    if "Room Nine" not in completed_rooms:
     # Player prompted to take potion if not in inventory
-    if "Potion" not in inventory:
-        print(
-            "\nYou look around and see something on the ground.\n"
-            "You take a closer look and see it is a potion...\n"
-            "it could be useful.\n")
+        if "Potion" not in inventory:
+            print(
+                "\nYou look around and see something on the ground.\n"
+                "You take a closer look and see it is a potion...\n"
+                "it could be useful.\n")
 
-        take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-        while take_item != "y" and take_item != "n":
-            print("\nInvalid choice, please select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You see a potion on the ground, it could be useful...")
             take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You see a potion on the ground, it could be useful...")
+                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
-        if take_item == "y":
-            inventory.append("Potion")
-            print(
-                "\nYou take the potion and read the label.\n"
-                "It reads: 'Health Potion'.\n"
-                "Lucky you!\n")
-            print(f"Current inventory:{inventory}\n")
-        else:
-            print(
-                "You decided to leave the potion..."
-                "I hope it wasn't important.\n")
+            if take_item == "y":
+                inventory.append("Potion")
+                completed_rooms.append("Room Nine")
+                print(
+                    "\nYou take the potion and read the label.\n"
+                    "It reads: 'Health Potion'.\n"
+                    "Lucky you!\n")
+                print(f"Current inventory:{inventory}\n")
+            else:
+                print(
+                    "You decided to leave the potion..."
+                    "I hope it wasn't important.\n")
     else:
         print("\nYou look around see nothing on the ground.\n")
 
@@ -1137,12 +1149,14 @@ def secret_room():
     Player can take armour - requires stone\n
     Tunnel to room 8 - revealled when armour is taken
     """
-    if "Secret Key" not in keys:
-        print("The door is locked and you need a key to open it.\n")
-        room_three_completed()
-    else:
-        keys.remove("Secret Key")
-        print("You use the key and open the door to the room\n")
+    if "Secret Room Opened" not in completed_rooms:
+        if "Secret Key" not in keys:
+            print("The door is locked and you need a key to open it.\n")
+            room_three_completed()
+        else:
+            keys.remove("Secret Key")
+            completed_rooms.append("Secret Room Opened")
+            print("You use the key and open the door to the room\n")
 
         clear_terminal()
 
@@ -1155,94 +1169,73 @@ def secret_room():
         view_items()
 
         # Prompts players to choose a new weapon
-        if "Master Sword" not in weapons and "Master Bow" not in weapons:
-            print(
-                "You notice a table in the middle of the room.\n"
-                "There are 2 weapons lying on the table.\n"
-                "One is a longsword with a gem encrusted handle and a belt.\n"
-                "The other is a longbow with a quiver full of arrows.\n\n"
-                "There is an inscription on the table:\n"
-                "Choose a weapon!\n")
-
-            weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
-            while weapon != "s" and weapon != "b":
-                print("\nInvalid choice, please select a valid option:")
-                print("'s' for 'sword' or 'b' for 'bow'.\n")
-                print("Choose a weapon!\n")
-                weapon = input("Which do you choose?\n> ").lower().strip()
-
-            if weapon == "sword":
-                weapons.append("Master Sword")
-                weapons.remove("Sword")  # If player switched weapons
-                weapons.remove("Bow")  # If player switched weapons
-                print(f"Current inventory:{weapons}")
-            else:
-                weapons.append("Master Bow")
-                weapons.remove("Bow")  # If player switched weapons
-                weapons.remove("Sword")  # If player switched weapons
-                print(f"Current inventory:{weapons}")
-        else:
-            print("You see an empty table.\n")
-
+    if "Master Sword" not in weapons and "Master Bow" not in weapons:
         print(
-            "You see some armour leaning against the wall in a case.\n"
-            "There is some of slot in the wall next to it.\n"
-            "It seems like you need to place an item into the slot.\n")
+            "You notice a table in the middle of the room.\n"
+            "There are 2 weapons lying on the table.\n"
+            "One is a longsword with a gem encrusted handle and a belt.\n"
+            "The other is a longbow with a quiver full of arrows.\n\n"
+            "There is an inscription on the table:\n"
+            "Choose a weapon!\n")
 
-        # Prompt whether players take the armour - requires stone
-        if "Stone" in inventory:
-            print("You don't have the stone to unlock the armour.\n")
+        weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
+        while weapon != "s" and weapon != "b":
+            print("\nInvalid choice, please select a valid option:")
+            print("'s' for 'sword' or 'b' for 'bow'.\n")
+            print("Choose a weapon!\n")
+            weapon = input("Which do you choose?\n> ").lower().strip()
 
-            if "Armour" not in inventory:
-                print(
-                    "You place the stone into the wall.\n"
-                    "The case around the armour decends into the ground.\n")
-                inventory.remove("Stone")
-                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-                while take_item != "y" and take_item != "n":
-                    print("\nInvalid choice, please select a valid option:")
-                    print("'y' for 'yes' or 'n' for 'no'.\n")
-                    print("The armour can be taken.")
-                    take_item = input("Take item? (y/n)\n> ").lower().strip()
-
-                if take_item == "y":
-                    inventory.append("Armour")
-                    print(
-                        "You take the armour off the stand,\n"
-                        "and put it on... You feel stronger")
-                    print(f"Current inventory:{inventory}\n")
-
-                    print(
-                        "The wall then suddenly sides open...\n"
-                        "This reveals a passageway.\n")
-
-                    direction = input("Enter? (y/n)\n> ").lower().strip()
-                    while direction != "y" and direction != "n":
-                        print("\nInvalid choice, select a valid option:")
-                        print("'y' for 'yes' or 'n' for 'no'.\n")
-                        print("You look at the passageway.")
-                        direction = input("Enter? (y/n)\n> ").lower().strip()
-
-                    if direction == "y":
-                        room_eight_secret()
-                    else:
-                        print(
-                            "You decide to not enter the passageway.\n"
-                            "The only way left to go is west.")
-                        room_three_completed()
-
-                else:
-                    print(
-                        "You decided to leave the armour...\n"
-                        "let's hope it wasn't useful.\n")
+        if weapon == "s":
+            weapons.append("Master Sword")
+            if "Sword" in inventory:
+                weapons.remove("Sword")  # If player switched weapons
+            else: 
+                weapons.remove("Bow")  # If player switched weapons
+            print(f"Current weapon:{weapons}\n")
+        else:
+            weapons.append("Master Bow")
+            if "Bow" in inventory:
+                weapons.remove("Bow")  # If player switched weapons
             else:
-                print(
-                    "You see an empty armour stand.\n"
-                    "You also see a passageway revealed.\n")
+                weapons.remove("Sword")  # If player switched weapons
+            print(f"Current weapon:{weapons}\n")
+    else:
+        print("You see an empty table.\n")
 
-                direction = input("Do you enter? (y/n)\n> ").lower().strip()
+    print(
+        "You see some armour leaning against the wall in a case.\n"
+        "There is some of slot in the wall next to it.\n"
+        "It seems like you need to place an item into the slot.\n")
+
+    # Prompt whether players take the armour - requires stone
+    if "Stone" in inventory:
+        if "Armour" not in inventory:
+            print(
+                "You remember about the stone you picked up.\n"
+                "You place the stone into the wall.\n"
+                "The case around the armour decends into the ground.\n")
+            inventory.remove("Stone")
+            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+            while take_item != "y" and take_item != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("The armour can be taken.")
+                take_item = input("Take item? (y/n)\n> ").lower().strip()
+
+            if take_item == "y":
+                inventory.append("Armour")
+                print(
+                    "You take the armour off the stand,\n"
+                    "and put it on... You feel stronger")
+                print(f"Current inventory:{inventory}\n")
+
+                print(
+                    "The wall then suddenly sides open...\n"
+                    "This reveals a passageway.\n")
+
+                direction = input("Enter? (y/n)\n> ").lower().strip()
                 while direction != "y" and direction != "n":
-                    print("\nInvalid choice, please select a valid option:")
+                    print("\nInvalid choice, select a valid option:")
                     print("'y' for 'yes' or 'n' for 'no'.\n")
                     print("You look at the passageway.")
                     direction = input("Enter? (y/n)\n> ").lower().strip()
@@ -1254,10 +1247,33 @@ def secret_room():
                         "You decide to not enter the passageway.\n"
                         "The only way left to go is west.")
                     room_three_completed()
+            else:
+                print(
+                    "You decided to leave the armour...\n"
+                    "let's hope it wasn't useful.\n")
+                room_three_completed()
         else:
-            print("You need a small item to insert into the wall.\n")
-            print("West is the only way you can go.")
-            room_three_completed()
+            print(
+                "You see an empty armour stand.\n"
+                "You also see a passageway revealed.\n")
+
+            direction = input("Do you enter? (y/n)\n> ").lower().strip()
+            while direction != "y" and direction != "n":
+                print("\nInvalid choice, please select a valid option:")
+                print("'y' for 'yes' or 'n' for 'no'.\n")
+                print("You look at the passageway.")
+                direction = input("Enter? (y/n)\n> ").lower().strip()
+
+            if direction == "y":
+                room_eight_secret()
+            else:
+                print(
+                    "You decide to not enter the passageway.\n"
+                    "The only way left to go is west.")
+                room_three_completed()
+    else:
+        print("You don't have the stone...\n")
+        room_three_completed()
 
 
 def boss_room():
@@ -1477,7 +1493,7 @@ def sword_attack():
             DRAGON_HP = DRAGON_HP - master_sword_att
             print("You attack the dragon:")
             print("The dragon took",master_sword_att, "damage.")
-            if IMP_HP > MIN_HP:
+            if DRAGON_HP > MIN_HP:
                 print(f"The dragon has {DRAGON_HP}HP remaining.\n")
             else: 
                 print("The dragon has 0HP remaining.\n")
@@ -1564,7 +1580,7 @@ def mini_boss_imp():
             elif IMP_HP < MIN_HP or IMP_HP == MIN_HP:
                 print("You defeated the imp...Well done!\n")
                 current_boss.remove("Imp")
-                break
+                room_three_completed()
     else:
         print(
             "You decided to flee...\n"
@@ -1926,3 +1942,4 @@ starting_room()
 # add completed rooms list....
 # rename for potion 1, potion 2,
 # fix stone appearing in inventory twice
+# current stats if armour on
