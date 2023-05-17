@@ -15,7 +15,7 @@ armour_hp = 100
 
 # List to keep track on inventory items
 inventory = ["Potion"]
-weapons = ["Bow"]
+weapons = ["Sword"]
 keys = []
 
 
@@ -84,8 +84,8 @@ def starting_room():
     current_room = "Starting Room"
     print(f"Current room: {current_room}\n")
 
-    use_potion(PLAYER_HP)  # TEST
-    mini_boss_imp()
+    use_potion()  # TEST
+    # mini_boss_imp()
 
     view_stats()
     view_items()
@@ -1439,6 +1439,7 @@ def sword_attack():
         sword_att = sword_dmg
         IMP_HP = IMP_HP - sword_att
 
+
 def bow_attack():
     """
     Random damage for bow attack
@@ -1671,10 +1672,11 @@ def fairy():
         room_three_completed()
 
 
-def use_potion(PLAYER_HP):
+def use_potion():
     """
     Using potion to restore health - TO FIX, if cant fix then remove potions...
     """
+    global PLAYER_HP
     if "Potion" not in inventory:
         print("You don't have any health potions to use...\n")
     else:
@@ -1694,8 +1696,10 @@ def use_potion(PLAYER_HP):
             print(
                 "You drink the health potion and your "
                 "health is restored to the max.\n")
-            if PLAYER_HP != MAX_HP:
+            if PLAYER_HP < MAX_HP:
                 PLAYER_HP += 100
+                if PLAYER_HP > MAX_HP:
+                    PLAYER_HP = MAX_HP
                 print(f"{PLAYER_HP}")
         else:
             print("You decide not to drink a health potion.\n")
