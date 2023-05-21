@@ -43,7 +43,7 @@ I will finally go through the testing I done for the game, as well as the method
 <summary><a href="#features-and-gameplay">Features and Gameplay</a></summary>
 <ul>
 <li>Introduction</li>
-<li>Input</li>
+<li>Input and Functions</li>
 <li>Rooms</li>
 <li>Weapons</li>
 <li>Items</li>
@@ -125,13 +125,57 @@ Creating a visable map made it easier when creating functions and testing to nav
 <img src="readme-images/Map.png" alt="Map of the dungeon">
 
 ### ***Functions***
-By creating a flow-chart for the functions to breakdown what the user will select and what I want the user to do, as well as the outcome helped to create the actual Python functions when making the game. It helped me to create the necessary functions needed without having to spend ages thinking about them, however there was changes made during the development process. This was because I decided I wanted things to run differently, or just to expand on the functions a little more. The function flow-chart broke down my thought process a little more on what I actually wanted to do.
+* By creating a flow-chart for the functions to breakdown what the user will select and what I want the user to do, as well as the outcome helped to create the actual Python functions when making the game. 
+* It helped me to create the necessary functions needed without having to spend ages thinking about them, however there was changes made during the development process. 
+* This was because I decided I wanted things to run differently, or just to expand on the functions a little more. 
+* The function flow-chart broke down my thought process a little more on what I actually wanted to do.
+* This will be discussed in further detail in the <a href="#input-and-functions">Input and Functions</a> section.
 
 <img src="readme-images/Functions.png" alt="Flow-chart of functions">
 
 ## **Features and Gameplay**
+In this section I will discuss several of the features that I had implented into my game.
 ### ***Introduction***
-### ***Input***
+* The game starts with a small introduction about the game, displaying the rules for the game, as well as how to navigate through the game.
+* It also gives users the goal of the game, as well some some hints of what is required to beat the game.
+* It finally asks whether the user would like to play, using the 'input' feature, allowing users to either type 'y' or 'yes' to continue, the game will end if anything else has been typed in, this was an intentional feature I added - if the user decides not the play, a message will print on the screen letting users know the game is being exited.
+
+<img src = "readme-images/intro-rules.png" alt="Introduction rules">
+
+* If the player decides to play the game it will take them to a new screen that is automatically cleared, with a 'clear' function that has been implemented throughout the game (this will be discussed more in the <a href="#input-and-functions">Input and Functions</a> section below) asking players for their name - this can be left blank if players do not want to input anything.
+* After the player name has been typed, a welcome message will appear using the players name, and welcoming them into the start of the game.
+
+<img src="readme-images/type-name.png" alt="Player Name">
+<img src="readme-images/intro-msg.png" alt="Player introduction message">
+
+### ***Input and Functions***
+#### Input
+* Escape the Dungeon uses a lot of 'input' methods for the main features of the game to work, as it is based on player choice. 
+* The main 'input' features for the game will not allow a user to proceed without typing something into the terminal - the only input features this does not apply to is the 'Clear Terminal' function, asking the player whether they would like to play, and inputting players name. 
+* All other 'input' will require the user to put one of the required letters into the terminal.
+
+<img src="readme-images/player-input-1.png" alt="Input code example 1">
+
+* There are different 'input' choices depending on what the user needs to do, such as 'fight', 'take item', 'choose weapon', 'choose direction', 'speak to NPC', 'escape trap', and 'use item'.
+
+<img src="readme-images/player-input-2.png" alt="Input code example 2">
+
+* All answers for the 'input' will automatically be changed to lowercase letters, even if the user types in capital letters throughout the game - white spaces will also be stripped - this changes when users input their name as it will capitalise the first letter of the name.
+
+#### Functions
+* There are several functions for the game, each one serving a different purpose.
+* The main gameplay functions include: rooms, attack, checking stats, collecting items, using items, and puzzles/traps.
+
+<img src="readme-images/function-example-1.png" alt="Function code example 1">
+
+* There are functions that are room specific, that can only be triggered with certain events - such as having a 'key', 'potion' or certain 'weapon'.
+
+<img src="readme-images/function-example-2.png" alt="Function code example 2">
+
+* Each function will lead to something else occuring, whether it is another function, or an 'input' choice for the player to make - and once certain choices are made, it will add things to a hidden list known as 'completed_tasks', so that certain functions will run differently.
+
+<img src="readme-images/function-example-3.png" alt="Function code example 3">
+
 ### ***Rooms***
 ### ***Weapons***
 ### ***Items***
@@ -156,3 +200,5 @@ By creating a flow-chart for the functions to breakdown what the user will selec
 
 ## **Credits**
 ### ***Content***
+
+<img src="" alt="">
