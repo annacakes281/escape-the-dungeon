@@ -25,7 +25,7 @@ keys = []
 current_boss = []
 
 # List for completed rooms/tasks
-completed_tasks = [] # issue when this is in the completed tasks
+completed_tasks = []
 
 
 def clear():
@@ -52,7 +52,7 @@ def rules():
     Rules for the game that will appear at the start so players know the goal
     """
     print("This is a text-based game, type your answers into the terminal.\n")
-    
+
     print("Type the first letter of the word to continue.")
     print("e.g 'n' for 'north' or 'y' for 'yes'.\n\n")
 
@@ -205,9 +205,9 @@ def room_one():
                 trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
 
             if trap == "d":
-                disarm(PLAYER_STAMINA)  
+                disarm(PLAYER_STAMINA)
             else:
-                jump(PLAYER_HP, PLAYER_STAMINA)  
+                jump(PLAYER_HP, PLAYER_STAMINA)
         else:
             print("\nYou choose the bow and attached it to your back.\n")
             weapons.append("Bow")
@@ -230,9 +230,9 @@ def room_one():
                 trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
 
             if trap == "d":
-                disarm(PLAYER_STAMINA)  
+                disarm(PLAYER_STAMINA)
             else:
-                jump(PLAYER_HP, PLAYER_STAMINA)  
+                jump(PLAYER_HP, PLAYER_STAMINA)
 
     else:
         print("You see an empty table.\n")
@@ -357,7 +357,8 @@ def room_two_west():
     print(f"Current room: {current_room}\n")
 
     view_stats()
-    view_items()    
+    view_items()
+
     # Player can choose to take potion if not in inventory
     if "Room Two" not in completed_tasks:
         # Prompts player to take potion of not in inventory
@@ -411,7 +412,6 @@ def room_two_west():
         swim(PLAYER_HP, PLAYER_STAMINA)  # need to format
     else:
         hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
-
 
     print("After crossing the river you head back north.\n")
     starting_room()
@@ -554,7 +554,7 @@ def room_four():
             while take_item != "y" and take_item != "n":
                 print("\nInvalid choice, please select a valid option:")
                 print("'y' for 'yes' or 'n' for 'no'.\n")
-                print("You see a key on a pedestal... it could be important.\n")
+                print("You see a key on a pedestal...it could be important.\n")
                 take_item = input("Do you take it?\n> ").lower().strip()
 
             if take_item == "y":
@@ -885,8 +885,7 @@ def room_seven():
 
             print(
                 "You enter the room and the door shuts behind you.\n"
-                "You notice an orc looking at you... it is ready to fight you!\n"
-                )
+                "You notice an orc looking at you...it is ready to fight!\n")
             # Prompts players whether they fight the mini boss
             print("The orc steps towards you with its weapon.")
             fight = input("Do you fight? (y/n):\n> ").lower().strip()
@@ -897,7 +896,7 @@ def room_seven():
 
             if fight == "y":
                 use_potion()
-                mini_boss_orc()  
+                mini_boss_orc()
             else:
                 print(
                     "You decided to try and flee the orc\n"
@@ -1049,17 +1048,17 @@ def room_eight():
                 completed_tasks.append("Room Eight")
                 print("You took the key off the pedestal.")
                 print(f"Current inventory:{keys}\n")
-                print("Since there is nothing left to do here, you head back.\n")
+                print("Since there is nothing left to do, you head back.\n")
                 room_seven_completed()
             else:
                 print(
                     "\nYou decided to leave the key on the pedestal..."
                     "I hope it wasn't important...\n")
-                print("Since there is nothing left to do here, you head back.\n")
+                print("Since there is nothing left to do, you head back.\n")
                 room_seven_completed()
     else:
         print("You see an empty pedestal.\n")
-        print("Since there is nothing left to do here, you head back.\n")
+        print("Since there is nothing left to do, you head back.\n")
         room_seven_completed()
 
 
@@ -1104,25 +1103,23 @@ def room_nine():
 
     print("You enter the room to the east and get an eerie feeling.\n")
 
-    if "Room Nine" not in completed_tasks:
-        # Player prompted to take master key if not in inventory
-        if "Master Key" not in keys:
-            print(
-                "You see a large glowing skeleton key on a pedestal...\n"
-                "It looks pretty ominous...but important.\n")
+    # Player prompted to take master key if not in inventory
+    if "Master Key" not in keys:
+        print(
+            "You see a large glowing skeleton key on a pedestal...\n"
+            "It looks pretty ominous...but important.\n")
 
-            take_item = input("Do you take the key? (y/n)\n> ").lower().strip()
-            while take_item != "y" and take_item != "n":
-                print("\nInvalid choice, please select a valid option:")
-                print("'y' for 'yes' or 'n' for 'no'.\n")
-                print("You see a key.")
-                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+        take_item = input("Do you take the key? (y/n)\n> ").lower().strip()
+        while take_item != "y" and take_item != "n":
+            print("\nInvalid choice, please select a valid option:")
+            print("'y' for 'yes' or 'n' for 'no'.\n")
+            print("You see a key.")
+            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
 
-            if take_item == "y":
-                keys.append("Master Key")
-                completed_tasks.append("Room Nine")
-                print("You take the flowing skeleton key off the pedestal.")
-                print(f"Current inventory:{keys}\n")
+        if take_item == "y":
+            keys.append("Master Key")
+            print("You take the flowing skeleton key off the pedestal.")
+            print(f"Current inventory:{keys}\n")
         else:
             print(
                 "\nYou decided to leave the key on the pedestal..."
@@ -1154,7 +1151,7 @@ def room_nine():
             print(f"Current inventory:{inventory}\n")
         else:
             print(
-                "You decided to leave the potion..."
+                "You decided to leave the potion...\n"
                 "I hope it wasn't important.\n")
     else:
         print("\nYou look around see nothing on the ground.\n")
@@ -1199,15 +1196,13 @@ def secret_room():
             completed_tasks.append("Secret Room Opened")
             print("You use the key and open the door to the room\n")
 
-        
         current_room = "Secret Room"
         print(f"Current room: {current_room}\n")
 
         view_stats()
         view_items()
 
-        # Prompts players to pick up the master weapon
-
+    # Prompts players to pick up the master weapon
     if "Master Sword" not in weapons and "Master Bow" not in weapons:
         print(
             "You notice a table in the middle of the room.\n"
@@ -1280,25 +1275,7 @@ def collect_armour():
                         "\nYou take the armour off the stand,\n"
                         "and put it on... You feel stronger")
                     print(f"Current inventory:{inventory}\n")
-
-                    print(
-                        "The wall then suddenly sides open...\n"
-                        "This reveals a passageway.\n")
-
-                    direction = input("Enter? (y/n)\n> ").lower().strip()
-                    while direction != "y" and direction != "n":
-                        print("\nInvalid choice, select a valid option:")
-                        print("'y' for 'yes' or 'n' for 'no'.\n")
-                        print("You look at the passageway.")
-                        direction = input("Enter? (y/n)\n> ").lower().strip()
-
-                    if direction == "y":
-                        room_eight_secret()
-                    else:
-                        print(
-                            "\nYou decide to not enter the passageway.\n"
-                            "The only way left to go is west.")
-                        room_three_completed()
+                    secret_passage()
                 else:
                     print(
                         "\nYou decided to leave the armour...\n"
@@ -1326,38 +1303,29 @@ def collect_armour():
                         "You take the armour off the stand,\n"
                         "and put it on... You feel stronger")
                     print(f"Current inventory:{inventory}\n")
-
-                    print(
-                        "The wall then suddenly sides open...\n"
-                        "This reveals a passageway.\n")
-
-                    direction = input("Enter? (y/n)\n> ").lower().strip()
-                    while direction != "y" and direction != "n":
-                        print("\nInvalid choice, select a valid option:")
-                        print("'y' for 'yes' or 'n' for 'no'.\n")
-                        print("You look at the passageway.")
-                        direction = input("Enter? (y/n)\n> ").lower().strip()
-
-                        if direction == "y":
-                            room_eight_secret()
-                        else:
-                            print(
-                                "You decide to not enter the passageway.\n"
-                                "The only way left to go is west.")
-                            room_three_completed()
+                    secret_passage()
                 else:
                     print(
                         "You decided to leave the armour...\n"
                         "let's hope it wasn't useful.\n")
                     room_three_completed()
     else:
-        print(
-            "You see an empty armour stand.\n"
-            "You also see a passageway revealed.\n")
+        print("You see an empty armour stand.\n")
+        secret_passage()
 
-        direction = input("Do you enter? (y/n)\n> ").lower().strip()
+
+def secret_passage():
+    """
+    Players can use secret passage once armour been removed
+    """
+    if "Armour" in inventory:
+        print(
+            "The wall then suddenly sides open...\n"
+            "This reveals a passageway.\n")
+
+        direction = input("Enter? (y/n)\n> ").lower().strip()
         while direction != "y" and direction != "n":
-            print("\nInvalid choice, please select a valid option:")
+            print("\nInvalid choice, select a valid option:")
             print("'y' for 'yes' or 'n' for 'no'.\n")
             print("You look at the passageway.")
             direction = input("Enter? (y/n)\n> ").lower().strip()
@@ -1366,9 +1334,14 @@ def collect_armour():
                 room_eight_secret()
             else:
                 print(
-                    "You decide to not enter the passageway.\n"
+                    "\nYou decide to not enter the passageway.\n"
                     "The only way left to go is west.")
                 room_three_completed()
+    else:
+        print(
+            "You decided to leave the armour...\n"
+            "let's hope it wasn't useful.\n")
+        room_three_completed()
 
 
 def boss_room():
@@ -1417,9 +1390,9 @@ def boss_room():
                     input("Will you fight? (y/n)\n> ").lower().strip()
 
                 if chance == "y":
-                    print("If you're sure then...\n")
+                    print("\nIf you're sure then...\n")
                     use_potion()
-                    master_boss()  # code and format
+                    master_boss()
                 else:
                     print(
                         "Good choice...\n"
@@ -1587,18 +1560,18 @@ def sword_attack():
 
         if "Imp" in current_boss:
             print("You attack the imp:")
-            print("The imp took",sword_att, "damage.")
+            print("The imp took", sword_att, "damage.")
             if IMP_HP > MIN_HP:
                 print(f"The imp has {IMP_HP}hp remaining.\n")
-            else: 
+            else:
                 print("The imp has 0hp remaining.\n")
-        
+
         if "Orc" in current_boss:
             print("You attack the orc:")
-            print("The orc took",sword_att, "damage.")
+            print("The orc took", sword_att, "damage.")
             if ORC_HP > MIN_HP:
                 print(f"The orc has {ORC_HP}hp remaining.\n")
-            else: 
+            else:
                 print("The orc has 0hp remaining.\n")
     else:
         if "Master Sword" in weapons:
@@ -1606,10 +1579,10 @@ def sword_attack():
             master_sword_att = master_sword_dmg
             DRAGON_HP = DRAGON_HP - master_sword_att
             print("You attack the dragon:")
-            print("The dragon took",master_sword_att, "damage.")
+            print("The dragon took", master_sword_att, "damage.")
             if DRAGON_HP > MIN_HP:
                 print(f"The dragon has {DRAGON_HP}hp remaining.\n")
-            else: 
+            else:
                 print("The dragon has 0hp remaining.\n")
 
 
@@ -1628,18 +1601,18 @@ def bow_attack():
 
         if "Imp" in current_boss:
             print("You attack the imp:")
-            print("The imp took",bow_att, "damage.")
+            print("The imp took", bow_att, "damage.")
             if IMP_HP > MIN_HP:
                 print(f"The imp has {IMP_HP}hp remaining.\n")
-            else: 
+            else:
                 print("The imp has 0hp remaining.\n")
-        
+
         if "Orc" in current_boss:
             print("You attack the orc:")
-            print("The orc took",bow_att, "damage.")
+            print("The orc took", bow_att, "damage.")
             if ORC_HP > MIN_HP:
                 print(f"The orc has {ORC_HP}hp remaining.\n")
-            else: 
+            else:
                 print("The orc has 0hp remaining.\n")
     else:
         if "Master Bow" in weapons:
@@ -1647,10 +1620,10 @@ def bow_attack():
             master_bow_att = master_bow_dmg
             DRAGON_HP = DRAGON_HP - master_bow_att
             print("You attack the dragon:")
-            print("The dragon took",master_bow_att, "damage.")
+            print("The dragon took", master_bow_att, "damage.")
             if DRAGON_HP > MIN_HP:
                 print(f"The dragon has {DRAGON_HP}hp remaining.\n")
-            else: 
+            else:
                 print("The dragon has 0hp remaining.\n")
 
 
@@ -1663,11 +1636,11 @@ def imp_attack():
     imp_att = random_attack
     PLAYER_HP = PLAYER_HP - imp_att
     print("\nThe imp attacks you:")
-    print("You took",imp_att, "damage.")
+    print("You took", imp_att, "damage.")
     if PLAYER_HP > MIN_HP:
-        print(f"You have {PLAYER_HP}HP remaining.\n")
-    else: 
-        print("You have 0HP remaining.\n")
+        print(f"You have {PLAYER_HP}hp remaining.\n")
+    else:
+        print("You have 0hp remaining.\n")
         print("The little imp managed to kill you...")
         quit()
 
@@ -1800,11 +1773,11 @@ def orc_attack():
     orc_att = random_attack
     PLAYER_HP = PLAYER_HP - orc_att
     print("\nThe orc attacks you:")
-    print("You took" ,orc_att, "damage.")
+    print("You took", orc_att, "damage.")
     if PLAYER_HP > MIN_HP:
-        print(f"You have {PLAYER_HP}HP remaining.\n")
-    else: 
-        print("You have 0HP remaining.\n")
+        print(f"You have {PLAYER_HP}hp remaining.\n")
+    else:
+        print("You have 0hp remaining.\n")
         print("The orc managed to kill you...")
         quit()
 
@@ -1855,23 +1828,24 @@ def dragon_attack():
         dragon_att = random_attack
         PLAYER_HP_ARMOUR = PLAYER_HP_ARMOUR - dragon_att
         print("The dragon attacks you:")
-        print("You took",dragon_att, "damage.")
+        print("You took", dragon_att, "damage.")
         if PLAYER_HP_ARMOUR > MIN_HP:
-            print(f"You have {PLAYER_HP_ARMOUR}HP remaining.\n")
-        else: 
-            print("You have 0HP remaining.\n")
+            print(f"You have {PLAYER_HP_ARMOUR}hp remaining.\n")
+        else:
+            print("You have 0hp remaining.\n")
             print("The dragon managed to kill you...")
+            print("Unfortunetly you could not escape the dungeon...")
             quit()
     else:
         random_attack = random.randrange(35, 51)
         dragon_att = random_attack
         PLAYER_HP = PLAYER_HP - dragon_att
         print("The dragon attacks you:")
-        print("You took",dragon_att, "damage.")
+        print("You took", dragon_att, "damage.")
         if PLAYER_HP > MIN_HP:
-            print(f"You have {PLAYER_HP}HP remaining.\n")
-        else: 
-            print("You have 0HP remaining.\n")
+            print(f"You have {PLAYER_HP}hp remaining.\n")
+        else:
+            print("You have 0hp remaining.\n")
             print("The dragon managed to kill you...")
             quit()
 
@@ -1949,9 +1923,9 @@ def view_stats():
         while stats != "y" and stats != "n":
             print("\nInvalid choice, please enter a valid choice:")
             print("'y' for 'yes or 'n' for 'no'.")
-            stats = input("\nView your current stats? (y/n)\n> ").lower().strip()
+            stats = input("\nView your current stats? (y/n)\n> ").lower()
 
-        if stats == "y":
+        if stats == "y".strip():
             print(f"\nYour current stats:")
             print(f"{PLAYER_HP}hp")
             print(f"{PLAYER_STAMINA}sp\n")
@@ -2079,4 +2053,4 @@ starting_room()
 # Left to add:
 # refactor hp/sp loss once everything working
 # add raise to check for input is a string equilivant to all input choices
-# fix take armour loops...y and n cause issue.... seperate collect armour and secret passage.
+# fix take armour loops
