@@ -1,5 +1,7 @@
 import random
 import os
+from colorama import Fore, Style
+
 
 # Player health and stamina - need potion to restore health
 MAX_HP = 150
@@ -964,6 +966,32 @@ def room_seven():
             room_eight()
         else:
             room_six_west()
+    else:
+        current_room = "Room Seven"
+        print(f"Current room: {current_room}\n")
+
+        view_stats()
+        view_items()
+
+        print("You see the orc you defeated, and smile.\n")
+
+        print(
+            "You look around and see 3 paths.\n"
+            "You can go back west, go east or try going south.\n")
+
+        # Player choice of direction
+        direction = input("Which way do you go? (w/e/s)\n> ").lower().strip()
+        while direction != "e" and direction != "s" and direction != "w":
+            print("\nInvalid move, please enter a valid move:")
+            print("'e' for 'east', 's' for 'south' or 'w' for 'west'.\n")
+            direction = input("Which way do you go?:\n> ").lower().strip()
+
+        if direction == "e":
+            room_nine()
+        elif direction == "s":
+            room_eight()
+        else:
+            room_six_west()
 
 
 def room_seven_completed():
@@ -1447,7 +1475,8 @@ def disarm(PLAYER_STAMINA):
         "You throw the stone at the target above the door.\n\n"
         "This action did take some of your stamnia.\n"
         "You were successful though.\n")
-    print(f"{PLAYER_STAMINA}sp\n")
+    print(Fore.YELLOW + f"You have {PLAYER_STAMINA}sp remaining.")
+    print(Style.RESET_ALL)
 
     return PLAYER_STAMINA
 
@@ -1472,8 +1501,9 @@ def jump(PLAYER_STAMINA):
             "\nYou successfully jumped through the fire trap.\n"
             "However you did take significant damage.\n"
             "It did cost you some stamina as well.\n")
-        print(f"{PLAYER_HP}hp")
-        print(f"{PLAYER_STAMINA}sp\n")
+        print(Fore.RED + f"You have {PLAYER_HP}hp remaining.")
+        print(Fore.YELLOW + f"You have {PLAYER_STAMINA}sp remaining.")
+        print(Style.RESET_ALL)
 
     return PLAYER_HP and PLAYER_STAMINA
 
@@ -1498,8 +1528,9 @@ def swim(PLAYER_STAMINA):
             "You did feel something biting at you the whole time.\n"
             "You also took some damage.\n"
             "It did cost you some stamina as well.\n")
-        print(f"{PLAYER_HP}hp")
-        print(f"{PLAYER_STAMINA}sp\n")
+        print(Fore.RED + f"You have {PLAYER_HP}hp remaining.")
+        print(Fore.YELLOW + f"You have {PLAYER_STAMINA}sp remaining.")
+        print(Style.RESET_ALL)
 
     return PLAYER_HP and PLAYER_STAMINA
 
@@ -1523,8 +1554,9 @@ def hop(PLAYER_STAMINA):
             "\nYou successfully jumped across the river.\n"
             "You however took minimal damage.\n"
             "It did cost you some stamina as well.\n")
-        print(f"{PLAYER_HP}hp")
-        print(f"{PLAYER_STAMINA}sp\n")
+        print(Fore.RED + f"You have {PLAYER_HP}hp remaining.")
+        print(Fore.YELLOW + f"You have {PLAYER_STAMINA}sp remaining.")
+        print(Style.RESET_ALL)
 
     return PLAYER_HP and PLAYER_STAMINA
 
@@ -1544,30 +1576,36 @@ def sword_attack():
 
         if "Imp" in current_boss:
             print("You attack the imp:")
-            print("The imp took", sword_att, "damage.")
+            print(Fore.BLUE + "The imp took", sword_att, "damage.")
             if IMP_HP > MIN_HP:
-                print(f"The imp has {IMP_HP}hp remaining.\n")
+                print(Fore.RED + f"The imp has {IMP_HP}hp remaining.")
+                print(Style.RESET_ALL)
             else:
-                print("The imp has 0hp remaining.\n")
+                print(Fore.RED + "The imp has 0hp remaining.\n")
+                print(Style.RESET_ALL)
 
         if "Orc" in current_boss:
             print("You attack the orc:")
-            print("The orc took", sword_att, "damage.")
+            print(Fore.BLUE + "The orc took", sword_att, "damage.")
             if ORC_HP > MIN_HP:
-                print(f"The orc has {ORC_HP}hp remaining.\n")
+                print(Fore.RED + f"The orc has {ORC_HP}hp remaining.")
+                print(Style.RESET_ALL)
             else:
-                print("The orc has 0hp remaining.\n")
+                print(Fore.RED + "The orc has 0hp remaining.\n")
+                print(Style.RESET_ALL)
     else:
         if "Master Sword" in weapons:
             master_sword_dmg = random.randrange(40, 56)
             master_sword_att = master_sword_dmg
             DRAGON_HP = DRAGON_HP - master_sword_att
             print("You attack the dragon:")
-            print("The dragon took", master_sword_att, "damage.")
+            print(Fore.BLUE + "The dragon took", master_sword_att, "damage.")
             if DRAGON_HP > MIN_HP:
-                print(f"The dragon has {DRAGON_HP}hp remaining.\n")
+                print(Fore.RED + f"The dragon has {DRAGON_HP}hp remaining.")
+                print(Style.RESET_ALL)
             else:
-                print("The dragon has 0hp remaining.\n")
+                print(Fore.RED + "The dragon has 0hp remaining.\n")
+                print(Style.RESET_ALL)
 
 
 def bow_attack():
@@ -1585,30 +1623,36 @@ def bow_attack():
 
         if "Imp" in current_boss:
             print("You attack the imp:")
-            print("The imp took", bow_att, "damage.")
+            print(Fore.BLUE + "The imp took", bow_att, "damage.")
             if IMP_HP > MIN_HP:
-                print(f"The imp has {IMP_HP}hp remaining.\n")
+                print(Fore.RED + f"The imp has {IMP_HP}hp remaining.")
+                print(Style.RESET_ALL)
             else:
-                print("The imp has 0hp remaining.\n")
+                print(Fore.RED + "The imp has 0hp remaining.\n")
+                print(Style.RESET_ALL)
 
         if "Orc" in current_boss:
             print("You attack the orc:")
-            print("The orc took", bow_att, "damage.")
+            print(Fore.BLUE + "The orc took", bow_att, "damage.")
             if ORC_HP > MIN_HP:
-                print(f"The orc has {ORC_HP}hp remaining.\n")
+                print(Fore.RED + f"The orc has {ORC_HP}hp remaining.")
+                print(Style.RESET_ALL)
             else:
-                print("The orc has 0hp remaining.\n")
+                print(Fore.RED + "The orc has 0hp remaining.\n")
+                print(Style.RESET_ALL)
     else:
         if "Master Bow" in weapons:
             master_bow_dmg = random.randrange(35, 51)
             master_bow_att = master_bow_dmg
             DRAGON_HP = DRAGON_HP - master_bow_att
             print("You attack the dragon:")
-            print("The dragon took", master_bow_att, "damage.")
+            print(Fore.BLUE + "The dragon took", master_bow_att, "damage.")
             if DRAGON_HP > MIN_HP:
-                print(f"The dragon has {DRAGON_HP}hp remaining.\n")
+                print(Fore.RED + f"The dragon has {DRAGON_HP}hp remaining.")
+                print(Style.RESET_ALL)
             else:
-                print("The dragon has 0hp remaining.\n")
+                print(Fore.RED + "The dragon has 0hp remaining.\n")
+                print(Style.RESET_ALL)
 
 
 def imp_attack():
@@ -1620,10 +1664,12 @@ def imp_attack():
     imp_att = random_attack
     PLAYER_HP = PLAYER_HP - imp_att
     print("\nThe imp attacks you:")
-    print("You took", imp_att, "damage.")
+    print(Fore.BLUE + "You took", imp_att, "damage.")
     if PLAYER_HP > MIN_HP:
-        print(f"You have {PLAYER_HP}hp remaining.\n")
+        print(Fore.RED + f"You have {PLAYER_HP}hp remaining.\n")
+        print(Style.RESET_ALL)
     else:
+        print(Style.RESET_ALL)
         print("You have 0hp remaining.\n")
         print("The little imp managed to kill you...")
         quit()
@@ -1672,7 +1718,7 @@ def jungle_puzzle(PLAYER_STAMINA):
     """
     PLAYER_STAMINA = PLAYER_STAMINA - 25
 
-    if "Sword" not in weapons:
+    if "Sword" not in weapons and "Master Sword" not in weapons:
         print(
             "\nThe vines are too thick to get through...\n"
             "It looks like you have to use the tunnel.\n")
@@ -1683,7 +1729,8 @@ def jungle_puzzle(PLAYER_STAMINA):
             "Chopping them as you make your way through...\n"
             "but they grow back as you pass.\n"
             "It did cost you some stamina though.\n")
-        print(f"{PLAYER_STAMINA}sp\n")
+        print(Fore.YELLOW + f"You have {PLAYER_STAMINA}sp remaining.")
+        print(Style.RESET_ALL)
 
     return PLAYER_STAMINA
 
@@ -1713,7 +1760,8 @@ def tunnel_puzzle(PLAYER_STAMINA):
         print(
             "\nYou jumped over the low swinging branch\n"
             "It did cost you some stamina though.\n")
-        print(f"{PLAYER_STAMINA}sp\n")
+        print(Fore.YELLOW + f"You have {PLAYER_STAMINA}sp remaining.")
+        print(Style.RESET_ALL)
     else:
         PLAYER_HP = PLAYER_HP - 30
         PLAYER_STAMINA = PLAYER_STAMINA - 15
@@ -1727,8 +1775,9 @@ def tunnel_puzzle(PLAYER_STAMINA):
                 "\nYou tried to duck...\n"
                 "But it was a low swinging branch...\n"
                 "You took some damage from getting hit.\n")
-            print(f"{PLAYER_HP}hp")
-            print(f"{PLAYER_STAMINA}sp\n")
+            print(Fore.RED + f"You have {PLAYER_HP}hp remaining.")
+            print(Fore.YELLOW + f"You have {PLAYER_STAMINA}sp remaining.")
+            print(Style.RESET_ALL)
 
     return PLAYER_HP and PLAYER_STAMINA
 
@@ -1742,10 +1791,12 @@ def orc_attack():
     orc_att = random_attack
     PLAYER_HP = PLAYER_HP - orc_att
     print("\nThe orc attacks you:")
-    print("You took", orc_att, "damage.")
+    print(Fore.BLUE + "You took", orc_att, "damage.")
     if PLAYER_HP > MIN_HP:
-        print(f"You have {PLAYER_HP}hp remaining.\n")
+        print(Fore.RED + f"You have {PLAYER_HP}hp remaining.\n")
+        print(Style.RESET_ALL)
     else:
+        print(Style.RESET_ALL)
         print("You have 0hp remaining.\n")
         print("The orc managed to kill you...")
         quit()
@@ -1797,11 +1848,13 @@ def dragon_attack():
         dragon_att = random_attack
         PLAYER_HP_ARMOUR = PLAYER_HP_ARMOUR - dragon_att
         print("The dragon attacks you:")
-        print("You took", dragon_att, "damage.")
+        print(Fore.BLUE + "You took", dragon_att, "damage.")
         if PLAYER_HP_ARMOUR > MIN_HP:
-            print(f"You have {PLAYER_HP_ARMOUR}hp remaining.\n")
+            print(Fore.RED + f"You have {PLAYER_HP_ARMOUR}hp remaining.\n")
+            print(Style.RESET_ALL)
         else:
-            print("You have 0hp remaining.\n")
+            print(Fore.RED + "You have 0hp remaining.")
+            print(Style.RESET_ALL)
             print("The dragon managed to kill you...\n")
             print("Unfortunetly you could not escape the dungeon...")
             quit()
@@ -1810,12 +1863,15 @@ def dragon_attack():
         dragon_att = random_attack
         PLAYER_HP = PLAYER_HP - dragon_att
         print("The dragon attacks you:")
-        print("You took", dragon_att, "damage.")
+        print(Fore.BLUE + "You took", dragon_att, "damage.")
         if PLAYER_HP > MIN_HP:
-            print(f"You have {PLAYER_HP}hp remaining.\n")
+            print(Fore.RED + f"You have {PLAYER_HP}hp remaining.\n")
+            print(Style.RESET_ALL)
         else:
-            print("\nYou have 0hp remaining.\n")
+            print(Fore.RED + "\nYou have 0hp remaining.")
+            print(Style.RESET_ALL)
             print("The dragon managed to kill you...")
+            print("Unfortunetly you could not escape the dungeon...")
             quit()
 
 
@@ -1896,8 +1952,9 @@ def view_stats():
 
         if stats == "y":
             print(f"\nYour current stats:")
-            print(f"{PLAYER_HP}hp")
-            print(f"{PLAYER_STAMINA}sp\n")
+            print(Fore.GREEN + f"You have {PLAYER_HP}hp remaining.")
+            print(Fore.CYAN + f"You have {PLAYER_STAMINA}sp remaining.")
+            print(Style.RESET_ALL)
         else:
             print("\nYou decided not to view your current stats.\n")
     else:
@@ -1909,8 +1966,9 @@ def view_stats():
 
         if stats == "y":
             print(f"\nYour current stats:")
-            print(f"{PLAYER_HP_ARMOUR}hp")
-            print(f"{PLAYER_STAMINA}sp\n")
+            print(Fore.GREEN + f"You have {PLAYER_HP_ARMOUR}hp remaining.")
+            print(Fore.CYAN + f"You have {PLAYER_STAMINA}sp remaining.")
+            print(Style.RESET_ALL)
         else:
             print("\nYou decided not to view your current stats.\n")
 
@@ -1938,13 +1996,14 @@ def fairy():
     """
     Conversation with the NPC fairy
     """
-    print("You smile back at the fairy and say 'hello'")
+    print("You smile back at the fairy.")
     print("She says:")
-    print(f"'Hello {name}'")
+    print(Fore.MAGENTA + f"'Hello {name}'")
     print(
-        "'The only escape is to defeat the evil dragon'\n"
+        Fore.MAGENTA + "'The only escape is to defeat the evil dragon'\n"
         "'Only you can defeat him!'\n"
         "'I can tell you more about the dungeon...'\n")
+    print(Style.RESET_ALL)
 
     talk = input("Would you like to learn more? (y/n)\n> ").lower().strip()
     while talk != "y" and talk != "n":
@@ -1955,7 +2014,7 @@ def fairy():
 
     if talk == "y":
         print(
-            "'There is a secret room in this dungeon'\n"
+            Fore.MAGENTA + "'There is a secret room in this dungeon'\n"
             "'To access that room you need a special key'\n"
             "'In that room you can find some strong weapons'\n"
             "'There is also a special piece of armour'\n"
@@ -1963,14 +2022,16 @@ def fairy():
             "'But you need a special stone to access it\n"
             "'The stone will also open a secret path'\n"
             "'That is all I can tell you.'\n")
-        print(f"'Good luck {name}'\n")
+        print(f"'Good luck {name}'")
+        print(Style.RESET_ALL)
         print(
             "The fairy then disappears.\n"
             "The only path you can take is south.\n"
             "You head back south to the room you just came from.\n")
         room_three_completed()
     else:
-        print("\n'That is okay...maybe next time\n")
+        print(Fore.MAGENTA + "\n'That is okay...maybe next time")
+        print(Style.RESET_ALL)
         print("The fairy then disappears.\n")
         print(
             "Hopefully what she wanted to say wasn't important.\n"
@@ -2017,7 +2078,3 @@ name = input("Type your name:\n> ").capitalize().strip()
 clear()
 start_game()
 starting_room()
-
-# Left to add:
-# add raise to check for input is a string equilivant to all input choices
-# colourama for damage, hp, sp, conversation

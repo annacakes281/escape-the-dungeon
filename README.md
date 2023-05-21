@@ -34,5 +34,6 @@ Happy coding!
 <!-- https://www.youtube.com/watch?v=lI6S2-icPHE&t=19s 
 https://github.com/dante0527/TextBasedGame
 https://www.youtube.com/watch?v=xHPmXArK6Tg&list=PL1-slM0ZOosXf2oQYZpTRAoeuo0TPiGpm&index=2
-https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=5 
+https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=5
+https://linuxhint.com/colorama-python/
 -->
