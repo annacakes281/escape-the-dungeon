@@ -1,11 +1,7 @@
 import random
 import os
 from colorama import Fore, Style
-from PIL import Image
 
-# Shows the map to player
-img = Image.open("Map.png")
-img.show()
 
 # Player health and stamina - need potion to restore health
 MAX_HP = 150
