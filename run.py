@@ -239,6 +239,7 @@ def room_one():
 
     print("There is nothing left to do in this room.")
     print("So you head south back to the room you started in.\n")
+    clear_terminal()
     starting_room()
 
 
@@ -463,11 +464,17 @@ def room_three():
             mini_boss_imp()  # code and format
         else:
             print(
-                "You decided to try and flee the imp\n"
+                "\nYou decided to try and flee the imp\n"
                 "...but as soon as you turned to open the door,\n"
                 "it kept attacking you and you died...")
             quit()
     else:
+        current_room = "Room Three"
+        print(f"Current room: {current_room}\n")
+
+        view_stats()
+        view_items()
+
         print(
             "You enter the room and see the imp you defeated on the ground.\n"
             "You take a moment to remember your triumph!\n")
@@ -1240,6 +1247,9 @@ def secret_room():
                 print(f"Current weapon:{weapons}\n")
                 collect_armour()
     else:
+        current_room = "Secret Room"
+        print(f"Current room: {current_room}\n")
+
         print("You see an empty table.\n")
         collect_armour()
 
@@ -1297,18 +1307,18 @@ def collect_armour():
                 print("The armour  on the stand.\n")
                 take_item = input("Take item? (y/n)\n> ").lower().strip()
 
-                if take_item == "y":
-                    inventory.append("Armour")
-                    print(
-                        "You take the armour off the stand,\n"
-                        "and put it on... You feel stronger")
-                    print(f"Current inventory:{inventory}\n")
-                    secret_passage()
-                else:
-                    print(
-                        "You decided to leave the armour...\n"
-                        "let's hope it wasn't useful.\n")
-                    room_three_completed()
+            if take_item == "y":
+                inventory.append("Armour")
+                print(
+                    "\nYou take the armour off the stand,\n"
+                    "and put it on... You feel stronger")
+                print(f"Current inventory:{inventory}\n")
+                secret_passage()
+            else:
+                print(
+                    "You decided to leave the armour...\n"
+                    "let's hope it wasn't useful.\n")
+                room_three_completed()
     else:
         print("You see an empty armour stand.\n")
         secret_passage()
@@ -1318,29 +1328,23 @@ def secret_passage():
     """
     Players can use secret passage once armour been removed
     """
-    if "Armour" in inventory:
-        print(
-            "The wall then suddenly sides open...\n"
-            "This reveals a passageway.\n")
+    print(
+        "The wall then suddenly sides open...\n"
+        "This reveals a passageway.\n")
 
-        direction = input("Enter? (y/n)\n> ").lower().strip()
-        while direction != "y" and direction != "n":
-            print("\nInvalid choice, select a valid option:")
-            print("'y' for 'yes' or 'n' for 'no'.\n")
-            print("You look at the passageway.")
-            direction = input("Enter? (y/n)\n> ").lower().strip()
+    choice = input("Enter? (y/n)\n> ").lower().strip()
+    while choice != "y" and choice != "n":
+        print("\nInvalid choice, select a valid option:")
+        print("'y' for 'yes' or 'n' for 'no'.\n")
+        print("You look at the passageway.")
+        choice = input("Enter? (y/n)\n> ").lower().strip()
 
-            if direction == "y":
-                room_eight_secret()
-            else:
-                print(
-                    "\nYou decide to not enter the passageway.\n"
-                    "The only way left to go is west.")
-                room_three_completed()
+    if choice == "y":
+        room_eight_secret()
     else:
         print(
-            "You decided to leave the armour...\n"
-            "let's hope it wasn't useful.\n")
+            "\nYou decide to not enter the passageway.\n"
+            "The only way left to go is west.")
         room_three_completed()
 
 
@@ -1500,7 +1504,7 @@ def swim(PLAYER_HP, PLAYER_STAMINA):
         quit()
     else:
         print(
-            "You succssfully swam through the river.\n"
+            "\nYou succssfully swam through the river.\n"
             "You did feel something biting at you the whole time.\n"
             "You also took some damage.\n"
             "It did cost you some stamina as well.\n")
@@ -2040,7 +2044,7 @@ def use_potion():
                     PLAYER_HP = MAX_HP
                 print(f"{PLAYER_HP}\n")
         else:
-            print("You decide not to drink a health potion.\n")
+            print("\nYou decide not to drink a health potion.\n")
 
 
 # Player welcome screen
@@ -2053,4 +2057,22 @@ starting_room()
 # Left to add:
 # refactor hp/sp loss once everything working
 # add raise to check for input is a string equilivant to all input choices
-# fix take armour loops
+# colourama for damage, hp, sp, conversation
+
+# BUG:
+#     players leave armour but come back to get it
+#     players take armour secret passage options
+
+# TESTED:
+# cant enter room without key
+# room 3 flee boss before attack
+# weapon not appearing once collected
+#
+#
+#
+#
+#
+#
+#
+#
+#
