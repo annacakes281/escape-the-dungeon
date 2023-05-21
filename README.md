@@ -42,21 +42,25 @@ I will finally go through the testing I done for the game, as well as the method
 <details>
 <summary><a href="#features-and-gameplay">Features and Gameplay</a></summary>
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Introduction</li>
+<li>Input</li>
+<li>Rooms</li>
+<li>Weapons</li>
+<li>Items</li>
+<li>Traps and Puzzles</li>
+<li>NPC</li>
+<li>Stats</li>
+<li>Inventory</li>
 </ul>
 </details>
 <details>
 <summary><a href="#features-to-add">Features to Add</a></summary>
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Stat Bar</li>
+<li>Animation and Sound</li>
+<li>Map Display</li>
+<li>Further In-game Aspects</li> 
+<li>Updated Input</li>
 </ul>
 </details>
 <details>
@@ -91,7 +95,7 @@ Playing these adventure games always made me happy and it was always interesting
 
 Before I started writing the code for the game, I planned out document of what I possibly wanted to add in, so I knew what I was going to do. The document served as my basis to start creating the text-based game. I did refer to this document a lot throughout the game when adding 'player', 'enemy', 'health/stamina', and 'damage' stats. I did change some of the ideas when actually implementing the game, however the basis all stayed the same.
 
-All in all I am happy with what I have created and I have had fun playing it.
+<img src="readme-images/word-doc.png" alt="Inital plan">
 
 ### ***Inspirations***
 A lot of my insirations came from games I have played as a child and growing up. I played a lot of different types of games and different genres - I especially emjoyed playing RPG games though. 
@@ -104,15 +108,44 @@ Some games that I took inspiration from:
 * Dungeons and Dragons
 
 ### ***My thoughts***
-Using Python and a text-based terminal was a really fun experience. The text-based terminal really did remind me of vintage and retro games that I used to play online. Python was also a fun language to use to create the code and easy to understand, without having run into many problems and issues.
+Using Python and a text-based terminal was a really fun experience. The text-based terminal really did remind me of vintage and retro games that I used to play online. Python was also a fun language to use to create the code and easy to understand, without having run into many problems and issues. All in all I am happy with what I have created and I have had fun playing it as well as creating it.
 
 ## **Lucid Chart**
+To help create a flow-chart for the map and the functions for the game, so that I can have a visual aspect of what I need to do, as well as how the functions flow, I used a free application called [LucidChart](https://lucid.app/documents#/dashboard). It was a very helpful tool to create and breakdown what I needed to do after creating my inital word document.
+
 ### ***Map***
+Creating a visable map made it easier when creating functions and testing to navigate through the game, however for gameplay purposes the map wont be avaliable for users.
+
+* 12 rooms in total with different paths 
+* Some rooms have pickup items, that won't respawn
+* There are some traps/puzzles in some rooms
+* Green circle symbolises player start, yellow star is a secret room, red star is end of the game
+* There is an NPC avaliable in one of the rooms
+
+<img src="readme-images/Map.png" alt="Map of the dungeon">
+
 ### ***Functions***
+By creating a flow-chart for the functions to breakdown what the user will select and what I want the user to do, as well as the outcome helped to create the actual Python functions when making the game. It helped me to create the necessary functions needed without having to spend ages thinking about them, however there was changes made during the development process. This was because I decided I wanted things to run differently, or just to expand on the functions a little more. The function flow-chart broke down my thought process a little more on what I actually wanted to do.
+
+<img src="readme-images/Functions.png" alt="Flow-chart of functions">
 
 ## **Features and Gameplay**
+### ***Introduction***
+### ***Input***
+### ***Rooms***
+### ***Weapons***
+### ***Items***
+### ***Traps and Puzzles***
+### ***NPC***
+### ***Stats***
+### ***Inventory***
 
 ## **Features to Add**
+### ***Stat Bar***
+### ***Animation and Sound***
+### ***Map Display***
+### ***Further In-game Aspects***
+### ***Updated Input***
 
 ## **Testing**
 ### ***Built-in Linter***
