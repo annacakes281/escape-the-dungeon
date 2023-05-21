@@ -1,13 +1,3 @@
-
-<!-- https://www.youtube.com/watch?v=lI6S2-icPHE&t=19s 
-https://github.com/dante0527/TextBasedGame
-https://www.youtube.com/watch?v=xHPmXArK6Tg&list=PL1-slM0ZOosXf2oQYZpTRAoeuo0TPiGpm&index=2
-https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=5
-https://linuxhint.com/colorama-python/
-https://stackoverflow.com/questions/1413540/showing-an-image-from-console-in-python
-CHECK AND WRITE README
-using slack
--->
 # **Escape the Dungeon**
 
 # **Introduction**
@@ -48,7 +38,7 @@ I will finally go through the testing I done for the game, as well as the method
 <li>Weapons</li>
 <li>Items</li>
 <li>Traps and Puzzles</li>
-<li>NPC</li>
+<li>NPC and Boss Fights</li>
 <li>Stats</li>
 <li>Inventory</li>
 </ul>
@@ -152,7 +142,7 @@ In this section I will discuss several of the features that I had implented into
 #### Input
 * Escape the Dungeon uses a lot of 'input' methods for the main features of the game to work, as it is based on player choice. 
 * The main 'input' features for the game will not allow a user to proceed without typing something into the terminal - the only input features this does not apply to is the 'Clear Terminal' function, asking the player whether they would like to play, and inputting players name. 
-* All other 'input' will require the user to put one of the required letters into the terminal.
+* All other 'input' will require the user to put one of the required letters into the terminal - letters were used rather than words to make it easier for the player to navigate through the game.
 
 <img src="readme-images/player-input-1.png" alt="Input code example 1">
 
@@ -176,29 +166,102 @@ In this section I will discuss several of the features that I had implented into
 
 <img src="readme-images/function-example-3.png" alt="Function code example 3">
 
+* Throughout each of the function several 'if/else' or 'if/elif/else' statements were used in order to create game functionality so players can choose an option and there be something to happen for each option chosen.
+* 'While loops' were also used when doing user 'input' to ensure that players were entering an answer into the terminal for what to do next.
+* 'While loops' and 'if/else' statements were also used for the battle function in the game so that the fight can progess - more about the fight mechanic will be discussed in the <a href="#npc-and-boss-fight">NPC and Boss Fight</a> section.
+
 ### ***Rooms***
+* talk about each of the rooms and the items/features in it/whether they appear again
+* talk about puzzles and  traps
+* if/else statements - reiterate from previous section
+* why several rooms and having to go back and fourth
+* secret room and secret passage only if armour taken
+* include images 
 ### ***Weapons***
+* talk about the 4 different weapons and choice user can make
+* need the weapon to do certain things, change of weapon when using master version
+* higher dmg - mention dmg as well 
+* mention where weapons located 
+* why you gave them a choice 
+* include images 
 ### ***Items***
+* what items can be found and where
+* purpose of the items 
+* functionality - e.g. taking armour/using passage 
+* why you added this 
+* include images 
 ### ***Traps and Puzzles***
-### ***NPC***
+* what traps/puzzles are in the game
+* how it is triggered
+* it always being there, and the dmg it does to player
+* include images 
+### ***NPC and Boss Fights***
+* why the npc 
+* where the npc/bosses are 
+* which types
+* why i added this features 
+* the dmg/attacks 
+* include images 
 ### ***Stats***
+* stats showing in each room if user wants to see
+* what are the stats
+* sp regen on its own, hp needs potion
+* change in stats when armour on
+* certain actions impact stats
+* global stats for everything
+* include images 
 ### ***Inventory***
+* different lists
+* how items are added to it 
+* hidden lists - current tasks and current boss
+* include images 
 
 ## **Features to Add**
+intro to this section
 ### ***Stat Bar***
+* what is it
+* why you want to add it
 ### ***Animation and Sound***
+* what is it
+* why you want to add it
+* make it like an rpg
 ### ***Map Display***
+* what is it
+* why you want to add it
+* when animation and sound added
 ### ***Further In-game Aspects***
+* what is it
+* why you want to add it
+* further rooms and secrets
+* character selection
 ### ***Updated Input***
+* what is it
+* why you want to add it
+* rather than typing 1 leter the full thing or a full action
 
 ## **Testing**
+the kind of testing you did, the ingame testing and the app testing 
 ### ***Built-in Linter***
+* the little problem and error thing at bottom of the page
+* include images 
 ### ***Unfixed Bugs***
+* any unfixed bugs and why? - lines too long
+* include images 
 
 ## **Deployment**
+intro to this section and what app was used to deploy the project
 ### ***Heroku***
+* add step-by-step guide on how to deploy
+* include images 
 
 ## **Credits**
+mention using the CI template for the project
 ### ***Content***
+<!-- https://www.youtube.com/watch?v=lI6S2-icPHE&t=19s 
+https://github.com/dante0527/TextBasedGame
+https://www.youtube.com/watch?v=xHPmXArK6Tg&list=PL1-slM0ZOosXf2oQYZpTRAoeuo0TPiGpm&index=2
+https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=5
+https://linuxhint.com/colorama-python/
+-->
 
 <img src="" alt="">
