@@ -37,7 +37,7 @@ def clear():
 
 def clear_terminal():
     """
-    Prompts players whether they want to cleat terminal
+    Prompts players whether they want to clear terminal
     """
     print("\nType 'y' to clear the terminal:")
     clear_term = input("Clear the terminal?\n> ").lower().strip()
@@ -207,7 +207,7 @@ def room_one():
             if trap == "d":
                 disarm(PLAYER_STAMINA)
             else:
-                jump(PLAYER_HP, PLAYER_STAMINA)
+                jump(PLAYER_STAMINA)
         else:
             print("\nYou choose the bow and attached it to your back.\n")
             weapons.append("Bow")
@@ -232,7 +232,7 @@ def room_one():
             if trap == "d":
                 disarm(PLAYER_STAMINA)
             else:
-                jump(PLAYER_HP, PLAYER_STAMINA)
+                jump(PLAYER_STAMINA)
 
     else:
         print("You see an empty table.\n")
@@ -276,11 +276,12 @@ def room_two():
         trap = input("Swim or jump? (s/j)\n> ").lower().strip()
 
     if trap == "s":
-        swim(PLAYER_HP, PLAYER_STAMINA)  # need to format
+        swim(PLAYER_STAMINA)
     else:
-        hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
+        hop(PLAYER_STAMINA)
 
     if "Room Two" not in completed_tasks:
+
         # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
@@ -334,10 +335,12 @@ def room_two():
             trap = input("Swim or jump? (s/j)\n> ").lower().strip()
 
         if trap == "s":
-            swim(PLAYER_HP, PLAYER_STAMINA)  # need to format
+            swim(PLAYER_STAMINA)
+            clear_terminal()
             starting_room()
         else:
-            hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
+            hop(PLAYER_STAMINA)
+            clear_terminal()
             starting_room()
     else:
         room_three()
@@ -360,8 +363,8 @@ def room_two_west():
     view_stats()
     view_items()
 
-    # Player can choose to take potion if not in inventory
     if "Room Two" not in completed_tasks:
+
         # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
@@ -410,11 +413,12 @@ def room_two_west():
         trap = input("Swim or jump? (s/j)\n> ").lower().strip()
 
     if trap == "s":
-        swim(PLAYER_HP, PLAYER_STAMINA)  # need to format
+        swim(PLAYER_STAMINA)
     else:
-        hop(PLAYER_HP, PLAYER_STAMINA)  # need to format
+        hop(PLAYER_STAMINA)
 
     print("After crossing the river you head back north.\n")
+    clear_terminal()
     starting_room()
 
 
@@ -446,8 +450,7 @@ def room_three():
 
         print(
             "You enter the room and the door shuts behind you.\n"
-            "You notice an imp looking at you... it is ready to fight you!\n"
-            )
+            "You notice an imp looking at you... it is ready to fight you!\n")
 
         # Asks players if they want to use a potion
         use_potion()
@@ -461,7 +464,7 @@ def room_three():
             fight = input("Do you fight?:\n> ").lower().strip()
 
         if fight == "y":
-            mini_boss_imp()  # code and format
+            mini_boss_imp()
         else:
             print(
                 "\nYou decided to try and flee the imp\n"
@@ -484,6 +487,7 @@ def room_three():
             "You look around and can go north to the open room.\n"
             "East to mysterious door,\n"
             "or west towards the river.\n")
+
         direction = input("Which way do you go?:\n> ").lower().strip()
         while direction != "n" and direction != "e" and direction != "w":
             print("\nInvalid move, please enter a valid move:")
@@ -523,6 +527,7 @@ def room_three_completed():
             "You look around and can go north to the open room.\n"
             "East to mysterious door,\n"
             "or west towards the river.\n")
+
     direction = input("Which way do you go?:\n> ").lower().strip()
     while direction != "n" and direction != "e" and direction != "w":
         print("\nInvalid move, please enter a valid move:")
@@ -554,6 +559,7 @@ def room_four():
     view_items()
 
     if "Room Four" not in completed_tasks:
+
         # Prompts player to take key if not in inventory
         if "Key 2" not in keys:
             print("You see a key on a pedestal... it could be important.")
@@ -628,6 +634,7 @@ def room_five():
     if direction == "n":
         room_six()
     else:
+        clear_terminal()
         starting_room()
 
 
@@ -643,9 +650,6 @@ def room_five_south():
 
     current_room = "Room Five"
     print(f"Current room: {current_room}\n")
-
-    view_stats()
-    view_items()
 
     print(
         "You head south and enter an empty room that smells musty.\n"
@@ -663,6 +667,7 @@ def room_five_south():
     if direction == "n":
         room_six()
     else:
+        clear_terminal()
         starting_room()
 
 
@@ -699,11 +704,12 @@ def room_six():
         trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
     if trap == "v":
-        jungle_puzzle(PLAYER_STAMINA)  # need to format
+        jungle_puzzle(PLAYER_STAMINA)
     else:
-        tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
+        tunnel_puzzle(PLAYER_STAMINA)
 
     if "Room Six" not in completed_tasks:
+
         # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
@@ -733,7 +739,7 @@ def room_six():
     else:
         print("\nYou look around see nothing on the ground.\n")
 
-    print("\nYou look around and see a path ahead, or you can turn back.\n")
+    print("You look around and see a path ahead, or you can turn back.\n")
 
     # Player has choice in direction
     direction = input("Which way do you go? (e/s)\n> ").lower().strip()
@@ -758,9 +764,9 @@ def room_six():
             trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
         if trap == "v":
-            jungle_puzzle(PLAYER_STAMINA)  # need to format
+            jungle_puzzle(PLAYER_STAMINA)
         else:
-            tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
+            tunnel_puzzle(PLAYER_STAMINA)
             room_five_south()
 
 
@@ -785,6 +791,7 @@ def room_six_west():
     print("You enter the room to the west.\n")
 
     if "Room Six" not in completed_tasks:
+
         # Prompts player to take potion of not in inventory
         if "Potion" not in inventory:
             print(
@@ -828,9 +835,9 @@ def room_six_west():
         trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
     if trap == "v":
-        jungle_puzzle(PLAYER_STAMINA)  # need to format
+        jungle_puzzle(PLAYER_STAMINA)
     else:
-        tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
+        tunnel_puzzle(PLAYER_STAMINA)
 
     print("You look around and see a path ahead, or you can turn back.\n")
 
@@ -857,9 +864,9 @@ def room_six_west():
             trap = input("Vines or tunnel? (v/t)\n> ").lower().strip()
 
         if trap == "v":
-            jungle_puzzle(PLAYER_STAMINA)  # need to format
+            jungle_puzzle(PLAYER_STAMINA)
         else:
-            tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)  # need to format
+            tunnel_puzzle(PLAYER_STAMINA)
             room_seven()
 
 
@@ -875,6 +882,7 @@ def room_seven():
     print("\nRemember you just need to type the first letter of the word.\n")
 
     if "Room Seven" not in completed_tasks:
+
         # Player must have key to enter
         if "Key 2" not in keys:
             print("The door is locked and you need a key to open it.\n")
@@ -911,27 +919,31 @@ def room_seven():
                     "it kept attacking you and you died...")
                 quit()
 
-        # Prompts players to choose whether to take the stone
-        if "Stone" not in inventory:
-            print(
-                "You see a shiny looking stone around the orcs neck.\n"
-                "It could be important...\n")
+        if "Secret Completed" not in completed_tasks:
 
-            take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-            while take_item != "y" and take_item != "n":
-                print("\nInvalid choice, please select a valid option:")
-                print("'y' for 'yes' or 'n' for 'no'.\n")
-                print("You see a shiny looking stone around the orcs neck.")
-                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
-
-            if take_item == "y":
-                inventory.append("Stone")
-                print("You take the shiny looking stone.\n")
-                print(f"Current inventory:{inventory}\n")
-            else:
+            # Prompts players to choose whether to take the stone
+            if "Stone" not in inventory:
                 print(
-                    "\nYou decided to leave the stone...\n"
-                    "hopefully it wasn't important.\n")
+                    "You see a shiny looking stone around the orcs neck.\n"
+                    "It could be important...\n")
+
+                take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+                while take_item != "y" and take_item != "n":
+                    print("\nInvalid choice, please select a valid option:")
+                    print("'y' for 'yes' or 'n' for 'no'.\n")
+                    print("You see a shiny looking stone around the orcs neck.")
+                    take_item = input("Do you take it? (y/n)\n> ").lower().strip()
+
+                if take_item == "y":
+                    inventory.append("Stone")
+                    print("You take the shiny looking stone.\n")
+                    print(f"Current inventory:{inventory}\n")
+                else:
+                    print(
+                        "\nYou decided to leave the stone...\n"
+                        "hopefully it wasn't important.\n")
+            else:
+                print("You see the orc you defeated, and smile.\n")
         else:
             print("You see the orc you defeated, and smile.\n")
 
@@ -974,7 +986,8 @@ def room_seven_completed():
         "You enter the room and see the orc you defeated on the ground.\n"
         "You take a moment to remember your triumph!\n")
 
-    if "Secret Room" not in completed_tasks:
+    if "Secret Completed" not in completed_tasks:
+
         # Prompts players to choose whether to take the stone
         if "Stone" not in inventory:
 
@@ -1036,8 +1049,9 @@ def room_eight():
 
     print("You enter the room to the south.\n")
 
-    # Prompts user to take secret room key if not in inventory
     if "Room Eight" not in completed_tasks:
+
+        # Prompts user to take secret room key if not in inventory
         if "Secret Key" not in keys:
             print(
                 "You see a key on a pedestal in the middle of the room.\n"
@@ -1194,13 +1208,13 @@ def secret_room():
 
     print("\nRemember you just need to type the first letter of the word.\n")
 
-    if "Secret Room Opened" not in completed_tasks:
+    if "Secret Completed" not in completed_tasks:
         if "Secret Key" not in keys:
             print("The door is locked and you need a key to open it.\n")
             room_three_completed()
         else:
             keys.remove("Secret Key")
-            completed_tasks.append("Secret Room Opened")
+            completed_tasks.append("Secret Completed")
             print("You use the key and open the door to the room\n")
 
         current_room = "Secret Room"
@@ -1259,7 +1273,9 @@ def collect_armour():
     Player to collect armour if not in inventory
     """
     if "Armour" not in inventory:
+
         if "Armour Unlocked" not in completed_tasks:
+
             if "Stone" in inventory:
                 print(
                     "You see some armour leaning against the wall in a case.\n"
@@ -1271,6 +1287,7 @@ def collect_armour():
                     "The case around the armour decends into the ground.\n")
                 inventory.remove("Stone")
                 completed_tasks.append("Armour Unlocked")
+                completed_tasks.append("Secret Completed")
 
                 take_item = input("Do you take it? (y/n)\n> ").lower().strip()
                 while take_item != "y" and take_item != "n":
@@ -1405,8 +1422,10 @@ def boss_room():
                         "The dragon eats you...\n"
                         "No one is surviving that...\n")
                     quit()
-            use_potion()
-            master_boss()
+            else:
+                print("You have the armour on...and feel ready!\n")
+                use_potion()
+                master_boss()
         else:
             print(
                 "You decided to try and flee the dragon\n"
@@ -1416,19 +1435,13 @@ def boss_room():
             quit()
 
 
-def disarm_sp_loss(PLAYER_STAMINA):
+def disarm(PLAYER_STAMINA):
     """
+    Fire trap in room 1 - disarm option\n
     Reduces players stamina when disarming the trap
     """
     PLAYER_STAMINA = PLAYER_STAMINA - 5
-    return PLAYER_STAMINA
 
-
-def disarm(PLAYER_STAMINA):
-    """
-    Disarm fire trap with stone
-    """
-    PLAYER_STAMINA = disarm_sp_loss(PLAYER_STAMINA)
     print(
         "\nYou see some stones on the ground and pick one up.\n"
         "You throw the stone at the target above the door.\n\n"
@@ -1436,33 +1449,22 @@ def disarm(PLAYER_STAMINA):
         "You were successful though.\n")
     print(f"{PLAYER_STAMINA}sp\n")
 
-
-def jump_hp_loss():
-    """
-    Reduces players health when jumping through the trap
-    """
-    global PLAYER_HP
-    PLAYER_HP = PLAYER_HP - 100
-    return PLAYER_HP
-
-
-def jump_sp_loss(PLAYER_STAMINA):
-    """
-    Reduces players stamina when jumping through the trap
-    """
-    PLAYER_STAMINA = PLAYER_STAMINA - 50
     return PLAYER_STAMINA
 
 
-def jump(PLAYER_HP, PLAYER_STAMINA):
+def jump(PLAYER_STAMINA):
     """
-    Jump through fire trap
+    Fire trap in room 1 - jump option
+    Reduces players health and stamina when jumping through the trap
     """
-    PLAYER_HP = jump_hp_loss()
-    PLAYER_STAMINA = jump_sp_loss(PLAYER_STAMINA)
+    global PLAYER_HP
+
+    PLAYER_HP = PLAYER_HP - 100
+    PLAYER_STAMINA = PLAYER_STAMINA - 50
+
     if PLAYER_HP < MIN_HP:
         print(
-            "Your HP hit 0...\n"
+            "\nYour HP hit 0...\n"
             "You lost...")
         quit()
     else:
@@ -1473,33 +1475,21 @@ def jump(PLAYER_HP, PLAYER_STAMINA):
         print(f"{PLAYER_HP}hp")
         print(f"{PLAYER_STAMINA}sp\n")
 
+    return PLAYER_HP and PLAYER_STAMINA
 
-def swim_hp_loss():
+
+def swim(PLAYER_STAMINA):
     """
-    Reduces players health when swimming through river
+    River puzzle in room 2 - swim option\n
+    Reduces players health and stamina when swimming through river
     """
     global PLAYER_HP
     PLAYER_HP = PLAYER_HP - 25
-    return PLAYER_HP
-
-
-def swim_sp_loss(PLAYER_STAMINA):
-    """
-    Reduces players stamina when disarming the trap
-    """
     PLAYER_STAMINA = PLAYER_STAMINA - 30
-    return PLAYER_STAMINA
 
-
-def swim(PLAYER_HP, PLAYER_STAMINA):
-    """
-    Swim through river
-    """
-    PLAYER_HP = swim_hp_loss()
-    PLAYER_STAMINA = swim_sp_loss(PLAYER_STAMINA)
     if PLAYER_HP < MIN_HP:
         print(
-            "Your HP hit 0...\n"
+            "\nYour HP hit 0...\n"
             "You lost...")
         quit()
     else:
@@ -1511,33 +1501,21 @@ def swim(PLAYER_HP, PLAYER_STAMINA):
         print(f"{PLAYER_HP}hp")
         print(f"{PLAYER_STAMINA}sp\n")
 
+    return PLAYER_HP and PLAYER_STAMINA
 
-def hop_hp_loss():
+
+def hop(PLAYER_STAMINA):
     """
-    Reduces players health when jumping on pillars
+    River puzzle in room 2 - hop/jump option\n
+    Reduces players health and stamina when jumping across river
     """
     global PLAYER_HP
     PLAYER_HP = PLAYER_HP - 5
-    return PLAYER_HP
-
-
-def hop_sp_loss(PLAYER_STAMINA):
-    """
-    Reduces players stamina when jumping on pillars
-    """
     PLAYER_STAMINA = PLAYER_STAMINA - 10
-    return PLAYER_STAMINA
 
-
-def hop(PLAYER_HP, PLAYER_STAMINA):
-    """
-    Hop across pillars in river
-    """
-    PLAYER_HP = hop_hp_loss()
-    PLAYER_STAMINA = hop_sp_loss(PLAYER_STAMINA)
     if PLAYER_HP < MIN_HP:
         print(
-            "Your HP hit 0...\n"
+            "\nYour HP hit 0...\n"
             "You lost...")
         quit()
     else:
@@ -1547,6 +1525,8 @@ def hop(PLAYER_HP, PLAYER_STAMINA):
             "It did cost you some stamina as well.\n")
         print(f"{PLAYER_HP}hp")
         print(f"{PLAYER_STAMINA}sp\n")
+
+    return PLAYER_HP and PLAYER_STAMINA
 
 
 def sword_attack():
@@ -1678,60 +1658,43 @@ def mini_boss_imp():
                 room_three_completed()
     else:
         print(
-            "You decided to flee...\n"
+            "\nYou decided to flee...\n"
             "but the imp managed to kill you while you\n"
             "struggle to get the door open.")
         quit()
 
 
-def jungle_sp_loss(PLAYER_STAMINA):
-    """
-    Reduces players stamnia when going through jungle
-    """
-    PLAYER_STAMINA = PLAYER_STAMINA - 25
-    return PLAYER_STAMINA
-
-
 def jungle_puzzle(PLAYER_STAMINA):
     """
-    Jungle puzzle in room 6
+    Jungle puzzle in room 6 - vine option\n
+    Reduces players stamina when cutting the vines\n
+    Requires sword
     """
+    PLAYER_STAMINA = PLAYER_STAMINA - 25
+
     if "Sword" not in weapons:
         print(
             "\nThe vines are too thick to get through...\n"
             "It looks like you have to use the tunnel.\n")
-        tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA)
+        tunnel_puzzle(PLAYER_STAMINA)
     else:
-        PLAYER_STAMINA = jungle_sp_loss(PLAYER_STAMINA)
         print(
             "\nYou successfully made your way through the vines.\n"
             "Chopping them as you make your way through...\n"
             "but they grow back as you pass.\n"
             "It did cost you some stamina though.\n")
-        print(f"{PLAYER_STAMINA}sp")
+        print(f"{PLAYER_STAMINA}sp\n")
 
-
-def tunnel_hp_loss():
-    """
-    Reduces players health when going through tunnel
-    """
-    global PLAYER_HP
-    PLAYER_HP = PLAYER_HP - 30
-    return PLAYER_HP
-
-
-def tunnel_sp_loss(PLAYER_STAMINA):
-    """
-    Reduces players stamina when going through tunnel
-    """
-    PLAYER_STAMINA = PLAYER_STAMINA - 15
     return PLAYER_STAMINA
 
 
-def tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA):
+def tunnel_puzzle(PLAYER_STAMINA):
     """
-    Tunnel puzzle, linked to jungle puzzle in room 6
+    Tunnel puzzle in room 6 - tunnel option\n
+    Reduces players health and stamina depending on choice
     """
+    global PLAYER_HP
+
     print(
         "You see a huge branch coming towards you.\n"
         "What do you do?\n")
@@ -1746,17 +1709,17 @@ def tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA):
         trap = input("Jump or duck? (j/d)\n> ").lower().strip()
 
     if trap == "j":
-        PLAYER_STAMINA = tunnel_sp_loss(PLAYER_STAMINA)
+        PLAYER_STAMINA = PLAYER_STAMINA - 15
         print(
             "\nYou jumped over the low swinging branch\n"
             "It did cost you some stamina though.\n")
-        print(f"{PLAYER_STAMINA}sp")
+        print(f"{PLAYER_STAMINA}sp\n")
     else:
-        PLAYER_HP = tunnel_hp_loss()
-        PLAYER_STAMINA = tunnel_sp_loss(PLAYER_STAMINA)
+        PLAYER_HP = PLAYER_HP - 30
+        PLAYER_STAMINA = PLAYER_STAMINA - 15
         if PLAYER_HP < MIN_HP:
             print(
-                "Your HP hit 0...\n"
+                "\nYour HP hit 0...\n"
                 "You lost...")
             quit()
         else:
@@ -1766,6 +1729,8 @@ def tunnel_puzzle(PLAYER_HP, PLAYER_STAMINA):
                 "You took some damage from getting hit.\n")
             print(f"{PLAYER_HP}hp")
             print(f"{PLAYER_STAMINA}sp\n")
+
+    return PLAYER_HP and PLAYER_STAMINA
 
 
 def orc_attack():
@@ -1807,7 +1772,7 @@ def mini_boss_orc():
             sword_attack()
             bow_attack()
             if PLAYER_HP < MIN_HP:
-                print("The orc managed to kill you...")
+                print("\nThe orc managed to kill you...")
                 quit()
             elif ORC_HP < MIN_HP or ORC_HP == MIN_HP:
                 print("You defeated the orc...Well done!\n")
@@ -1837,7 +1802,7 @@ def dragon_attack():
             print(f"You have {PLAYER_HP_ARMOUR}hp remaining.\n")
         else:
             print("You have 0hp remaining.\n")
-            print("The dragon managed to kill you...")
+            print("The dragon managed to kill you...\n")
             print("Unfortunetly you could not escape the dungeon...")
             quit()
     else:
@@ -1849,7 +1814,7 @@ def dragon_attack():
         if PLAYER_HP > MIN_HP:
             print(f"You have {PLAYER_HP}hp remaining.\n")
         else:
-            print("You have 0hp remaining.\n")
+            print("\nYou have 0hp remaining.\n")
             print("The dragon managed to kill you...")
             quit()
 
@@ -1883,7 +1848,7 @@ def master_boss():
                     quit()
         else:
             print(
-                "You decided to flee...\n"
+                "\nYou decided to flee...\n"
                 "but the orc managed to kill you while you\n"
                 "struggle to get the door open.")
             quit()
@@ -1901,7 +1866,7 @@ def master_boss():
                 sword_attack()
                 bow_attack()
                 if PLAYER_HP < MIN_HP:
-                    print("The dragon managed to kill you...")
+                    print("\nThe dragon managed to kill you...")
                     quit()
                 elif DRAGON_HP < MIN_HP or DRAGON_HP == MIN_HP:
                     print(
@@ -1912,7 +1877,7 @@ def master_boss():
                     quit()
         else:
             print(
-                "You decided to flee...\n"
+                "\nYou decided to flee...\n"
                 "but the orc managed to kill you while you\n"
                 "struggle to get the door open.")
             quit()
@@ -1927,9 +1892,9 @@ def view_stats():
         while stats != "y" and stats != "n":
             print("\nInvalid choice, please enter a valid choice:")
             print("'y' for 'yes or 'n' for 'no'.")
-            stats = input("\nView your current stats? (y/n)\n> ").lower()
+            stats = input("\nView your current stats? (y/n)\n> ").lower().strip()
 
-        if stats == "y".strip():
+        if stats == "y":
             print(f"\nYour current stats:")
             print(f"{PLAYER_HP}hp")
             print(f"{PLAYER_STAMINA}sp\n")
@@ -1998,7 +1963,7 @@ def fairy():
             "'But you need a special stone to access it\n"
             "'The stone will also open a secret path'\n"
             "'That is all I can tell you.'\n")
-        print(f"'Good luck {name}")
+        print(f"'Good luck {name}'\n")
         print(
             "The fairy then disappears.\n"
             "The only path you can take is south.\n"
@@ -2042,7 +2007,6 @@ def use_potion():
                 PLAYER_HP += 200
                 if PLAYER_HP > MAX_HP:
                     PLAYER_HP = MAX_HP
-                print(f"{PLAYER_HP}\n")
         else:
             print("\nYou decide not to drink a health potion.\n")
 
@@ -2055,24 +2019,5 @@ start_game()
 starting_room()
 
 # Left to add:
-# refactor hp/sp loss once everything working
 # add raise to check for input is a string equilivant to all input choices
 # colourama for damage, hp, sp, conversation
-
-# BUG:
-#     players leave armour but come back to get it
-#     players take armour secret passage options
-
-# TESTED:
-# cant enter room without key
-# room 3 flee boss before attack
-# weapon not appearing once collected
-#
-#
-#
-#
-#
-#
-#
-#
-#
