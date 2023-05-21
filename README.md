@@ -37,4 +37,5 @@ https://www.youtube.com/watch?v=xHPmXArK6Tg&list=PL1-slM0ZOosXf2oQYZpTRAoeuo0TPi
 https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=5
 https://linuxhint.com/colorama-python/
 https://stackoverflow.com/questions/1413540/showing-an-image-from-console-in-python
+CHECK AND WRITE README
 -->
