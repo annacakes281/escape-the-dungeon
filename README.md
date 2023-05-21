@@ -1,35 +1,3 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
-
-## Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
 
 <!-- https://www.youtube.com/watch?v=lI6S2-icPHE&t=19s 
 https://github.com/dante0527/TextBasedGame
@@ -38,4 +6,90 @@ https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlz
 https://linuxhint.com/colorama-python/
 https://stackoverflow.com/questions/1413540/showing-an-image-from-console-in-python
 CHECK AND WRITE README
+using slack
 -->
+# **Escape the Dungeon**
+
+# **Introduction**
+- what is the game about
+
+## **Table of Contents**
+<details open>
+<summary><a href="#creators-comments">Creators Comments</a></summary>
+<ul>
+<li>Reason Behind the Game</li>
+<li>Inspirations</li>
+<li>My Thoughts</li>
+</ul>
+</details>
+<details>
+<summary><a href="#lucid-chart">Lucid Chart</a></summary>
+<ul>
+<li>Map</li>
+<li>Functions</li>
+</ul>
+</details>
+<details>
+<summary><a href="#features-and-gameplay">Features and Gameplay</a></summary>
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+</details>
+<details>
+<summary><a href="#features-to-add">Features to Add</a></summary>
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+</details>
+<details>
+<summary><a href="#testing">Testing</a></summary>
+<ul>
+<li>Built-in Linter</li>
+<li>Unfixed Bugs</li>
+</ul>
+</details>
+<details>
+<summary><a href="#deployment">Deployment</a></summary>
+<ul>
+<li>Heroku</li>
+</ul>
+</details>
+<details>
+<summary><a href="#credits">Credits</a></summary>
+<ul>
+<li>Content</li>
+</ul>
+</details>
+
+<br>
+
+## **Creators Comments**
+### ***Reasons Behind the Game***
+### ***Inspirations***
+### ***My thoughts***
+
+## **Lucid Chart**
+### ***Map***
+### ***Functions***
+
+## **Features and Gameplay**
+
+## **Features to Add**
+
+## **Testing**
+### ***Built-in Linter***
+### ***Unfixed Bugs***
+
+## **Deployment**
+### ***Heroku***
+
+## **Credits**
+### ***Content***
