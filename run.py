@@ -168,74 +168,79 @@ def room_one():
     else:
         print("You see an empty pedestal.\n")
 
-    # Prompts user to choose their weapon, if not in inventory
-    if "Sword" not in weapons and "Bow" not in weapons:
-        print(
-            "You notice a table in the middle of the room.\n"
-            "There are 2 weapons lying on the table.\n"
-            "One is a broadsword and a belt.\n"
-            "The other is a bow with a quiver full of arrows.\n\n"
-            "There is an inscription on the table:\n"
-            "Choose a weapon!\n")
-
-        weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
-        while weapon != "s" and weapon != "b":
-            print("\nInvalid choice, please select a valid option:")
-            print("'s' for 'sword' or 'b' for 'bow'.\n")
-            print("Choose a weapon!\n")
-            weapon = input("Which do you choose?\n> ").lower().strip()
-
-        if weapon == "s":
-            weapons.append("Sword")
-            print("\nYou choose the sword attached it to your side.\n")
-            print(f"Current weapon:{weapons}\n")
-
-            # Choosing weapon will trigger a trap
+    if "Weapon Chosen" not in completed_tasks:
+        # Prompts user to choose their weapon, if not in inventory
+        if "Sword" not in weapons and "Bow" not in weapons:
             print(
-                "Picking up your weapon sets off a trap.\n"
-                "A wall of fire is blocking the way out.\n")
+                "You notice a table in the middle of the room.\n"
+                "There are 2 weapons lying on the table.\n"
+                "One is a broadsword and a belt.\n"
+                "The other is a bow with a quiver full of arrows.\n\n"
+                "There is an inscription on the table:\n"
+                "Choose a weapon!\n")
 
-            print(
-                "What will you do?\n"
-                "Disarm the trap with a stone you see on the ground,\n"
-                "or risk jumping through it?\n")
-
-            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-            while trap != "d" and trap != "j":
+            weapon = input("Which do you choose? (s/b)\n> ").lower().strip()
+            while weapon != "s" and weapon != "b":
                 print("\nInvalid choice, please select a valid option:")
-                print("'d' for 'disarm' or 'j' for 'jump'.\n")
-                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+                print("'s' for 'sword' or 'b' for 'bow'.\n")
+                print("Choose a weapon!\n")
+                weapon = input("Which do you choose?\n> ").lower().strip()
 
-            if trap == "d":
-                disarm(PLAYER_STAMINA)
+            if weapon == "s":
+                weapons.append("Sword")
+                completed_tasks.append("Weapon Chosen")
+                print("\nYou choose the sword attached it to your side.\n")
+                print(f"Current weapon:{weapons}\n")
+
+                # Choosing weapon will trigger a trap
+                print(
+                    "Picking up your weapon sets off a trap.\n"
+                    "A wall of fire is blocking the way out.\n")
+
+                print(
+                    "What will you do?\n"
+                    "Disarm the trap with a stone you see on the ground,\n"
+                    "or risk jumping through it?\n")
+
+                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+                while trap != "d" and trap != "j":
+                    print("\nInvalid choice, please select a valid option:")
+                    print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                    trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+
+                if trap == "d":
+                    disarm(PLAYER_STAMINA)
+                else:
+                    jump(PLAYER_STAMINA)
             else:
-                jump(PLAYER_STAMINA)
+                print("\nYou choose the bow and attached it to your back.\n")
+                weapons.append("Bow")
+                completed_tasks.append("Weapon Chosen")
+                print(f"Current weapon:{weapons}\n")
+
+                # Choosing weapon will trigger a trap
+                print(
+                    "Picking up your weapon sets off a trap.\n"
+                    "A wall of fire is blocking the way out.\n")
+
+                print(
+                    "What will you do?\n"
+                    "Disarm the trap with a stone you see on the ground,\n"
+                    "or risk jumping through it?\n")
+
+                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+                while trap != "d" and trap != "j":
+                    print("\nInvalid choice, please select a valid option:")
+                    print("'d' for 'disarm' or 'j' for 'jump'.\n")
+                    trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
+
+                if trap == "d":
+                    disarm(PLAYER_STAMINA)
+                else:
+                    jump(PLAYER_STAMINA)
+
         else:
-            print("\nYou choose the bow and attached it to your back.\n")
-            weapons.append("Bow")
-            print(f"Current weapon:{weapons}\n")
-
-            # Choosing weapon will trigger a trap
-            print(
-                "Picking up your weapon sets off a trap.\n"
-                "A wall of fire is blocking the way out.\n")
-
-            print(
-                "What will you do?\n"
-                "Disarm the trap with a stone you see on the ground,\n"
-                "or risk jumping through it?\n")
-
-            trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-            while trap != "d" and trap != "j":
-                print("\nInvalid choice, please select a valid option:")
-                print("'d' for 'disarm' or 'j' for 'jump'.\n")
-                trap = input("Disarm or jump? (d/j)\n> ").lower().strip()
-
-            if trap == "d":
-                disarm(PLAYER_STAMINA)
-            else:
-                jump(PLAYER_STAMINA)
-
+            print("You see an empty table.\n")
     else:
         print("You see an empty table.\n")
 

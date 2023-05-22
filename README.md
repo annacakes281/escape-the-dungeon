@@ -154,6 +154,8 @@ In this section I will discuss several of the features that I had implented into
 
 #### Functions
 * There are several functions for the game, each one serving a different purpose.
+* When enterting each room the player will be asked whether they want to clear the terminal, this is just to clean up space so that it is not getting too busy.
+* Each room (except 'room 5') players will be asked whether they want to view their 'stats' and 'inventory', so that players can keep track of these throughout the game.
 * The main gameplay functions include: rooms, attack, checking stats, collecting items, using items, and puzzles/traps.
 
 <img src="readme-images/function-example-1.png" alt="Function code example 1">
@@ -177,6 +179,10 @@ In this section I will discuss several of the features that I had implented into
 * why several rooms and having to go back and fourth
 * secret room and secret passage only if armour taken
 * include images 
+
+* There are 12 rooms in total for the dungeon game, each room except the 'starting room' and 'room 5' have something unique about them.
+* The 'starting room' is the first room the players will find themselves in when they begin the game, and will be presented with a choice of going 3 different directions from there, which the player will have to enter into the terminal, each choice leading to a different room. 
+* 'Room one' is the room that holds 'key 1' and the first weapon choice the player must make, once the weapon has been chosen, it will trigger a fire trap that the players have a choice to either 'disarm' or 'jump' through, either choice will lead the player back to the 'starting room' however damage will be taken depending on which option was chosen - when returning to the room after collecting everything it will be empty and the fire trap won't respawn.
 ### ***Weapons***
 * talk about the 4 different weapons and choice user can make
 * need the weapon to do certain things, change of weapon when using master version
