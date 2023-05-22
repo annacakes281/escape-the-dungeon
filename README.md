@@ -39,8 +39,8 @@ I will finally go through the testing I done for the game, as well as the method
 <li>Items</li>
 <li>Traps and Puzzles</li>
 <li>NPC and Boss Fights</li>
-<li>Stats</li>
-<li>Inventory</li>
+<li>Stats and Inventory</li>
+<li>Lists</li>
 </ul>
 </details>
 <details>
@@ -77,7 +77,7 @@ I will finally go through the testing I done for the game, as well as the method
 <br>
 
 ## **Creators Comments**
-Within this section I will go into detail about my reasons why I decided to create a text-based adventure game, where I got my inspirations from and my thoughts on using Python.
+Within this section I will go into detail about my reasons why I decided to create a text-based adventure game, where I got my inspirations from and my thoughts on using Python. Throughout the game there are some colour changes, which were made using the Colorama module installed into Python.
 ### ***Reasons Behind the Game***
 I have always been a bit of a gamer and enjoyed playing different types of games. Even when I was younger I remember playing several text-based games that I owned or that were online. It was definetly a nostalgic past time and I wanted to recreate some of that with this game. 
 
@@ -154,7 +154,7 @@ In this section I will discuss several of the features that I had implented into
 
 #### Functions
 * There are several functions for the game, each one serving a different purpose.
-* When enterting each room the player will be asked whether they want to clear the terminal, this is just to clean up space so that it is not getting too busy.
+* When enterting each room the player will be asked whether they want to clear the terminal, this is just to clean up space so that it is not getting too busy - the 'clear' function was created using a module that was imported into Python known as the 'os' module.
 * Each room (except 'room 5') players will be asked whether they want to view their 'stats' and 'inventory', so that players can keep track of these throughout the game.
 * The main gameplay functions include: rooms, attack, checking stats, collecting items, using items, and puzzles/traps.
 
@@ -236,77 +236,155 @@ In this section I will discuss several of the features that I had implented into
 <img src="readme-images/Map.png" alt="Map of the dungeon">
 
 ### ***Traps and Puzzles***
-* what traps/puzzles are in the game
-* how it is triggered
-* it always being there, and the dmg it does to player
-* include images 
+* There are a few traps and puzzles throughout the game, which is something that is also typical of most RPG games. 
+* There is a 'fire' trap in 'room one' when players take their weapon, and players must choose what to do, either to 'disarm' the trap or 'jump' through it - each option will lead to some damage but one option is the correct choice compared to the other. This trap however will not respawn when players return as it is only triggered when they choose a weapon.
+
+<img src="readme-images/room-one-trap-dmg.png" alt="Room one trap damage code example">
+
+* 'Room two' has a lake puzzle that players must either 'swim' through or 'jump' across, each will also lead to some damage but one choice is less significant than the other. Players will have to go through this each time they enter this room.
+
+<img src="readme-images/room-two-puzzle-dmg.png" alt="Room two puzzle damage code example">
+
+<img src="readme-images/river-puzzle-term.png" alt="Room two jump option">
+
+* 'Room six' has the jungle puzzle where players can either go through the 'vines' but this requries them to have the sword, or 'through' the tunnel, which players will be sent to if they try to go through the vines without a sword. When entering the tunnel players will have to deal with another puzzle where they can either 'duck' or 'jump', each choice leading to damage, however one more significant than the other. These puzzles will always be there when players enter the room.
+
+<img src="readme-images/jungle-puzzle.png" alt="Room six jungle puzzle damage code">
+
+<img src="readme-images/tunnel-puzzle.png" alt="Room six puzzle tunnel damage code">
+
 ### ***NPC and Boss Fights***
-* why the npc 
-* where the npc/bosses are 
-* which types
-* why i added this features 
-* the dmg/attacks 
-* include images 
-### ***Stats***
-* stats showing in each room if user wants to see
-* what are the stats
-* sp regen on its own, hp needs potion
-* change in stats when armour on
-* certain actions impact stats
-* global stats for everything
-* include images 
-### ***Inventory***
-* different lists
-* how items are added to it 
-* hidden lists - current tasks and current boss
-* include images 
+* Throughout the game there is 1 NPC, 2 mini bosses and 1 master boss that players will interact with, this is something that will occur in a lot of RPG games.
+* When fighting enemies the 'current boss' will be appended to a list so that the function can be played out, this is so that the correct boss fight text is being displayed.
+* There is an NPC 'fairy' in 'room four' that players can choose to speak to, she will reappaer each time players enter the room. Upon speaking to her, players can choose to get more information from her that can be helpful for game progression, this is however the players choice and is not required.
+* The conversation with the NPC has been changed to a different colour using Colorama to show that it is a conversation occuring.
+
+<img src="readme-images/NPC-conversation.png" alt="NPC conversation">
+
+* Players will also come across two types of mini bosses, one in 'room three' which will be an 'imp' and one in 'room seven' which is an 'orc' - both of these bosses can be deafted easily with the starter weapons and ensuring the player has enough HP.
+* Each mini boss has their own set of stats and damage attacks, the 'imp' has lower stats as it is an easier mini boss to defeat, the 'orc' has slightly higher stats - the damage stats are also set to a random integer.
+* When players choose to fight the mini bosses, the fight functions will load on their own and take turns as they are placed in a 'while loop', so until either the player or mini boss dies, it will continue.
+
+<img src="readme-images/mini-boss-health.png" alt="Mini boss health">
+
+<img src="readme-images/imp-attack-term.png" alt="Imp attack sequence">
+
+* The master boss will also have it's own set of damage it inflicts on the player per attack (these damage stats are set to a random integer), and the master boss also has the highest HP out of all the bosses, as it is the largest, being a 'dragon' and all.
+* Players will need a master weapon to defeat the dragon, and having the 'armour' will increas the players HP which will help to defeat the 'dragon', however players can fight the dragon without it.
+* Once the 'dragon' has been defeated the player has escaped and won the game.
+
+<img src="readme-images/master-boss-hp.png" alt="Dragon health">
+
+<img src="readme-images/master-boss-fight.png" alt="Dragon fight function code example">
+
+<img src="readme-images/master-boss-attack.png" alt="Dragon attack function code example">
+
+### ***Stats and Inventory***
+* The player has set health and stamina throughout the game, the health will decrease with damage and can only be increased when using a potion, however the stamina regenerates in its own (which is pretty typical in RPG games). 
+* Both health and stamina were added as this is something a lot of games have, as certain actions will involve using stamina to do.
+* Players health wont be able to go above the max health set, however once the player has aquired the armour, their health will increase to a higher maximum.
+* Players lose health either through puzzles, traps and fighting enemies.
+* When damage is taken the health stat is stored as a 'global' feature to ensure that it doesn't revert back to the original stat when changing to a different room and remains the damaged one.
+
+<img src="readme-images/player-stats.png" alt="Player stats">
+
+* Players will be asked in each room whether they want to view their 'stats' and 'inventory', so they can keep track of these throughout the game.
+* The players stats will change once the 'armour' is in the inventory.
+* Any item collected in the game will go into one of the inventory categories: 'weapons', 'keys', 'inventory' - once an consumable item has been used, such as a 'potion' it will be removed from the inventory.
+
+<img src="readme-images/view-stats-items.png" alt="view stats in game">
+
+<img src="readme-images/view-stats-code.png" alt="View stats code">
+
+### ***Lists***
+* There are 5 empty lists at the start of the game, that will be 'appended' throughout the gameplay - once a consumable has been used, it will be removed from the list.
+* Once the player chooses a master weapon, the original weapon will also be removed.
+* The player is only able to view the 3 inventory lists: 'weapons', 'keys', 'inventory'.
+* The other 2 lists are: 'completed tasks' and 'current boss' - these are both a hidden gameplay mechanic.
+* The 'completed tasks' list keeps track of rooms that have been completed so that certain events and items do not respawn or get triggered again, while the 'current boss' list is used to keep track of the current boss, this is only used during the boss fights to determine which boss is currently being fought so that the correct text can be displayed.
+
+<img src="readme-images/lists.png" alt="Different lists">
+
+<img src="readme-images/current-boss.png" alt="Current boss feature">
 
 ## **Features to Add**
-intro to this section
+In this section I will talk about some features I would like to implement in the future for the game. Some of these features were not implemented due to time constraints, as well as not being fully confident on how to display these in the terminal for the game - however this will be a future goal to try and improve on. Some of these ideas also came to me when I had already started the game and have created a good portion of the code. It would be really fun to create a more RPG style game similar to ones I played growing up...and still play now.
 ### ***Stat Bar***
-* what is it
-* why you want to add it
+* Having a stat bar displayed throughout the game, rather than asking the user whether they want to view their stats each time.
+* The stat bar will increase and decrease with damage and interactions - similar to RPG games.
+* This would also be displayed on the UI on an animated version of the game.
 ### ***Animation and Sound***
-* what is it
-* why you want to add it
-* make it like an rpg
+* An option to ask players whether they want to play the terminal based game or the animated version.
+* Rather than having a terminal based game, turn it more into an RPG style game where players can use their keyboard to move around.
+* There will still be prompts asking players if they want to use/take item throughout the game, however it will be more keyboard direction based rather than typing in answers
+* Adding some sounds to go with the animation aspects of the game, however sounds can also be adding without the animation and keep it as a terminal based game.
 ### ***Map Display***
-* what is it
-* why you want to add it
-* when animation and sound added
+* A map display for the animated version of the game on the UI so that users can see where they are going - very similar to the map displays in various RPG games.
+* Map display for the terminal based game, that players can choose to view if they need help.
 ### ***Further In-game Aspects***
-* what is it
-* why you want to add it
-* further rooms and secrets
-* character selection
+* Some further aspects to turn the game into a more RPG style would be having a character selection feature, where the player can choose what kind of character they would like, and each character would have various stats depending on which one they choose.
+* Further rooms and secrets for players to interact with - such as more storylines like how they ended up in the dungeon to begin with, and what happened after the dungeon.
 ### ***Updated Input***
-* what is it
-* why you want to add it
-* rather than typing 1 leter the full thing or a full action
+* Rather than players typing 1 letter for an action, I would want to update it so that they would need to type the full action, e.g. 'Go north', 'Pick up potion' - the reason this was not added in was to make it easier for the user to progress throughout the dungeon in the first stages of the game.
 
 ## **Testing**
-the kind of testing you did, the ingame testing and the app testing 
+Thoughout creating the game, I would test each room and function and ensure that it was all working correctly and as needed. When I did run into problems I changed the code and retested a few times to ensure that it was working as needed. Because of the testing I noticed that items could be picked up more than once when used, hence why I decided to create the 'completed tasks' list to ensure that items were not being picked up twice.
+
+I was using the built-in linter for the project on 'Code Anywhere' which told me of any issues and problems within my code, as well as when I would run the code, the terminal would pop up with any issues that I would need to fix in order for the code to function properly and as intended.
 ### ***Built-in Linter***
-* the little problem and error thing at bottom of the page
-* include images 
+* When using the built-in linter throughout the project there were a few fixes I had to go back to and fix a few times,but it was definetly a useful tool to have and to use to see what problems there were - as well as the terminal letting me know of any issues with the code.
+* The final code does not have any warnings with the built in linter in the terminal and it all runs correctly when testing out in the terminal, checking several variations of going through the dungeon.
+
+<img src="readme-images/hp-at-0.png" alt="Hp hitting 0 and game ending">
+
+<img src="readme-images/invalid-move.png" alt="Invalid move">
+
+<img src="readme-images/room-locked.png" alt="Room locked">
+
 ### ***Unfixed Bugs***
-* any unfixed bugs and why? - lines too long
-* include images 
+* The only unfixed issue is the warning that came up in the linter of the code character lines being too long, however this causes no actual issue within the game itself.
+* I could not find any other bugs itself.
+
+<img src="readme-images/problems-linter.png" alt="Problems in the linter">
 
 ## **Deployment**
-intro to this section and what app was used to deploy the project
+In this section I will go through how I deployed my project live to the web using [Heroku](https://id.heroku.com/login) as a hosting platform for the application. I used Github to store my project, however it was deployed using Heroku.
 ### ***Heroku***
-* add step-by-step guide on how to deploy
-* include images 
+* The first thing I needed to do was to ensure that my requirements file was updated with any imports that I am using that will be required to show in the terminal on the platform. To do this I had to go to the terminal and type: 'Pip3 freeze > requirements.txt' and this updated the requirements text document, after I needed to ensure this was pushed to Github.
 
+* After creating an account on Heroku, I needed to create an app, so I went to the create app button, which took me to a 'Create new app' screen. From here I had to name my application - note that all applications must be unique. I then selected my region, and since I live in the UK, I selected 'Europe'
+* After I filled that in I clicked on 'Create app'.
+
+<img src="readme-images/create-app.png" alt="Create app example">
+
+* Once the app has been created, it takes me to the 'Deploy' page, before I filled this part in, I went over to the settings tab, and from there I needed to add 'config vars', to do this I clicked on 'reveal config vars' and filled it in with the necessary information, which for my project was: 'Key = PORT' and 'Value = 8000'. Then I added this - this was the only one I needed to add for my project.
+
+<img src="readme-images/add-config-vars.png" alt="Add config vars">
+
+* After adding the 'config vars' I needed to add the necessary 'buildpacks' for my game, to do this I went to the option below the 'config vars' and clicked on 'add buildpack'. I then selected the 2 necessary ones needed for the project, which were 'python' and 'nodejs' (these need to be added one at a time) - and then I ensured they were displayed in the correct order, 'python' being first then 'nodejs' being second in the list.
+
+<img src="readme-images/add-buildpack.png" alt="">
+
+* After this I went to the 'Deploy' tab and connected my Heroku to my Github account so I can access my repositories.
+* I then searched for the correct repository and linked them together so that Heroku can access it and I can get it ready to deploy.
+
+<img src="readme-images/connect-github.png" alt="Conecting Github">
+
+* Finally I first went to manually deploy my project so I can see it being built, but once it was done I changed it to automatic deployment so that whenever I push the project it will automatically build and update.
+
+<img src="readme-images/deployment.png" alt="Deploying">
+
+* The Heroku link: [Escape the Dungeon](https://escape-the-dungeon-am.herokuapp.com/)
+* Github repository: [Escape the Dungeon](https://github.com/annacakes281/escape-the-dungeon)
 ## **Credits**
-mention using the CI template for the project
+To create the project I used the template provided by the [Code Institute](https://github.com/Code-Institute-Org/p3-template).
 ### ***Content***
-<!-- https://www.youtube.com/watch?v=lI6S2-icPHE&t=19s 
-https://github.com/dante0527/TextBasedGame
-https://www.youtube.com/watch?v=xHPmXArK6Tg&list=PL1-slM0ZOosXf2oQYZpTRAoeuo0TPiGpm&index=2
-https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=5
-https://linuxhint.com/colorama-python/
--->
 
-<img src="" alt="">
+* For ideas on creating the map as well as using the clear functions, I followed along with the video by Dante Lee:
+    * [Video](https://www.youtube.com/watch?v=lI6S2-icPHE&t=19s)
+    * [Source Code](https://github.com/dante0527/TextBasedGame)
+
+* To help create the boss attack functions, I used the help of a Youtube video by Andrew Howard:
+    * [Video](https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=6)
+
+* To add colour to the text I used [Colorama](https://linuxhint.com/colorama-python/) 

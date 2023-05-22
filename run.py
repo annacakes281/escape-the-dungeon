@@ -1407,7 +1407,7 @@ def boss_room():
     clear_terminal()
 
     print("\nRemember you just need to type the first letter of the word.\n")
-    
+
     if "Master Sword" not in weapons and "Master Bow" not in weapons:
         print("You need a master weapon to defeat the boss.")
         room_nine()
