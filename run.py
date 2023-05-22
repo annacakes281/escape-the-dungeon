@@ -1407,13 +1407,16 @@ def boss_room():
     clear_terminal()
 
     print("\nRemember you just need to type the first letter of the word.\n")
-
-    if "Master Key" not in keys:
-        print("The door is locked...try using the skeleton shaped key...\n")
+    if "Master Sword" not in weapons and "Master Bow" not in weapons:
+        print("You need a master weapon to defeat the boss.")
         room_nine()
     else:
-        keys.remove("Master Key")
-        print("You use the key and open the door to the room\n")
+        if "Master Key" not in keys:
+            print("The door is locked...try using the skeleton shaped key...\n")
+            room_nine()
+        else:
+            keys.remove("Master Key")
+            print("You use the key and open the door to the room\n")
 
         current_room = "Boss Room"
         print(f"Current room: {current_room}\n")
