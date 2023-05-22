@@ -173,37 +173,68 @@ In this section I will discuss several of the features that I had implented into
 * 'While loops' and 'if/else' statements were also used for the battle function in the game so that the fight can progess - more about the fight mechanic will be discussed in the <a href="#npc-and-boss-fight">NPC and Boss Fight</a> section.
 
 ### ***Rooms***
-* talk about each of the rooms and the items/features in it/whether they appear again
-* talk about puzzles and  traps
-* if/else statements - reiterate from previous section
-* why several rooms and having to go back and fourth
-* secret room and secret passage only if armour taken
-* include images 
-
 * There are 12 rooms in total for the dungeon game, each room except the 'starting room' and 'room 5' have something unique about them.
 * Each room contains various 'if/elif/else' statements and 'while loops' for functionality to make the choices in the game work, as well as to ensure players cannot pick up items twice.
 * The 'starting room' is the first room the players will find themselves in when they begin the game, and will be presented with a choice of going 3 different directions from there, which the player will have to enter into the terminal, each choice leading to a different room. 
 * 'Room one' is the room that holds 'key 1' and the first weapon choice the player must make, once the weapon has been chosen, it will trigger a fire trap that the players have a choice to either 'disarm' or 'jump' through, either choice will lead the player back to the 'starting room' however damage will be taken depending on which option was chosen - when returning to the room after collecting everything it will be empty and the fire trap won't respawn.
+
+<img src="readme-images/room-one-trap.png" alt="Room one trap code example">
+
 * 'Room two' will take players to a lake puzzle in the game, where players can choose to either 'swim' through or 'jump' across the lake to get to the other side (...because dungeons can have all sorts of vegetation, Zelda is a great example for this). Once players reach the other side there is a 'potion' that can only be taken once (if there isn't one already in the inventory from a different area). Players will need to go through the lake each time they go through this room.
+
+<img src="readme-images/room-two-puzzle.png" alt="Room two puzzle code example">
+
 * 'Room three' will be the first 'mini boss' room, which requires the key, collected from 'room one' to enter. Players can choose to fight the 'mini boss' or run away, upon defeating the 'mini boss' it will remain defeated and will not respawn so players can go back to the room without initiating the fight again.
 * 'Room four' has 'key 2' which will be required to get into a different area of the dungeon. There will also be an NPC fairy that players can choose to speak to here, that will respawn each time the player enters the room.
 * 'Room five' is an empty room that players pass through during the game that has nothing important in it.
 * 'Room six' has another puzzle that players must get through, either going through the mystical vines that regrow once cutting through them, however this option requires the player to have the sword, otherwise they are sent to the tunnel, which has a 'jump' or 'duck' event that players must decide the correct choice - either path will lead towards the next room. Once at the other end of the puzzle there will be another 'potion' that users can collect if there isn't one in their inventories already, this will not respawn if players have already collected this one. Players will need to go through this puzzle each time they enter this room.
 * 'Room seven' is the second 'mini boss' fight which requires the key, collected from 'room four' to enter. Players can choose to fight the 'mini boss' or run away, upon defeating the 'mini boss' it will remain defeated and will not respawn so players can go back to the room without initiating the fight again. This room also contains a secret item that players can only collect when the 'mini boss' has been defeated - it will not respawn once it has been collected or used.
-* 'Room eight' has a 'secret room key' that opens up a secret room that players will need to enter for upgraded items. 
+
+<img src="readme-images/room-seven-example.png" alt="Room seven key needed code example">
+
+<img src="readme-images/room-seven-puzzle.png" alt="Room seven puzzle code example">
+
+* 'Room eight' has a 'secret room key' that opens up a secret room that players will need to enter for upgraded items.
+* 'Room nine' has the 'boss key' and the final 'potion' that can be collected - both items can only be collected if they are not in the inventory already, and will not respawn once collected.
+* 'Secret room' is a room off 'room three' that can only be entered once you have the 'secret key', this is where players can choose to get the upgraded version of a weapon as well as choose to use a different weapon if they want. The player will also be able to take the armour if they have the secret item in their inventory, once this secret item has been used and the armour is unlocked and taken it will reveal a secret passage that users can take which will take them to 'room 8'. The secret passage allows users to get to the 'boss room' quickly, rather than going all the way around, however they can still choose to go around if they prefer. Players can enter this room without the secret item, but they will only be able to choose a weapon and not take the 'armour'.
+* 'Boss room' is the final room players will come too and will need to defeat the 'master boss' to win and escape the game - it is recommended to have the armour, however once entering the room there is no escape...so players will need to think about having the armour beforehand.
+
+<img src="readme-images/boss-room-example.png" alt="Boss room weapon and key required code example">
+
 ### ***Weapons***
-* talk about the 4 different weapons and choice user can make
-* need the weapon to do certain things, change of weapon when using master version
-* higher dmg - mention dmg as well 
-* mention where weapons located 
-* why you gave them a choice 
-* include images 
+* There are 4 weapons in the game in total but there are only 2 types - a 'sword' or a 'bow and arrow'.
+* Players will have to choose which starting weapon they want in 'room one' - they will be presented with a choice, and once they have chosen the inital weapon they cannot change it until they get to the 'secret room' where they can choose the master versions of the 'sword' or 'bow and arrow'.
+
+<img src="readme-images/choose-weapon.png" alt="Room one weapon choice example">
+
+<img src="readme-images/choose-master-weapon.png" alt="Secret room weapon code example">
+
+* Each weapon has a specfic amount of damage that it deals, and this is more when using the master version of the weapons - this is a pretty typical mechanism of the majority of RPG games.
+* Each weapon has a random range for damage attacks, as this is also a typical feature of RPG games.
+
+<img src="readme-images/sword-dmg.png" alt="Sword damage code example">
+
+<img src="readme-images/bow-dmg.png" alt="Bow damage code example">
+
+<img src="readme-images/master-sword-dmg.png" alt="Master sword damage code example">
+
+<img src="readme-images/master-bow-dmg.png" alt="Master bow damage code example">
+
+* Players are given a choice as it allows them to be able to roleplay some more on what kind of character they want - when I play these sorts of games, I however do use both types of weapons, however that mechanism is not on the game yet.
+* The starter weapons are strong enough to defeat the 'mini bosses' however they will need the master weapons to defeat the 'master boss' - as the name intends.
+
 ### ***Items***
-* what items can be found and where
-* purpose of the items 
-* functionality - e.g. taking armour/using passage 
-* why you added this 
-* include images 
+* Throughout the game there are 4 keys. 3 potions, 1 secret item and a piece of armour that can be collected.
+* The keys are required to open certain rooms and progress throughout the game, players won't be able to get to certain areas without them and will not be able to complete the game - keys will not respawn.
+* Keys can be found in: 'room one', 'room four', 'room eight' and 'room nine'.
+* Potions will heal the players health back to full health and are used before fighting a boss, they are not respawned once they are picked up, and only one can be in the inventory at once.
+* Potions can be found in: 'room two', 'room six' and 'room 9' - each room is before a boss fight (as this is something I have noticed in a lot of RPG games, as a warning to let players know that they may need the item).
+* The secret item is a 'stone' that can only be collected once the 'mini boss' is defeated in 'room seven' and this grants the player access to the 'armour' that is found in the 'secret room'.
+* The 'armour' is an item that increases the players health for when they fight the 'master boss', although they can try to fight the 'master boss' without it, they won't get very far.
+* Taking the 'armour' will trigger an event allowing users a quick way through to 'room eight'.
+
+<img src="readme-images/Map.png" alt="Map of the dungeon">
+
 ### ***Traps and Puzzles***
 * what traps/puzzles are in the game
 * how it is triggered
