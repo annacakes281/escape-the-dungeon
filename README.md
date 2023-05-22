@@ -388,3 +388,8 @@ To create the project I used the template provided by the [Code Institute](https
     * [Video](https://www.youtube.com/watch?v=Mq_bN1kZ71U&list=PLES3Y8j562C2ncjly27QLCz3TWuFlzKVq&index=6)
 
 * To add colour to the text I used [Colorama](https://linuxhint.com/colorama-python/) 
+* I asked for help on slack with some code and a student helped me with it, so I would like to thak them for the help!
+
+<img src="readme-images/slack-help.png" alt="Slack Help">
+
+<img src="readme-images/slack-help-2.png" alt="Slack Help">
